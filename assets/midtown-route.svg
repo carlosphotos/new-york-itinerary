@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Recorrido a pie por Midtown</title>
+  <desc id="desc">Ruta desde Bryant Park hasta Rockefeller Center pasando por Grand Central y St. Patrick's Cathedral.</desc>
+  <rect width="720" height="420" fill="#eef3f5"/>
+  <g stroke="#d1dadd" stroke-width="2">
+    <path d="M0 80h720M0 160h720M0 240h720M0 320h720"/>
+    <path d="M90 0v420M210 0v420M330 0v420M450 0v420M570 0v420M660 0v420"/>
+  </g>
+  <g fill="#cddfe7" opacity=".8">
+    <rect x="10" y="90" width="70" height="60"/><rect x="100" y="170" width="100" height="60"/><rect x="340" y="250" width="100" height="60"/><rect x="580" y="90" width="70" height="60"/>
+  </g>
+  <path d="M168 329 C235 330 270 290 322 244 S430 190 485 166 S522 122 546 90" fill="none" stroke="#7899aa" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 16"/>
+  <g fill="#2c3133" stroke="#f8f5ef" stroke-width="6">
+    <circle cx="168" cy="329" r="12"/><circle cx="322" cy="244" r="12"/><circle cx="485" cy="166" r="12"/><circle cx="546" cy="90" r="12"/>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" fill="#2c3133">
+    <text x="130" y="370" font-size="19" font-weight="600">Bryant Park</text>
+    <text x="250" y="228" font-size="19" font-weight="600">Grand Central</text>
+    <text x="385" y="150" font-size="19" font-weight="600">St. Patrick’s</text>
+    <text x="500" y="58" font-size="19" font-weight="600">Rockefeller</text>
+    <text x="28" y="38" font-size="13" letter-spacing="3" fill="#7899aa">MIDTOWN · WALKING ROUTE</text>
+  </g>
+</svg>

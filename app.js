@@ -8,19 +8,19 @@ const days = [
 ];
 
 const timeline = [
-  ["06:15", "JFK", "Llegada a Nueva York", "place"],
-  ["~09:00", "Highbridge / hotel", "Dejar maletas y preparar el día", "place"],
-  ["~10:15", "Bryant Park", "Primera pausa en Midtown", "place"],
-  ["10:15–13:30", "Midtown clásico + tiendas", "Paseo editorial por el corazón de Manhattan", "featured"],
+  ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"],
+  ["~09:00", "Highbridge / hotel", "Dejar maletas y preparar el día", "place-hotel"],
+  ["~10:15", "Bryant Park", "Primera pausa en Midtown", "place-bryant"],
+  ["10:15–13:30", "Midtown clásico + tiendas", "Paseo editorial por el corazón de Manhattan", "place-midtown"],
   ["~13:30", "Comida ligera", "Ver opciones cercanas según el recorrido", "meal-lunch"],
   ["~14:30", "Regreso al hotel", "Traslado a Highbridge", ""],
   ["15:00", "Check-in", "Habitación y equipaje", ""],
   ["15:00–16:30", "Descanso", "Pausa antes del partido", ""],
-  ["~17:00", "Yankee Stadium", "Llegada con tiempo para recorrer el estadio", "place"],
-  ["19:05", "Yankees–Rockies", "Primer lanzamiento", "featured"],
+  ["~17:00", "Yankee Stadium", "Llegada con tiempo para recorrer el estadio", "place-yankee"],
+  ["19:05", "Yankees–Rockies", "Pinstripe Pass · standing room", "place-yankee"],
   ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""],
-  ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place"],
-  ["21:00", "Sonny Rollins", "Jazz con vista a Central Park", "featured"],
+  ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
+  ["21:00", "Sonny Rollins", "Jazz con vista a Central Park", "place-dizzys"],
   ["~22:30", "Cena", "Elegir una opción cerca de Columbus Circle", "meal-dinner"],
   ["~00:00", "Hotel", "Fin del día", ""],
 ];
@@ -31,6 +31,55 @@ const places = [
   ["Yankee Stadium", "The Bronx · Baseball", "Yankees vs. Rockies · 19:05. Pendiente: acceso, sección y boletos."],
   ["Dizzy’s Club", "Columbus Circle · Jazz", "Sonny Rollins · 21:00. Pendiente: confirmación y código de reserva."],
 ];
+
+const placeDetails = {
+  jfk: {
+    kicker: "06:15 · Queens", title: "JFK Airport", address: "John F. Kennedy International Airport · Queens",
+    photos: [["https://metroairportnews.com/wp-content/uploads/t4-terminal-window.jpg", "JFK International Airport"]],
+    summary: "Punto de llegada. La ficha queda preparada para añadir terminal, vuelo y la ruta exacta al hotel cuando estén confirmados.",
+    notes: ["Tener pasaporte y dirección del hotel a mano", "Confirmar terminal antes del viaje", "Abrir Maps al salir de equipaje"],
+    map: "https://www.google.com/maps/search/?api=1&query=John+F+Kennedy+International+Airport"
+  },
+  hotel: {
+    kicker: "~09:00 · Highbridge", title: "Hotel / Highbridge", address: "Highbridge · New York",
+    photos: [["./assets/nyc-skyline.png", "Identidad visual de Nueva York"]],
+    summary: "Primera parada para dejar maletas y, más tarde, hacer check-in y descansar. Falta añadir el nombre y la dirección exacta del hotel.",
+    notes: ["Dejar maletas ~09:00", "Regresar ~14:30", "Check-in 15:00"],
+    map: "https://www.google.com/maps/search/?api=1&query=Highbridge+New+York"
+  },
+  bryant: {
+    kicker: "~10:15 · Midtown", title: "Bryant Park", address: "Bryant Park · 6th Ave & 42nd St",
+    photos: [["https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/New-York_-_Bryant_Park.jpg/960px-New-York_-_Bryant_Park.jpg", "Bryant Park y la New York Public Library"]],
+    summary: "Una pausa verde entre la biblioteca y los edificios de Midtown. Es el punto de partida natural del paseo de la mañana.",
+    notes: ["Recorrer el jardín central", "Ver la fachada de la NYPL", "Elegir aquí la dirección del paseo"],
+    map: "https://www.google.com/maps/search/?api=1&query=Bryant+Park+New+York"
+  },
+  midtown: {
+    kicker: "10:15–13:30 · Walking route", title: "Midtown clásico", address: "Bryant Park → Grand Central → Fifth Avenue → Rockefeller Center",
+    photos: [["https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/IGrand_Central_Terminal%2C_71-105_E._42nd_St._New_York.jpg/960px-IGrand_Central_Terminal%2C_71-105_E._42nd_St._New_York.jpg", "Grand Central y el Chrysler Building"], ["https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/New-York_-_Bryant_Park.jpg/960px-New-York_-_Bryant_Park.jpg", "Bryant Park y la biblioteca"]],
+    summary: "Un recorrido compacto por la arquitectura clásica de Midtown, con tiempo flexible para entrar a tiendas sobre Fifth Avenue.",
+    notes: ["Bryant Park y New York Public Library", "Grand Central y Chrysler Building", "St. Patrick’s Cathedral", "Rockefeller Center y tiendas de Fifth Avenue"],
+    routeImage: "./assets/midtown-route.svg",
+    map: "https://www.google.com/maps/dir/?api=1&origin=Bryant+Park%2C+New+York&destination=Rockefeller+Center%2C+New+York&travelmode=walking&waypoints=Grand+Central+Terminal%2C+New+York%7CSt.+Patrick%27s+Cathedral%2C+New+York"
+  },
+  yankee: {
+    kicker: "19:05 · The Bronx", title: "Yankee Stadium", address: "1 E 161 St · Bronx",
+    photos: [["https://media.timeout.com/images/105745099/image.jpg", "Exterior de Yankee Stadium"]],
+    summary: "Yankees–Rockies. Sus boletos son Pinstripe Pass: entrada general de pie, sin asiento asignado, con la primera bebida incluida.",
+    notes: ["Llegar ~17:00 para recorrer el estadio", "Buscar zonas sociales y espacios standing room", "Canjear la bebida mostrando el boleto", "No ocupar asientos ni lugares SRO asignados"],
+    callout: "PINSTRIPE PASS · Standing room only · Primera bebida incluida",
+    map: "https://www.google.com/maps/search/?api=1&query=Yankee+Stadium+1+E+161+St+Bronx",
+    official: "https://www.mlb.com/yankees/tickets/specials/pinstripe-pass"
+  },
+  dizzys: {
+    kicker: "21:00 · Columbus Circle", title: "Dizzy’s Club", address: "Frederick P. Rose Hall · Broadway at 60th St",
+    photos: [["./assets/nyc-skyline.png", "Vista de Manhattan, identidad del viaje"]],
+    summary: "Club íntimo de Jazz at Lincoln Center con vistas panorámicas de Central Park y del skyline. Llegada prevista ~20:40.",
+    notes: ["Set de las 21:00", "Reservas recomendadas", "Confirmar acceso y código de reserva"],
+    map: "https://www.google.com/maps/search/?api=1&query=Dizzy%27s+Club+Broadway+at+60th+Street+New+York",
+    official: "https://jazz.org/dizzys/"
+  }
+};
 
 const mealOptions = {
   lunch: {
@@ -49,6 +98,7 @@ const mealOptions = {
     intro: "Opciones cerca de Dizzy’s para decidir según la hora de salida, el hambre y el ambiente que prefieran.",
     options: [
       ["P.J. Clarke’s", "Old New York tavern", "4–6 min", "44 W 63rd St · Lincoln Square", "Taberna neoyorquina clásica, cómoda para cerrar la noche con una cena completa.", "Hamburguesa, chicken paillard o ensalada mediterránea. Los jueves suele cerrar a medianoche.", "https://pjclarkes.com/menu/lincoln-square/", "P.J. Clarke's 44 W 63rd St New York"],
+      ["Black Iron Burger", "Burger bar", "10–12 min", "250 W 54th St · Theatre District", "La opción original sigue disponible: informal, directa y abierta hasta medianoche.", "Black Iron Burger o una versión pequeña, con papas o aros de cebolla para compartir.", "https://www.blackironburger.com/locations/", "Black Iron Burger 250 W 54th St New York"],
       ["The Smith", "American brasserie", "5–7 min", "1900 Broadway · 63rd St", "Brasserie animada frente a Lincoln Center, con menú amplio y mesas para sentarse con calma.", "Mac & cheese para compartir, rigatoni alla vodka, ensalada o burger. Los jueves suele cerrar a las 23:00.", "https://thesmithrestaurant.com/location/lincoln-square/", "The Smith Lincoln Square 1900 Broadway New York"],
       ["Empanada Mama", "Latin · late night", "15–18 min", "765 9th Ave · Hell’s Kitchen", "La alternativa informal si el concierto termina tarde: muchas empanadas y servicio orientado a la noche.", "Dos o tres empanadas por persona; combinar una de carne o pollo con una vegetariana.", "https://www.empanadamama.com/hells-kitchen-menu", "Empanada Mama 765 9th Ave New York"]
     ]
@@ -97,9 +147,9 @@ function itineraryView() {
       <img class="mini-skyline" src="./assets/nyc-skyline.png" alt="">
     </header>
     <ol class="timeline">${timeline.map(([time, title, detail, kind]) => `
-      <li class="timeline-item ${kind === "featured" ? "featured" : ""}">
+      <li class="timeline-item ${kind.startsWith("place-") ? "featured" : ""}">
         <time class="timeline-time">${time}</time><span class="timeline-line" aria-hidden="true"></span>
-        <div class="timeline-content"><h2>${title}</h2><p>${detail}</p>${kind.startsWith("meal-") ? `<button data-meal="${kind.replace("meal-", "")}">See nearby options →</button>` : kind === "place" ? `<button data-action="places">View place →</button>` : ""}</div>
+        <div class="timeline-content"><h2>${title}</h2><p>${detail}</p>${kind.startsWith("meal-") ? `<button data-meal="${kind.replace("meal-", "")}">See nearby options →</button>` : kind.startsWith("place-") ? `<button data-place="${kind.replace("place-", "")}">View place →</button>` : ""}</div>
       </li>`).join("")}</ol>
   </div>`;
 }
@@ -108,7 +158,7 @@ function mealView(meal = "lunch") {
   const data = mealOptions[meal] || mealOptions.lunch;
   return `<div class="fade-in">
     <header class="page-header">
-      <button class="back" data-action="itinerary">← Day one</button>
+      <button class="back back-prominent" data-action="itinerary">← Volver al itinerario</button>
       <p class="section-kicker">${data.kicker}</p>
       <h1>${data.title}</h1>
       <p class="section-note">${data.intro}</p>
@@ -130,9 +180,31 @@ function mealView(meal = "lunch") {
   </div>`;
 }
 
+function placeDetailView(id) {
+  const place = placeDetails[id] || placeDetails.bryant;
+  return `<div class="fade-in place-detail">
+    <header class="page-header detail-header">
+      <button class="back back-prominent" data-action="itinerary">← Volver al itinerario</button>
+      <p class="section-kicker">${place.kicker}</p>
+      <h1>${place.title}</h1>
+      <p class="detail-address">${place.address}</p>
+    </header>
+    <div class="photo-scroll">${place.photos.map(([src, alt]) => `<img src="${src}" alt="${alt}" loading="lazy">`).join("")}</div>
+    <section class="detail-body">
+      <p class="detail-summary">${place.summary}</p>
+      ${place.callout ? `<div class="ticket-callout"><span>Your ticket</span><strong>${place.callout}</strong></div>` : ""}
+      <div class="detail-list"><p class="section-kicker">Keep in mind</p><ul>${place.notes.map(note => `<li>${note}</li>`).join("")}</ul></div>
+      ${place.routeImage ? `<a class="route-card" href="${place.map}" target="_blank" rel="noopener"><img src="${place.routeImage}" alt="Recorrido a pie por Midtown"><span>Open live route in Google Maps ↗</span></a>` : ""}
+      <div class="detail-actions"><a href="${place.map}" target="_blank" rel="noopener">Open in Maps ↗</a>${place.official ? `<a href="${place.official}" target="_blank" rel="noopener">Official info ↗</a>` : ""}</div>
+    </section>
+    <button class="return-itinerary" data-action="itinerary">← Regresar al Día 1</button>
+  </div>`;
+}
+
 function placesView() {
-  return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Saved for the trip</p><h1>Places</h1><p class="section-note">Direcciones, reservas y notas prácticas vivirán aquí.</p></header>
-    <section class="cards">${places.map(([name, meta, copy]) => `<article class="place-card"><h2>${name}</h2><div class="place-meta">${meta.split(" · ").map(x => `<span class="tag">${x}</span>`).join("")}</div><p>${copy}</p></article>`).join("")}</section></div>`;
+  const ids = ["jfk", "bryant", "yankee", "dizzys"];
+  return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Saved for the trip</p><h1>Places</h1><p class="section-note">Toca cualquier lugar para ver su información práctica.</p></header>
+    <section class="cards">${places.map(([name, meta, copy], index) => `<button class="place-card place-card-button" data-place="${ids[index]}"><h2>${name}</h2><div class="place-meta">${meta.split(" · ").map(x => `<span class="tag">${x}</span>`).join("")}</div><p>${copy}</p><span class="card-arrow">View place →</span></button>`).join("")}</section></div>`;
 }
 
 function infoView() {
@@ -146,12 +218,12 @@ function infoView() {
     </section></div>`;
 }
 
-const views = { home: homeView, itinerary: itineraryView, meal: () => mealView(sessionStorage.getItem("selectedMeal") || "lunch"), places: placesView, info: infoView };
+const views = { home: homeView, itinerary: itineraryView, meal: () => mealView(sessionStorage.getItem("selectedMeal") || "lunch"), place: () => placeDetailView(sessionStorage.getItem("selectedPlace") || "bryant"), places: placesView, info: infoView };
 
 function render(route = "home") {
   const safeRoute = views[route] ? route : "home";
   app.innerHTML = views[safeRoute]();
-  navItems.forEach(item => item.classList.toggle("active", item.dataset.route === safeRoute || (["itinerary", "meal"].includes(safeRoute) && item.dataset.route === "itinerary")));
+  navItems.forEach(item => item.classList.toggle("active", item.dataset.route === safeRoute || (["itinerary", "meal", "place"].includes(safeRoute) && item.dataset.route === "itinerary")));
   history.replaceState(null, "", `#${safeRoute}`);
   window.scrollTo({ top: 0, behavior: "instant" });
   app.focus({ preventScroll: true });
@@ -162,7 +234,9 @@ document.addEventListener("click", (event) => {
   if (routeButton) render(routeButton.dataset.route);
   const action = event.target.closest("[data-action]")?.dataset.action;
   const meal = event.target.closest("[data-meal]")?.dataset.meal;
+  const place = event.target.closest("[data-place]")?.dataset.place;
   if (meal) { sessionStorage.setItem("selectedMeal", meal); render("meal"); }
+  if (place) { sessionStorage.setItem("selectedPlace", place); render("place"); }
   if (action === "day-one") render("itinerary");
   if (action === "home") render("home");
   if (action === "itinerary") render("itinerary");
