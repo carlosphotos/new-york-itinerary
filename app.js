@@ -21,7 +21,8 @@ const tripDays = [
       ["13:40", "Oculus", "Arquitectura y vistazo a tiendas", ""], ["14:10", "Comida en Chinatown", "Cinco alternativas cantonés / dim sum", "meal-day2-lunch"],
       ["14:40", "9/11 Memorial", "North Pool · South Pool · Survivor Tree · One WTC", ""],
       ["~15:15", "Centre 360", "Prioridad si conseguimos reserva; horario flexible", "optional"],
-      ["~15:45–16:30", "Canal Street + Chinatown", "Vendedores · souvenirs · Mott Street", ""],
+      ["~15:45–16:00", "Canal Street", "Vendedores y souvenirs", ""], ["16:00–16:15", "Mott + Pell Streets", "Calles históricas y ambiente de Chinatown", "place-chinatown"],
+      ["16:15–16:30", "Doyers Street", "Paseo breve antes de decidir extras", "place-chinatown"],
       ["~16:30", "Supreme + New York or Nowhere", "Opcional si el tiempo y Centre 360 lo permiten", "optional"],
       ["~16:45", "Regreso al Bronx", "Traslado al hotel", ""], ["~17:30", "Hotel / cambio rápido", "Dejar compras y prepararse", ""],
       ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankee"], ["19:05", "Yankees vs. Mets", "Subway Series", "place-yankee"],
@@ -31,13 +32,22 @@ const tripDays = [
   {
     number: "12", name: "Sat", label: "Saturday", month: "September", theme: "Central Park · The Met · Roosevelt Island · Gantry Plaza",
     timeline: [
-      ["09:00", "Desayuno", "Inicio del día", ""], ["10:00–11:45", "Central Park", "The Mall · Bethesda Terrace · Bow Bridge · The Lake", ""],
-      ["12:15–15:15", "The Met", "Dendur · Egipto · Grecia y Roma · pintura europea · American Wing", ""],
+      ["09:00", "Desayuno", "Inicio del día", ""], ["10:00–10:25", "The Mall", "Paseo arbolado hacia Bethesda", "place-centralpark"],
+      ["10:25–10:55", "Bethesda Terrace + Fountain", "Arcadas, fuente y vista de The Lake", "place-centralpark"],
+      ["10:55–11:25", "Bow Bridge + The Lake", "Cruce, fotografías y regreso hacia el este", "place-centralpark"],
+      ["11:25–11:45", "Hacia The Met", "Salir por el lado este del parque", ""],
+      ["12:15–12:55", "The Met · Egipto", "Templo de Dendur y galerías egipcias", "place-met"],
+      ["12:55–13:30", "The Met · Grecia y Roma", "Escultura y patio neoclásico", "place-met"],
+      ["13:30–14:15", "The Met · Pintura europea", "Elegir artistas y salas prioritarias", "place-met"],
+      ["14:15–15:00", "The Met · American Wing", "Patio, pintura y artes decorativas", "place-met"],
+      ["15:00–15:15", "The Met · margen", "Tienda, descanso o una sala pendiente", "place-met"],
       ["15:15–15:40", "Upper East Side", "Fifth Ave · Madison Ave · calles residenciales", ""],
       ["15:40–16:05", "Lexington Candy Shop", "Coca-Cola con jarabe y seltzer o malteada", ""],
       ["16:05–16:45", "Comida casual", "Home Kitchen · Sojourn Social · 787 Coffee opcional", "meal-day3-lunch"],
       ["16:45–17:30", "Hacia Roosevelt Island Tram", "Traslado", ""], ["~17:30", "Roosevelt Island Tram", "Cruce desde Manhattan", ""],
-      ["~17:50–19:00", "Roosevelt Island", "Smallpox Hospital Ruins · Four Freedoms Park", ""],
+      ["~17:50–18:10", "Roosevelt Island waterfront", "Caminar hacia el extremo sur", "place-roosevelt"],
+      ["18:10–18:25", "Smallpox Hospital Ruins", "Vista exterior de las ruinas", "place-roosevelt"],
+      ["18:25–19:00", "Four Freedoms Park", "Recorrer el memorial antes del cierre", "place-roosevelt"],
       ["~19:00–19:45", "Hacia Long Island City", "Traslado", ""], ["~20:00–20:45", "Gantry Plaza + Pepsi-Cola Sign", "Skyline iluminado", ""],
       ["~21:00", "Cena en Long Island City", "Café Henri como primera opción", "meal-day3-dinner"], ["~22:30", "Highbridge Hotel", "Regreso", "place-hotel"]
     ]
@@ -47,13 +57,19 @@ const tripDays = [
     timeline: [
       ["08:30", "Desayuno", "Inicio del día", ""], ["09:15", "Hacia Brooklyn Bridge", "Acceso desde Manhattan", ""],
       ["10:00–10:45", "Brooklyn Bridge", "Cruce completo hacia Brooklyn", ""],
-      ["10:45–12:15", "DUMBO + Brooklyn Bridge Park", "Washington St · Pebble Beach · Fulton Ferry Landing", ""],
+      ["10:45–11:05", "Washington Street", "Vista clásica del Manhattan Bridge", "place-dumbo"],
+      ["11:05–11:35", "Pebble Beach", "Waterfront y skyline de Manhattan", "place-dumbo"],
+      ["11:35–12:15", "Fulton Ferry Landing", "Brooklyn Bridge Park y paseo junto al río", "place-dumbo"],
       ["12:15–13:15", "Comida en DUMBO", "Pizza como primera elección", "meal-day4-lunch"], ["~13:20", "NYC Ferry", "DUMBO → Williamsburg; revisar ruta A/B días antes", ""],
-      ["~14:00–16:00", "Williamsburg", "Domino Park · Bedford Ave · Marsha P. Johnson State Park", ""],
-      ["Durante el paseo", "Discos + circuito musical", "Earwax · Face Records · Music Hall · Brooklyn Bowl", "optional"],
-      ["Café opcional", "Qahwah House", "Bedford Avenue", "optional"], ["~16:00–16:30", "Hacia Greenpoint", "Caminar · metro G · ferry", ""],
+      ["~14:00–14:35", "Domino Park", "Elementos industriales y vistas del East River", "place-williamsburg"],
+      ["14:35–15:10", "Bedford Avenue", "Tiendas, cafés y calles del barrio", "place-williamsburg"],
+      ["15:10–15:30", "Marsha P. Johnson State Park", "Antiguo muelle y waterfront", "place-williamsburg"],
+      ["15:30–15:50", "Discos + circuito musical", "Earwax · Face Records · Music Hall · Brooklyn Bowl", "optional"],
+      ["15:50–16:00", "Qahwah House", "Café opcional si no hubo parada en DUMBO", "optional"], ["~16:00–16:30", "Hacia Greenpoint", "Caminar · metro G · ferry", ""],
       ["16:30–17:30", "Yoseka Stationery", "63 West St · una hora para explorar y probar", ""],
-      ["17:30–19:00", "Greenpoint", "West St · WNYC Transmitter Park · waterfront", ""],
+      ["17:30–18:00", "West Street", "Tiendas y arquitectura industrial", "place-greenpoint"],
+      ["18:00–18:35", "WNYC Transmitter Park", "Pier y vistas de Manhattan", "place-greenpoint"],
+      ["18:35–19:00", "Greenpoint waterfront", "Paseo libre antes de cenar", "place-greenpoint"],
       ["~19:00–20:30", "Cena en Greenpoint", "Casual; Kirbee’s queda como opción provisional", "meal-day4-dinner"], ["~21:00", "Highbridge Hotel", "Regreso", "place-hotel"]
     ]
   },
@@ -61,10 +77,15 @@ const tripDays = [
     number: "14", name: "Mon", label: "Monday", month: "September", theme: "MoMA · Midtown · Primark · Koreatown · Top of the Rock",
     timeline: [
       ["09:00", "Desayuno", "Inicio del día", ""], ["10:15", "Llegar al MoMA", "Prepararse para apertura", ""],
-      ["10:30–13:00", "MoMA", "Colección y exposiciones prioritarias", ""], ["13:00–13:45", "Comida", "Kin Ramen plan A · Bill’s Bar & Burger plan B", "meal-day5-lunch"],
+      ["10:30–11:15", "MoMA · Collection 1880s–1940s", "Modernismo, Van Gogh, Picasso y Matisse", "place-moma"],
+      ["11:15–12:00", "MoMA · 1940s–1970s", "Expresionismo, Pop Art y diseño", "place-moma"],
+      ["12:00–12:40", "MoMA · Contemporary", "Salas actuales y exposiciones temporales", "place-moma"],
+      ["12:40–13:00", "MoMA · Sculpture Garden", "Pausa final y tienda si hay tiempo", "place-moma"], ["13:00–13:45", "Comida", "Kin Ramen plan A · Bill’s Bar & Burger plan B", "meal-day5-lunch"],
       ["13:45–14:30", "Midtown / Broadway", "6th Ave · Times Square de paso", ""], ["14:30–15:45", "Primark Herald Square", "Bloque principal de compras", ""],
       ["15:45–16:10", "Herald Square + Macy’s", "Exterior y entorno", ""], ["16:10–16:30", "Empire State Building", "Vista desde la calle", ""],
-      ["16:30–17:30", "Koreatown", "Grace Street opcional · Woorijip si falta comida", ""],
+      ["16:30–16:50", "Koreatown · W 32nd Street", "Letreros, tiendas y ambiente del barrio", "place-koreatown"],
+      ["16:50–17:15", "Grace Street", "Café o postre opcional", "place-koreatown"],
+      ["17:15–17:30", "Woorijip / compras rápidas", "Solo si falta comida o quieren curiosear", "place-koreatown"],
       ["17:30–18:15", "Hacia Rockefeller Center", "Traslado con margen", ""],
       ["~18:30–20:15", "Top of the Rock", "Luz · atardecer · primeras luces nocturnas", ""],
       ["~20:30", "Cena por Rockefeller / Midtown", "Elegir según hora de salida", "meal-day5-dinner"], ["~22:00–22:30", "Highbridge Hotel", "Regreso", "place-hotel"]
@@ -74,9 +95,14 @@ const tripDays = [
     number: "15", name: "Tue", label: "Tuesday", month: "September", theme: "Natural History · Upper West Side · tarde flexible",
     timeline: [
       ["08:30", "Desayuno", "Inicio del día", ""], ["09:30", "Upper West Side", "Salida hacia el museo", ""],
-      ["10:00–13:00", "American Museum of Natural History", "Dinosaurios · Human Origins · meteoritos · Gilder Center", ""],
+      ["10:00–10:50", "AMNH · Dinosaurios", "Fósiles y grandes esqueletos", "place-amnh"],
+      ["10:50–11:30", "AMNH · Human Origins", "Evolución humana y cultura", "place-amnh"],
+      ["11:30–12:05", "AMNH · Meteoritos", "Meteoritos y ciencias planetarias", "place-amnh"],
+      ["12:05–12:40", "AMNH · Gilder Center", "Arquitectura, insectario y nuevas galerías", "place-amnh"],
+      ["12:40–13:00", "AMNH · Rose Center", "Hayden Sphere y exterior del planetario", "place-amnh"],
       ["~13:15", "Barney Greengrass", "Deli clásico · bagel con nova o sándwich", "meal-day6-lunch"],
-      ["14:15", "Upper West Side", "Amsterdam · Broadway · brownstones", ""], ["14:30–15:00", "Zabar’s", "Tienda y café opcional", ""],
+      ["14:15–14:30", "Upper West Side", "Amsterdam · Broadway · brownstones", ""], ["14:30–14:45", "Zabar’s · deli", "Quesos, salmón, bagels y productos importados", "place-zabars"],
+      ["14:45–15:00", "Zabar’s · cocina + café", "Utensilios y café opcional", "place-zabars"],
       ["15:00", "Tarde flexible", "Elegir según pendientes y energía", "optional"],
       ["16:00", "New York or Nowhere", "Si no se hizo el Día 2", "optional"], ["16:20", "Supreme", "Si no se hizo el Día 2", "optional"],
       ["17:00", "Katz’s Delicatessen", "Cena temprana / clásico Lower East Side", "meal-day6-dinner"],
@@ -224,6 +250,19 @@ const placeByTitle = {
   "American Museum of Natural History": "amnh", "Barney Greengrass": "barney", "Zabar’s": "zabars", "New York or Nowhere": "nyon", "Supreme": "supremeonly", "Katz’s Delicatessen": "katzs", "Coney Island": "coney", "Riverside Park": "riverside"
 };
 
+const localPhotoByPlace = {
+  battery: "battery.jpg", financial: "financial-district.jpg", stone: "financial-district.jpg", blackfox: "financial-district.jpg",
+  seaport: "seaport.jpg", ferry: "seaport.jpg", oculus: "oculus.jpg", centre360: "oculus.jpg", memorial: "memorial.jpg",
+  chinatown: "chinatown.jpg", supreme: "chinatown.jpg", nyon: "chinatown.jpg", supremeonly: "chinatown.jpg", katzs: "chinatown.jpg",
+  met: "met.jpg", roosevelt: "gantry.jpg", tram: "gantry.jpg", gantry: "gantry.jpg",
+  brooklynbridge: "brooklyn-bridge.jpg", dumbo: "brooklyn-bridge.jpg", williamsburg: "williamsburg.jpg", records: "williamsburg.jpg",
+  qahwah: "williamsburg.jpg", yoseka: "williamsburg.jpg", greenpoint: "williamsburg.jpg"
+};
+
+Object.entries(localPhotoByPlace).forEach(([id, filename]) => {
+  if (placeDetails[id]) placeDetails[id].photos = [["./assets/" + filename, placeDetails[id].title]];
+});
+
 const dayRoutes = [
   [{label:"Midtown walk", url:"https://www.google.com/maps/dir/?api=1&origin=Bryant+Park%2C+New+York&destination=Rockefeller+Center%2C+New+York&travelmode=walking&waypoints=Grand+Central+Terminal%2C+New+York%7CSt.+Patrick%27s+Cathedral%2C+New+York"}],
   [{label:"Lower Manhattan", url:"https://www.google.com/maps/dir/?api=1&origin=The+Battery%2C+New+York&destination=Oculus%2C+New+York&travelmode=walking&waypoints=Charging+Bull%2C+New+York%7CStone+Street%2C+New+York%7CPier+17%2C+New+York"}, {label:"Memorial to Chinatown", url:"https://www.google.com/maps/dir/?api=1&origin=9%2F11+Memorial%2C+New+York&destination=Mott+Street%2C+New+York&travelmode=walking&waypoints=City+Hall%2C+New+York"}],
@@ -330,6 +369,15 @@ const mealOptions = {
 const app = document.querySelector("#app");
 const navItems = [...document.querySelectorAll(".nav-item")];
 
+function selectedDay() {
+  const index = Number(sessionStorage.getItem("selectedDay") || 0);
+  return { index, day: tripDays[index] || tripDays[0] };
+}
+
+function backToDayLabel() {
+  return `← Regresar al Día ${selectedDay().index + 1}`;
+}
+
 function dayStrip() {
   const selected = Number(sessionStorage.getItem("selectedDay") || 0);
   return `<div class="day-strip" aria-label="Días del viaje">${tripDays.map((day, i) => `
@@ -395,7 +443,7 @@ function mealView(meal = "day1-lunch") {
   const data = mealOptions[meal] || mealOptions["day1-lunch"];
   return `<div class="fade-in">
     <header class="page-header">
-      <button class="back back-prominent" data-action="itinerary">← Volver al itinerario</button>
+      <button class="back back-prominent" data-action="itinerary">${backToDayLabel()}</button>
       <p class="section-kicker">${data.kicker}</p>
       <h1>${data.title}</h1>
       <p class="section-note">${data.intro}</p>
@@ -414,7 +462,7 @@ function mealView(meal = "day1-lunch") {
         </div>
       </article>`).join("")}
     </section>
-    <button class="return-itinerary" data-action="itinerary">← Regresar al itinerario</button>
+    <button class="return-itinerary" data-action="itinerary">${backToDayLabel()}</button>
   </div>`;
 }
 
@@ -422,7 +470,7 @@ function placeDetailView(id) {
   const place = placeDetails[id] || placeDetails.bryant;
   return `<div class="fade-in place-detail">
     <header class="page-header detail-header">
-      <button class="back back-prominent" data-action="itinerary">← Volver al itinerario</button>
+      <button class="back back-prominent" data-action="itinerary">${backToDayLabel()}</button>
       <p class="section-kicker">${place.kicker}</p>
       <h1>${place.title}</h1>
       <p class="detail-address">${place.address}</p>
@@ -436,7 +484,7 @@ function placeDetailView(id) {
       ${place.routeImage ? `<a class="route-card" href="${place.map}" target="_blank" rel="noopener"><img src="${place.routeImage}" alt="Recorrido a pie por Midtown"><span>Open live route in Google Maps ↗</span></a>` : ""}
       <div class="detail-actions"><a href="${place.map}" target="_blank" rel="noopener">Open in Maps ↗</a>${place.official ? `<a href="${place.official}" target="_blank" rel="noopener">Official info ↗</a>` : ""}</div>
     </section>
-    <button class="return-itinerary" data-action="itinerary">← Regresar al Día 1</button>
+    <button class="return-itinerary" data-action="itinerary">${backToDayLabel()}</button>
   </div>`;
 }
 
