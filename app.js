@@ -106,14 +106,14 @@ const places = [
 const placeDetails = {
   jfk: {
     kicker: "06:15 · Queens", title: "JFK Airport", address: "John F. Kennedy International Airport · Queens",
-    photos: [["https://metroairportnews.com/wp-content/uploads/t4-terminal-window.jpg", "JFK International Airport"]],
+    photos: [["./assets/jfk-terminal.jpg", "JFK International Airport"]],
     summary: "Punto de llegada. La ficha queda preparada para añadir terminal, vuelo y la ruta exacta al hotel cuando estén confirmados.",
     notes: ["Tener pasaporte y dirección del hotel a mano", "Confirmar terminal antes del viaje", "Abrir Maps al salir de equipaje"],
     map: "https://www.google.com/maps/search/?api=1&query=John+F+Kennedy+International+Airport"
   },
   hotel: {
     kicker: "~09:00 · The Bronx", title: "Highbridge Hotel", address: "1263 Edward L Grant Hwy · Bronx",
-    photos: [["https://images.squarespace-cdn.com/content/v1/63a3654ddfcb706a000acbea/ed6d60d5-cce0-4d28-8816-7c3f3f7c7091/HBH_1662-s_low-res.jpg", "Exterior del Highbridge Hotel"]],
+    photos: [["./assets/highbridge-hotel.jpg", "Exterior del Highbridge Hotel"]],
     summary: "Primera parada para dejar maletas y, más tarde, hacer check-in y descansar. El hotel está cerca de Yankee Stadium.",
     notes: ["Dejar maletas ~09:00", "Regresar ~14:30", "Check-in 15:00"],
     map: "https://www.google.com/maps/search/?api=1&query=Highbridge+Hotel+1263+Edward+L+Grant+Hwy+Bronx",
@@ -121,14 +121,14 @@ const placeDetails = {
   },
   bryant: {
     kicker: "~10:15 · Midtown", title: "Bryant Park", address: "Bryant Park · 6th Ave & 42nd St",
-    photos: [["https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/New-York_-_Bryant_Park.jpg/960px-New-York_-_Bryant_Park.jpg", "Bryant Park y la New York Public Library"]],
+    photos: [["./assets/bryant-park.jpg", "Bryant Park y la New York Public Library"]],
     summary: "Una pausa verde entre la biblioteca y los edificios de Midtown. Es el punto de partida natural del paseo de la mañana.",
     notes: ["Recorrer el jardín central", "Ver la fachada de la NYPL", "Elegir aquí la dirección del paseo"],
     map: "https://www.google.com/maps/search/?api=1&query=Bryant+Park+New+York"
   },
   midtown: {
     kicker: "10:15–13:30 · Walking route", title: "Midtown clásico", address: "Bryant Park → Grand Central → Fifth Avenue → Rockefeller Center",
-    photos: [["https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/IGrand_Central_Terminal%2C_71-105_E._42nd_St._New_York.jpg/960px-IGrand_Central_Terminal%2C_71-105_E._42nd_St._New_York.jpg", "Grand Central y el Chrysler Building"], ["https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/New-York_-_Bryant_Park.jpg/960px-New-York_-_Bryant_Park.jpg", "Bryant Park y la biblioteca"]],
+    photos: [["./assets/midtown-grand-central.jpg", "Grand Central y el Chrysler Building"], ["./assets/bryant-park.jpg", "Bryant Park y la biblioteca"]],
     summary: "Un recorrido compacto por la arquitectura clásica de Midtown, con tiempo flexible para entrar a tiendas sobre Fifth Avenue.",
     notes: ["Mantener el paseo flexible: entrar solo a los interiores que no tengan fila", "Reservar la mayor parte de las tiendas para Fifth Avenue", "Salir hacia la comida alrededor de las 13:30 para proteger el regreso al hotel"],
     sights: [
@@ -144,7 +144,7 @@ const placeDetails = {
   },
   yankee: {
     kicker: "19:05 · The Bronx", title: "Yankee Stadium", address: "1 E 161 St · Bronx",
-    photos: [["https://media.timeout.com/images/105745099/image.jpg", "Exterior de Yankee Stadium"]],
+    photos: [["./assets/yankee-stadium.jpg", "Exterior de Yankee Stadium"]],
     summary: "Yankees–Rockies. Sus boletos son Pinstripe Pass: entrada general de pie, sin asiento asignado, con la primera bebida incluida.",
     notes: ["Llegar ~17:00 para recorrer el estadio", "Buscar zonas sociales y espacios standing room", "Canjear la bebida mostrando el boleto", "No ocupar asientos ni lugares SRO asignados"],
     callout: "PINSTRIPE PASS · Standing room only · Primera bebida incluida",
@@ -153,7 +153,7 @@ const placeDetails = {
   },
   dizzys: {
     kicker: "21:00 · Columbus Circle", title: "Dizzy’s Club", address: "Frederick P. Rose Hall · Broadway at 60th St",
-    photos: [["https://images.ctfassets.net/1aemqu6a6t65/22XtH5bb82TDJ6K99D9PNl/d3c9836cec8c300cd67011b8cdc3fd00/dizzysclubcocacolafromhouseleft?fit=fill&h=630&q=82&w=1200", "Interior de Dizzy’s Club con vista al skyline"]],
+    photos: [["./assets/dizzys-club.jpg", "Interior de Dizzy’s Club con vista al skyline"]],
     summary: "Club íntimo de Jazz at Lincoln Center con vistas panorámicas de Central Park y del skyline. Llegada prevista ~20:40.",
     notes: ["Set de las 21:00", "Reservas recomendadas", "Confirmar acceso y código de reserva"],
     map: "https://www.google.com/maps/search/?api=1&query=Dizzy%27s+Club+Broadway+at+60th+Street+New+York",
@@ -343,7 +343,7 @@ function placeDetailView(id) {
       <h1>${place.title}</h1>
       <p class="detail-address">${place.address}</p>
     </header>
-    <div class="photo-scroll">${place.photos.map(([src, alt]) => `<img src="${src}" alt="${alt}" loading="lazy">`).join("")}</div>
+    <div class="photo-scroll">${place.photos.map(([src, alt]) => `<img src="${src}" alt="${alt}" loading="lazy" onerror="this.onerror=null;this.src='./assets/nyc-skyline.png'">`).join("")}</div>
     <section class="detail-body">
       <p class="detail-summary">${place.summary}</p>
       ${place.callout ? `<div class="ticket-callout"><span>Your ticket</span><strong>${place.callout}</strong></div>` : ""}
