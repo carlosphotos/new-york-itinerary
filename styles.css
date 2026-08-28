@@ -84,6 +84,23 @@ button { color: inherit; font: inherit; }
 .place-meta { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
 .tag { background: var(--blue-pale); padding: 6px 8px; font-size: 8px; text-transform: uppercase; letter-spacing: .1em; }
 .placeholder { color: var(--blue); font-style: italic; }
+.info-feature { margin-top: 4px; padding: 22px 18px; border-top: 0; background: var(--blue-pale); }
+.info-link-button { margin-top: 17px; padding: 0 0 4px; border: 0; border-bottom: 1px solid var(--ink); background: transparent; color: var(--ink); font-size: 9px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+
+.fare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; padding: 24px 22px 6px; }
+.fare-grid article { min-height: 155px; padding: 18px 15px; background: var(--blue-pale); }
+.fare-grid span { display: block; min-height: 25px; color: var(--blue); font-size: 8px; font-weight: 600; letter-spacing: .11em; line-height: 1.4; text-transform: uppercase; }
+.fare-grid strong { display: block; margin-top: 7px; font: 600 27px/1 var(--serif); }
+.fare-grid p { margin: 12px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
+.transport-days { padding: 24px 22px 0; }
+.transport-day { padding: 25px 0; border-top: 1px solid var(--line); }
+.transport-day h2 { margin: 4px 0 0; font: 600 29px/1 var(--serif); }
+.transport-summary { margin: 8px 0 16px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.transport-day a { display: grid; grid-template-columns: 1fr auto; gap: 15px; align-items: center; padding: 14px 0; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.transport-day a strong { display: block; font-size: 10px; }
+.transport-day a small { display: block; margin-top: 5px; color: var(--muted); font-size: 9px; line-height: 1.5; }
+.transport-day a b { color: var(--blue); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+.transport-note { margin: 8px 22px 0; padding: 16px; border: 1px solid var(--line); color: var(--muted); font-size: 9px; line-height: 1.55; }
 
 .food-options { gap: 18px; }
 .food-card { position: relative; padding: 24px 20px 21px; background: var(--white); border: 1px solid var(--line); overflow: hidden; }

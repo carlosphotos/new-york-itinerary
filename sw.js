@@ -1,4 +1,4 @@
-const CACHE = "new-york-guide-v8";
+const CACHE = "new-york-guide-v9";
 const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./assets/nyc-skyline.png", "./assets/midtown-route.svg", "./assets/jfk-terminal.jpg", "./assets/highbridge-hotel.jpg", "./assets/bryant-park.jpg", "./assets/midtown-grand-central.jpg", "./assets/yankee-stadium.jpg", "./assets/dizzys-club.jpg", "./assets/battery.jpg", "./assets/financial-district.jpg", "./assets/seaport.jpg", "./assets/oculus.jpg", "./assets/memorial.jpg", "./assets/chinatown.jpg", "./assets/met.jpg", "./assets/gantry.jpg", "./assets/brooklyn-bridge.jpg", "./assets/williamsburg.jpg", "./assets/icon-180.png", "./assets/icon-192.png", "./assets/icon-512.png"];
 
 self.addEventListener("install", event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())));
