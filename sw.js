@@ -1,4 +1,4 @@
-const CACHE = "new-york-guide-v1";
+const CACHE = "new-york-guide-v2";
 const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./assets/nyc-skyline.png", "./assets/icon-180.png", "./assets/icon-192.png", "./assets/icon-512.png"];
 
 self.addEventListener("install", event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())));
