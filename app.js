@@ -1,4 +1,4 @@
-const APP_VERSION = "15";
+const APP_VERSION = "16";
 
 const tripDays = [
   {
@@ -215,12 +215,12 @@ const placeDetails = {
     summary: "Un recorrido compacto por la arquitectura clásica de Midtown, con tiempo flexible para entrar a tiendas sobre Fifth Avenue.",
     notes: ["Mantener el paseo flexible: entrar solo a los interiores que no tengan fila", "Reservar la mayor parte de las tiendas para Fifth Avenue", "Salir hacia la comida alrededor de las 13:30 para proteger el regreso al hotel"],
     sights: [
-      ["Bryant Park", "Recorrer el césped y la terraza de la biblioteca. Fijarse en el contraste entre el jardín y los rascacielos."],
-      ["New York Public Library", "Ver los leones Patience y Fortitude, Astor Hall y, si el acceso está disponible, la Rose Main Reading Room."],
-      ["Grand Central Terminal", "Mirar el techo celeste del Main Concourse, el reloj central y probar la Whispering Gallery junto al Oyster Bar."],
-      ["Chrysler Building", "La visita principal es exterior: observar la corona Art Déco y sus formas inspiradas en automóviles. El acceso interior puede ser limitado."],
-      ["Fifth Avenue + St. Patrick’s", "Entrar a la catedral para ver vitrales y bóvedas; mantener silencio si hay servicio. Elegir solo una o dos tiendas para no perder tiempo."],
-      ["Rockefeller Center", "Caminar por Channel Gardens, ver la estatua de Atlas, la plaza y la fachada Art Déco de 30 Rockefeller Plaza."]
+      ["Bryant Park", "Recorrer el césped y la terraza de la biblioteca. Fijarse en el contraste entre el jardín y los rascacielos.", "./assets/bryant-park.jpg", "Bryant Park"],
+      ["New York Public Library", "Ver los leones Patience y Fortitude, Astor Hall y, si el acceso está disponible, la Rose Main Reading Room.", "./assets/nypl.jpg", "Stephen A. Schwarzman Building · NYPL"],
+      ["Grand Central Terminal", "Mirar el techo celeste del Main Concourse, el reloj central y probar la Whispering Gallery junto al Oyster Bar.", "./assets/midtown-grand-central.jpg", "Grand Central Terminal"],
+      ["Chrysler Building", "La visita principal es exterior: observar la corona Art Déco y sus formas inspiradas en automóviles. El acceso interior puede ser limitado.", "./assets/midtown-grand-central.jpg", "Chrysler Building desde Grand Central"],
+      ["Fifth Avenue + St. Patrick’s", "Entrar a la catedral para ver vitrales y bóvedas; mantener silencio si hay servicio. Elegir solo una o dos tiendas para no perder tiempo.", "./assets/st-patricks.jpg", "St. Patrick’s Cathedral"],
+      ["Rockefeller Center", "Caminar por Channel Gardens, ver la estatua de Atlas, la plaza y la fachada Art Déco de 30 Rockefeller Plaza.", "./assets/rockefeller-center.jpg", "Channel Gardens · Rockefeller Center"]
     ],
     routeImage: "./assets/midtown-route.svg",
     map: "https://www.google.com/maps/dir/?api=1&origin=Bryant+Park%2C+New+York&destination=Rockefeller+Center%2C+New+York&travelmode=walking&waypoints=Grand+Central+Terminal%2C+New+York%7CSt.+Patrick%27s+Cathedral%2C+New+York"
@@ -247,7 +247,7 @@ const placeDetails = {
 function guide(title, kicker, summary, notes, query) {
   return {
     title, kicker, address: query,
-    photos: [["./assets/nyc-skyline.png", "New York City"]],
+    photos: [],
     summary, notes,
     map: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query)
   };
@@ -302,6 +302,17 @@ Object.assign(placeDetails, {
   riverside: guide("Riverside Park", "Día 6 · alternativa tranquila", "Opción para bajar el ritmo antes del vuelo de regreso.", ["Pasear junto al Hudson", "Resolver compras pendientes", "Volver temprano para preparar maletas"], "Riverside Park New York")
 });
 
+Object.assign(placeDetails.supreme, {
+  photos: [["./assets/new-york-or-nowhere.jpg", "New York or Nowhere · 250 Lafayette Street"], ["./assets/supreme.jpg", "Supreme · 190 Bowery"]],
+  sights: [["New York or Nowhere", "Tienda de ropa y objetos inspirados en la ciudad. Entrar solo si el horario deja margen antes del regreso al Bronx.", "./assets/new-york-or-nowhere.jpg", "New York or Nowhere"], ["Supreme", "Flagship dentro del histórico edificio de 190 Bowery. Comprobar la fila antes de comprometer tiempo.", "./assets/supreme.jpg", "Supreme · Bowery"]]
+});
+placeDetails.nyon.photos = [["./assets/new-york-or-nowhere.jpg", "New York or Nowhere · 250 Lafayette Street"]];
+placeDetails.supremeonly.photos = [["./assets/supreme.jpg", "Supreme · 190 Bowery"]];
+Object.assign(placeDetails.records, {
+  photos: [["./assets/earwax-records.jpg", "Earwax Records"], ["./assets/music-hall-williamsburg.jpg", "Music Hall of Williamsburg"]],
+  sights: [["Earwax Records", "Tienda independiente con novedades y vinilos usados.", "./assets/earwax-records.jpg", "Earwax Records"], ["Face Records NYC", "Selección de importaciones japonesas, jazz, city pop y discos usados.", "./assets/face-records.jpg", "Face Records NYC"], ["Music Hall of Williamsburg", "Reconocer desde fuera uno de los recintos centrales del circuito musical del barrio.", "./assets/music-hall-williamsburg.jpg", "Music Hall of Williamsburg"], ["Brooklyn Bowl", "Sala de conciertos y boliche dentro de una antigua nave industrial.", "./assets/brooklyn-bowl.jpg", "Brooklyn Bowl"]]
+});
+
 const placeByTitle = {
   "The Battery": "battery", "Bowling Green + Charging Bull": "financial", "Financial District": "financial", "Stone Street": "stone",
   "South Street Seaport + Pier 17": "seaport", "Oculus": "oculus", "9/11 Memorial": "memorial", "Centre 360": "centre360",
@@ -314,12 +325,10 @@ const placeByTitle = {
 };
 
 const localPhotoByPlace = {
-  battery: "battery.jpg", financial: "financial-district.jpg", stone: "financial-district.jpg", squarediner: "square-diner.jpg", day2coffee: "square-diner.jpg", statenferry: "battery.jpg",
-  seaport: "seaport.jpg", ferry: "seaport.jpg", oculus: "oculus.jpg", centre360: "oculus.jpg", memorial: "memorial.jpg",
-  chinatown: "chinatown.jpg", supreme: "chinatown.jpg", nyon: "chinatown.jpg", supremeonly: "chinatown.jpg", katzs: "chinatown.jpg",
-  met: "met.jpg", roosevelt: "gantry.jpg", tram: "gantry.jpg", gantry: "gantry.jpg",
-  brooklynbridge: "brooklyn-bridge.jpg", dumbo: "brooklyn-bridge.jpg", williamsburg: "williamsburg.jpg", records: "williamsburg.jpg",
-  qahwah: "williamsburg.jpg", yoseka: "williamsburg.jpg", greenpoint: "williamsburg.jpg"
+  battery: "the-battery.jpg", financial: "nyse.jpg", squarediner: "square-diner.jpg", day2coffee: "square-diner.jpg",
+  seaport: "seaport.jpg", oculus: "oculus.jpg", memorial: "memorial.jpg", chinatown: "chinatown.jpg",
+  met: "met-dendur.jpg", roosevelt: "roosevelt-island.jpg", gantry: "gantry-plaza.jpg",
+  brooklynbridge: "brooklyn-bridge.jpg", dumbo: "audit-washington-street-dumbo.jpg", williamsburg: "williamsburg.jpg", greenpoint: "transmitter-park.jpg"
 };
 
 Object.entries(localPhotoByPlace).forEach(([id, filename]) => {
@@ -328,56 +337,56 @@ Object.entries(localPhotoByPlace).forEach(([id, filename]) => {
 
 const groupedPlaceDetails = {
   financial: {
-    photos: [["./assets/financial-district.jpg", "Wall Street y el Financial District"], ["./assets/battery.jpg", "Bowling Green y Lower Manhattan"]],
-    sights: [["Bowling Green", "El parque público más antiguo de Nueva York. Observar la verja histórica y su posición entre Broadway y los edificios financieros."], ["Charging Bull", "La escultura de bronce suele tener mucha gente; mirar también la fuerza y el movimiento desde los costados, no solo la fotografía frontal."], ["Wall Street + NYSE", "La Bolsa se contempla desde fuera. Fijarse en su fachada neoclásica, las columnas y la bandera sobre Broad Street."], ["Federal Hall", "Frente a la Bolsa, marca el lugar donde George Washington prestó juramento como primer presidente."], ["Trinity Church", "Contraste neogótico entre rascacielos. Si está abierto, entrar al cementerio histórico y buscar la tumba de Alexander Hamilton."]]
+    photos: [["./assets/nyse.jpg", "New York Stock Exchange · Wall Street"], ["./assets/federal-hall.jpg", "Federal Hall"]],
+    sights: [["Bowling Green", "El parque público más antiguo de Nueva York. Observar la verja histórica y su posición entre Broadway y los edificios financieros.", "./assets/audit-bowling-green.jpg", "Bowling Green"], ["Charging Bull", "La escultura de bronce suele tener mucha gente; mirar también la fuerza y el movimiento desde los costados, no solo la fotografía frontal.", "./assets/audit-charging-bull.jpg", "Charging Bull"], ["Wall Street + NYSE", "La Bolsa se contempla desde fuera. Fijarse en su fachada neoclásica, las columnas y la bandera sobre Broad Street.", "./assets/nyse.jpg", "New York Stock Exchange"], ["Federal Hall", "Frente a la Bolsa, marca el lugar donde George Washington prestó juramento como primer presidente.", "./assets/federal-hall.jpg", "Federal Hall"], ["Trinity Church", "Contraste neogótico entre rascacielos. Si está abierto, entrar al cementerio histórico y buscar la tumba de Alexander Hamilton.", "./assets/trinity-church.jpg", "Trinity Church Wall Street"]]
   },
   seaport: {
-    photos: [["./assets/seaport.jpg", "South Street Seaport y Pier 17"], ["./assets/brooklyn-bridge.jpg", "Brooklyn Bridge desde el East River"]],
-    sights: [["Fulton Street", "Calles adoquinadas y edificios mercantiles que conservan la escala del antiguo puerto."], ["South Street Seaport Museum", "Ver desde fuera los barcos históricos y los edificios marítimos; entrar solo si hay tiempo adicional."], ["Pier 17", "Subir al waterfront y buscar vistas abiertas del Brooklyn Bridge, DUMBO y el East River."], ["Tin Building", "Mercado gastronómico restaurado junto al muelle; útil como pausa breve o para usar servicios."]]
+    photos: [["./assets/seaport.jpg", "South Street Seaport"], ["./assets/pier-17.jpg", "Pier 17"]],
+    sights: [["Fulton Street", "Calles adoquinadas y edificios mercantiles que conservan la escala del antiguo puerto.", "./assets/seaport-fulton.webp", "Schermerhorn Row · Fulton Street"], ["South Street Seaport Museum", "Ver desde fuera los barcos históricos y los edificios marítimos; entrar solo si hay tiempo adicional.", "./assets/seaport.jpg", "South Street Seaport Museum y barcos históricos"], ["Pier 17", "Subir al waterfront y buscar vistas abiertas del Brooklyn Bridge, DUMBO y el East River.", "./assets/pier-17.jpg", "Pier 17"], ["Tin Building", "Mercado gastronómico restaurado junto al muelle; útil como pausa breve o para usar servicios.", "./assets/tin-building.jpg", "Tin Building"]]
   },
   chinatown: {
-    photos: [["./assets/chinatown.jpg", "Calles de Chinatown"], ["./assets/financial-district.jpg", "Transición desde Lower Manhattan"]],
-    sights: [["Canal Street", "Zona más intensa de vendedores y souvenirs. Mantener pertenencias controladas y comparar antes de comprar."], ["Mott Street", "Eje histórico con restaurantes, fruterías y comercios tradicionales; mirar también los letreros y fachadas."], ["Pell Street", "Calle corta y muy fotogénica que concentra peluquerías, restaurantes y rótulos verticales."], ["Doyers Street", "Curva histórica conocida como Bloody Angle; hoy reúne pequeños negocios y restaurantes."], ["Columbus Park", "Buen punto para observar la vida del barrio, músicos y partidas de cartas si el tiempo permite."]]
+    photos: [["./assets/chinatown.jpg", "Calles de Chinatown"], ["./assets/doyers-street.jpg", "Doyers Street"]],
+    sights: [["Canal Street", "Zona más intensa de vendedores y souvenirs. Mantener pertenencias controladas y comparar antes de comprar.", "./assets/audit-canal-street.jpg", "Canal Street"], ["Mott Street", "Eje histórico con restaurantes, fruterías y comercios tradicionales; mirar también los letreros y fachadas.", "./assets/audit-mott-street.jpg", "Mott Street"], ["Pell Street", "Calle corta y muy fotogénica que concentra peluquerías, restaurantes y rótulos verticales.", "./assets/pell-street.jpg", "Pell Street"], ["Doyers Street", "Curva histórica conocida como Bloody Angle; hoy reúne pequeños negocios, restaurantes, faroles y arte sobre el pavimento.", "./assets/doyers-street.jpg", "Doyers Street"], ["Columbus Park", "Buen punto para observar la vida del barrio, músicos y partidas de cartas si el tiempo permite.", "./assets/columbus-park.jpg", "Columbus Park"]]
   },
   centralpark: {
     photos: [["./assets/central-park.jpg", "Bethesda Terrace en Central Park"], ["./assets/bow-bridge.jpg", "Bow Bridge sobre The Lake"]],
-    sights: [["The Mall", "Paseo recto bajo olmos americanos; caminar hacia Bethesda observando estatuas y artistas callejeros."], ["Bethesda Terrace", "Bajar por las escaleras para ver los azulejos del techo de las arcadas y el eje hacia la fuente."], ["Bethesda Fountain", "La escultura Angel of the Waters es el centro visual; desde aquí se abre la vista hacia The Lake."], ["Bow Bridge", "Puente de hierro fundido con una de las vistas más clásicas del parque y del skyline sobre los árboles."], ["The Lake", "Mirar las barcas, The Ramble y los reflejos; no hace falta rodearlo completo antes de The Met."]]
+    sights: [["The Mall", "Paseo recto bajo olmos americanos; caminar hacia Bethesda observando estatuas y artistas callejeros.", "./assets/central-park-mall.jpg", "The Mall & Literary Walk"], ["Bethesda Terrace", "Bajar por las escaleras para ver los azulejos del techo de las arcadas y el eje hacia la fuente.", "./assets/central-park.jpg", "Bethesda Terrace"], ["Bethesda Fountain", "La escultura Angel of the Waters es el centro visual; desde aquí se abre la vista hacia The Lake.", "./assets/audit-bethesda-terrace.jpg", "Bethesda Fountain y Terrace"], ["Bow Bridge", "Puente de hierro fundido con una de las vistas más clásicas del parque y del skyline sobre los árboles.", "./assets/bow-bridge.jpg", "Bow Bridge"], ["The Lake", "Mirar las barcas, The Ramble y los reflejos; no hace falta rodearlo completo antes de The Met.", "./assets/bow-bridge.jpg", "The Lake junto a Bow Bridge"]]
   },
   met: {
-    photos: [["./assets/met.jpg", "The Metropolitan Museum of Art"]],
-    sights: [["Templo de Dendur", "El gran templo egipcio se entiende mejor rodeándolo y observando la luz del espacio.", "./assets/met-dendur.jpg", "Sala 131 · Templo de Dendur"], ["Galerías egipcias", "Seguir la secuencia cronológica sin detenerse en cada vitrina.", "./assets/met-dendur.jpg", "Ala de arte egipcio · conexión con Dendur"], ["Grecia y Roma", "Priorizar el gran patio de esculturas y algunas piezas señaladas.", "./assets/met-greek-roman.jpg", "Leon Levy and Shelby White Court"], ["Pintura europea", "Elegir previamente artistas imprescindibles para evitar recorrer salas sin dirección.", "./assets/met-european-paintings.jpg", "Galerías de pintura europea 1300–1800"], ["American Wing", "Buscar el patio, los interiores históricos y las vistas hacia Central Park.", "./assets/met-american-wing.jpg", "Charles Engelhard Court · American Wing"]]
+    photos: [["./assets/met-dendur.jpg", "Sala 131 · Templo de Dendur"], ["./assets/met-american-wing.jpg", "Charles Engelhard Court · American Wing"]],
+    sights: [["Templo de Dendur", "El gran templo egipcio se entiende mejor rodeándolo y observando la luz del espacio.", "./assets/met-dendur.jpg", "Sala 131 · Templo de Dendur"], ["Galerías egipcias", "Seguir la secuencia cronológica sin detenerse en cada vitrina.", "./assets/met-egyptian-galleries.jpg", "Galerías de arte egipcio"], ["Grecia y Roma", "Priorizar el gran patio de esculturas y algunas piezas señaladas.", "./assets/met-greek-roman.jpg", "Leon Levy and Shelby White Court"], ["Pintura europea", "Elegir previamente artistas imprescindibles para evitar recorrer salas sin dirección.", "./assets/met-european-paintings.jpg", "Galerías de pintura europea 1300–1800"], ["American Wing", "Buscar el patio, los interiores históricos y las vistas hacia Central Park.", "./assets/met-american-wing.jpg", "Charles Engelhard Court · American Wing"]]
   },
   roosevelt: {
-    photos: [["./assets/gantry.jpg", "East River desde Roosevelt Island"], ["./assets/nyc-skyline.png", "Skyline de Nueva York"]],
-    sights: [["Waterfront oriental", "Camino junto al East River con vistas de Queens y del tráfico fluvial."], ["Smallpox Hospital Ruins", "Ruinas neogóticas visibles desde el exterior; no se puede entrar al recinto."], ["Southpoint Park", "Transición tranquila hacia el extremo sur y buenas perspectivas del skyline."], ["Four Freedoms Park", "Memorial geométrico de Louis Kahn. Llegar antes del cierre y caminar hasta el busto de Roosevelt."]]
+    photos: [["./assets/roosevelt-island.jpg", "Roosevelt Island · extremo sur"]],
+    sights: [["Waterfront oriental", "Camino junto al East River con vistas de Queens y del tráfico fluvial.", "./assets/roosevelt-island.jpg", "Roosevelt Island y el East River"], ["Smallpox Hospital Ruins", "Ruinas neogóticas visibles desde el exterior; no se puede entrar al recinto.", "./assets/audit-smallpox-hospital.jpg", "Smallpox Hospital Ruins"], ["Southpoint Park", "Transición tranquila hacia el extremo sur y buenas perspectivas del skyline.", "./assets/roosevelt-island.jpg", "Southpoint Park y el extremo sur de Roosevelt Island"], ["Four Freedoms Park", "Memorial geométrico de Louis Kahn. Llegar antes del cierre y caminar hasta el busto de Roosevelt.", "./assets/four-freedoms-park.jpg", "Franklin D. Roosevelt Four Freedoms Park"]]
   },
   gantry: {
-    photos: [["./assets/gantry.jpg", "Gantry Plaza y skyline de Manhattan"], ["./assets/nyc-skyline.png", "Manhattan desde el East River"]],
-    sights: [["Gantry cranes", "Estructuras industriales que servían para cargar vagones en barcazas; enmarcan el skyline."], ["Pepsi-Cola Sign", "Letrero histórico de neón trasladado al waterfront; se aprecia mejor al caer la noche."], ["Long Island City waterfront", "Recorrer los muelles y plataformas para cambiar la perspectiva de Midtown."], ["Blue hour", "La combinación de cielo azul profundo y primeras luces de Manhattan suele ser el mejor momento fotográfico."]]
+    photos: [["./assets/gantry-plaza.jpg", "Gantry Plaza State Park"], ["./assets/gantry.jpg", "Pepsi-Cola Sign · Long Island City"]],
+    sights: [["Gantry cranes", "Estructuras industriales que servían para cargar vagones en barcazas; enmarcan el skyline.", "./assets/gantry-plaza.jpg", "Gantry cranes frente a Manhattan"], ["Pepsi-Cola Sign", "Letrero histórico de neón trasladado al waterfront; se aprecia mejor al caer la noche.", "./assets/gantry.jpg", "Pepsi-Cola Sign"], ["Long Island City waterfront", "Recorrer los muelles y plataformas para cambiar la perspectiva de Midtown.", "./assets/gantry-plaza.jpg", "Long Island City waterfront"], ["Blue hour", "La combinación de cielo azul profundo y primeras luces de Manhattan suele ser el mejor momento fotográfico.", "./assets/gantry-blue-hour.jpg", "Blue hour desde Gantry Plaza State Park"]]
   },
   dumbo: {
-    photos: [["./assets/brooklyn-bridge.jpg", "DUMBO y los puentes del East River"], ["./assets/seaport.jpg", "Waterfront frente a Brooklyn"]],
-    sights: [["Washington Street", "La vista clásica del Manhattan Bridge entre edificios; respetar la circulación y fotografiar desde la acera."], ["Pebble Beach", "Playa de piedras con perspectiva abierta de Lower Manhattan y Brooklyn Bridge."], ["Jane’s Carousel", "Carrusel histórico dentro de un pabellón de cristal; verlo desde el paseo aunque no se suban."], ["Fulton Ferry Landing", "Antiguo punto de ferry y mirador hacia Manhattan; aquí también se toma NYC Ferry."], ["Brooklyn Bridge Park", "Muelles, jardines y bancas para caminar sin convertir la visita en una lista de monumentos."]]
+    photos: [["./assets/audit-washington-street-dumbo.jpg", "Washington Street · DUMBO"], ["./assets/brooklyn-bridge-park.jpg", "Brooklyn Bridge Park"]],
+    sights: [["Washington Street", "La vista clásica del Manhattan Bridge entre edificios; respetar la circulación y fotografiar desde la acera.", "./assets/audit-washington-street-dumbo.jpg", "Washington Street y Manhattan Bridge"], ["Pebble Beach", "Playa de piedras con perspectiva abierta de Lower Manhattan y Brooklyn Bridge.", "./assets/pebble-beach.jpg", "Pebble Beach · Brooklyn Bridge Park"], ["Jane’s Carousel", "Carrusel histórico dentro de un pabellón de cristal; verlo desde el paseo aunque no se suban.", "./assets/janes-carousel.jpg", "Jane’s Carousel"], ["Fulton Ferry Landing", "Antiguo punto de ferry y mirador hacia Manhattan; aquí también se toma NYC Ferry.", "./assets/fulton-ferry-landing.jpg", "Fulton Ferry Landing"], ["Brooklyn Bridge Park", "Muelles, jardines y bancas para caminar sin convertir la visita en una lista de monumentos.", "./assets/brooklyn-bridge-park.jpg", "Brooklyn Bridge Park"]]
   },
   williamsburg: {
-    photos: [["./assets/domino-park.jpg", "Domino Park y sus estructuras industriales"], ["./assets/williamsburg.jpg", "Waterfront de Williamsburg"]],
-    sights: [["Domino Park", "Antigua refinería Domino Sugar: observar grúas, conductos conservados, paseo elevado y vistas de Manhattan."], ["Bedford Avenue", "Eje comercial para recorrer tiendas, cafés y el movimiento cotidiano del barrio."], ["Marsha P. Johnson State Park", "Waterfront gratuito con restos del antiguo muelle ferroviario y vistas del skyline."], ["Earwax + Face Records", "Dos paradas especialmente pertinentes para buscar vinilos y música sin alejarse demasiado del recorrido."], ["Music Hall + Brooklyn Bowl", "Pasar por los exteriores para reconocer parte del circuito musical de Williamsburg."]]
+    photos: [["./assets/domino-park-correct.jpg", "Domino Park y la antigua refinería"], ["./assets/williamsburg.jpg", "Williamsburg waterfront"]],
+    sights: [["Domino Park", "Antigua refinería Domino Sugar: observar grúas, conductos conservados, paseo elevado y vistas de Manhattan.", "./assets/domino-park-correct.jpg", "Domino Park y Domino Sugar Refinery"], ["Bedford Avenue", "Eje comercial para recorrer tiendas, cafés y el movimiento cotidiano del barrio.", "./assets/bedford-avenue.jpg", "Bedford Avenue"], ["Marsha P. Johnson State Park", "Waterfront gratuito con restos del antiguo muelle ferroviario y vistas del skyline.", "./assets/marsha-p-johnson.jpg", "Marsha P. Johnson State Park"], ["Earwax Records", "Tienda de discos independiente en North 9th Street; revisar novedades y usados sin convertirla en una parada larga.", "./assets/earwax-records.jpg", "Earwax Records"], ["Face Records NYC", "Selección especialmente interesante de importaciones japonesas, jazz, city pop y vinilos usados.", "./assets/face-records.jpg", "Face Records NYC"], ["Music Hall of Williamsburg", "Pasar por el exterior para reconocer uno de los principales recintos de conciertos del barrio.", "./assets/music-hall-williamsburg.jpg", "Music Hall of Williamsburg"], ["Brooklyn Bowl", "Recinto que combina conciertos y boliche dentro de un edificio industrial sobre Wythe Avenue.", "./assets/brooklyn-bowl.jpg", "Brooklyn Bowl"]]
   },
   greenpoint: {
-    photos: [["./assets/greenpoint.jpg", "Calles y waterfront de Greenpoint"], ["./assets/williamsburg.jpg", "North Brooklyn frente a Manhattan"]],
-    sights: [["West Street", "Antiguos edificios industriales mezclados con estudios, tiendas y residencias."], ["Yoseka Stationery", "Tienda para probar plumas y papel con calma; reservar la hora completa prevista."], ["WNYC Transmitter Park", "Parque construido en una antigua estación de radio con muelle y vistas directas de Manhattan."], ["Greenpoint waterfront", "Caminar sin ruta rígida y observar el contraste entre el barrio residencial y el borde industrial."]]
+    photos: [["./assets/transmitter-park.jpg", "WNYC Transmitter Park · Greenpoint"]],
+    sights: [["West Street", "Antiguos edificios industriales mezclados con estudios, tiendas y residencias.", "./assets/west-street-greenpoint.webp", "West Street · arquitectura industrial de Greenpoint"], ["Yoseka Stationery", "Tienda para probar plumas y papel con calma; reservar la hora completa prevista.", "./assets/yoseka.jpg", "Yoseka Stationery"], ["WNYC Transmitter Park", "Parque construido en una antigua estación de radio con muelle y vistas directas de Manhattan.", "./assets/transmitter-park.jpg", "WNYC Transmitter Park"], ["Greenpoint waterfront", "Caminar sin ruta rígida y observar el contraste entre el barrio residencial y el borde industrial.", "./assets/transmitter-park.jpg", "Greenpoint waterfront"]]
   },
   herald: {
-    photos: [["./assets/midtown-grand-central.jpg", "Arquitectura de Midtown"], ["./assets/nyc-skyline.png", "Skyline de Manhattan"]],
-    sights: [["Herald Square", "Pequeña plaza en la intersección de Broadway, Sixth Avenue y 34th Street."], ["Macy’s", "Ver la fachada histórica y los escaparates; entrar solo si quieren convertirlo en parada de compras."], ["Empire State Building", "Buscar una perspectiva desde 34th Street y otra desde Broadway para apreciar el remate Art Déco."]]
+    photos: [["./assets/herald-square.jpg", "Herald Square y Empire State Building"]],
+    sights: [["Herald Square", "Pequeña plaza en la intersección de Broadway, Sixth Avenue y 34th Street.", "./assets/herald-square.jpg", "Herald Square"], ["Macy’s", "Ver la fachada histórica y los escaparates; entrar solo si quieren convertirlo en parada de compras.", "./assets/macys-herald-square.jpg", "Macy’s Herald Square"], ["Empire State Building", "Buscar una perspectiva desde 34th Street y otra desde Broadway para apreciar el remate Art Déco.", "./assets/audit-empire-state.jpg", "Empire State Building"]]
   },
   koreatown: {
-    photos: [["./assets/midtown-grand-central.jpg", "Midtown alrededor de Koreatown"], ["./assets/nyc-skyline.png", "Manhattan de noche"]],
-    sights: [["W 32nd Street", "Calle principal con letreros verticales, tiendas de belleza, karaoke y restaurantes en varios pisos."], ["Grace Street", "Parada opcional para café, té, shaved ice o postre."], ["Woorijip", "Opción informal para probar varios platos coreanos sin hacer una comida larga."], ["Anytime Kitchen", "Alternativa para sentarse con más calma si el horario y el hambre lo permiten."]]
+    photos: [["./assets/koreatown.jpg", "Korea Way · West 32nd Street"]],
+    sights: [["W 32nd Street", "Calle principal con letreros verticales, tiendas de belleza, karaoke y restaurantes en varios pisos.", "./assets/koreatown.jpg", "West 32nd Street · Korea Way"], ["Grace Street", "Parada opcional para café, té, shaved ice o postre.", "./assets/grace-street.jpg", "Grace Street Coffee & Desserts"], ["Woorijip", "Opción informal para probar varios platos coreanos sin hacer una comida larga.", "./assets/woorijip.jpg", "Woorijip · West 32nd Street"], ["Anytime Kitchen", "Alternativa para sentarse con más calma si el horario y el hambre lo permiten.", "./assets/anytime-kitchen.jpg", "Anytime Kitchen · Koreatown"]]
   },
   amnh: {
-    photos: [["./assets/nyc-skyline.png", "Nueva York · guía del museo"], ["./assets/central-park.jpg", "Central Park junto al museo"]],
-    sights: [["Dinosaurios", "Priorizar los grandes esqueletos y fósiles más representativos sin detenerse en todas las vitrinas."], ["Hall of Human Origins", "Recorrido claro por evolución humana, herramientas y reconstrucciones."], ["Meteoritos", "Buscar el meteorito Willamette y las piezas relacionadas con ciencias planetarias."], ["Gilder Center", "Arquitectura contemporánea, insectario y nuevas galerías conectadas con el museo histórico."], ["Rose Center", "La esfera de Hayden domina el espacio; decidir con anticipación si añadirán una función del planetario."]]
+    photos: [["./assets/amnh-dinosaurs.jpg", "Fossil Halls · American Museum of Natural History"], ["./assets/amnh-gilder.jpg", "Richard Gilder Center"]],
+    sights: [["Dinosaurios", "Priorizar los grandes esqueletos y fósiles más representativos sin detenerse en todas las vitrinas.", "./assets/amnh-dinosaurs.jpg", "Fossil Halls · dinosaurios"], ["Hall of Human Origins", "Recorrido claro por evolución humana, herramientas y reconstrucciones.", "./assets/amnh-human-origins.jpg", "Spitzer Hall of Human Origins"], ["Meteoritos", "Buscar el meteorito Willamette y las piezas relacionadas con ciencias planetarias.", "./assets/amnh-meteorite.jpg", "Cullman Hall of the Universe · meteorito"], ["Gilder Center", "Arquitectura contemporánea, insectario y nuevas galerías conectadas con el museo histórico.", "./assets/amnh-gilder.jpg", "Richard Gilder Center"], ["Rose Center", "La esfera de Hayden domina el espacio; decidir con anticipación si añadirán una función del planetario.", "./assets/rose-center.jpg", "Rose Center for Earth and Space · Hayden Sphere"]]
   }
 };
 
@@ -386,18 +395,18 @@ Object.entries(groupedPlaceDetails).forEach(([id, enhancement]) => Object.assign
 Object.assign(placeDetails, {
   highline: {
     ...guide("High Line", "Día 6 · opción High Line", "Parque elevado construido sobre una antigua vía ferroviaria. La ruta entra en Hudson Yards y desciende hacia Chelsea.", ["Entrar por 30th Street", "Caminar hacia el sur para evitar retrocesos", "Reservar alrededor de 90 minutos", "Llevar agua y protección solar; hay pocos tramos cubiertos"], "High Line 30th Street Entrance New York"),
-    photos: [["./assets/high-line.jpg", "Chelsea vista desde High Line"], ["./assets/chelsea-market.jpg", "Chelsea Market visto desde High Line"]],
-    sights: [["Hudson Yards + Vessel", "Antes de entrar, mirar el nuevo conjunto urbano y el exterior de Vessel; no es necesario añadir otra visita."], ["30th Street Grove", "Inicio más tranquilo con vegetación, antiguos rieles y vistas hacia el Hudson."], ["10th Avenue Square", "Gradas y gran ventanal sobre la avenida; buen punto para detenerse y observar la ciudad."], ["Chelsea Market Passage", "Tramo donde la vía atraviesa edificios industriales y conecta con el acceso al mercado."], ["Gansevoort Woodland", "Final arbolado cerca del Meatpacking District y del Whitney Museum."]]
+    photos: [["./assets/high-line-tracks.jpg", "High Line · antiguos rieles"], ["./assets/high-line-10th-square.jpg", "10th Avenue Square"]],
+    sights: [["Hudson Yards + Vessel", "Antes de entrar, mirar el nuevo conjunto urbano y el exterior de Vessel; no es necesario añadir otra visita.", "./assets/vessel.jpg", "Vessel · Hudson Yards"], ["30th Street Grove", "Inicio más tranquilo con vegetación, antiguos rieles y vistas hacia el Hudson.", "./assets/high-line-tracks.jpg", "High Line · rieles y plantaciones"], ["10th Avenue Square", "Gradas y gran ventanal sobre la avenida; buen punto para detenerse y observar la ciudad.", "./assets/high-line-10th-square.jpg", "10th Avenue Square"], ["Chelsea Market Passage", "Tramo donde la vía atraviesa edificios industriales y conecta con el acceso al mercado.", "./assets/high-line.jpg", "High Line a través de Chelsea"], ["Gansevoort Woodland", "Final arbolado cerca del Meatpacking District y del Whitney Museum.", "./assets/high-line-gansevoort.jpg", "Gansevoort Woodland"]]
   },
   chelsea: {
     ...guide("Chelsea + Meatpacking District", "Día 6 · opción High Line", "Transición desde el parque elevado hacia calles industriales, galerías, mercado y el antiguo distrito cárnico.", ["Chelsea Market es opcional", "Mantener el bloque flexible para llegar a SoHo", "Las calles adoquinadas pueden ser incómodas con calzado poco estable"], "Chelsea Market New York"),
-    photos: [["./assets/chelsea-market.jpg", "Chelsea Market desde High Line"], ["./assets/high-line.jpg", "High Line a través de Chelsea"]],
-    sights: [["Chelsea Market", "Mercado dentro de la antigua fábrica de Nabisco. Recorrer el pasillo principal, observar detalles industriales y usarlo como descanso."], ["Meatpacking District", "Calles adoquinadas, antiguos almacenes y arquitectura contemporánea alrededor de Gansevoort Street."], ["Whitney Museum exterior", "Edificio de Renzo Piano al final de High Line; verlo desde fuera salvo que decidan sustituir otra actividad."], ["Little Island", "Parque sobre pilotes visible desde el waterfront; solo añadirlo si llevan buen ritmo."]]
+    photos: [["./assets/chelsea-market-interior.jpg", "Interior de Chelsea Market"], ["./assets/meatpacking.jpg", "Gansevoort Street · Meatpacking District"]],
+    sights: [["Chelsea Market", "Mercado dentro de la antigua fábrica de Nabisco. Recorrer el pasillo principal, observar detalles industriales y usarlo como descanso.", "./assets/chelsea-market-interior.jpg", "Chelsea Market · pasillo principal"], ["Meatpacking District", "Calles adoquinadas, antiguos almacenes y arquitectura contemporánea alrededor de Gansevoort Street.", "./assets/meatpacking.jpg", "Gansevoort Street · Meatpacking District"], ["Whitney Museum exterior", "Edificio de Renzo Piano al final de High Line; verlo desde fuera salvo que decidan sustituir otra actividad.", "./assets/whitney.jpg", "Whitney Museum of American Art"], ["Little Island", "Parque sobre pilotes visible desde el waterfront; solo añadirlo si llevan buen ritmo.", "./assets/little-island.jpg", "Little Island"]]
   },
   soho: {
     ...guide("SoHo + Nolita", "Día 6 · opción High Line", "Paseo de conexión entre Chelsea y las tiendas pendientes antes de continuar al Lower East Side.", ["No convertirlo en una ruta exhaustiva de compras", "Mirar las fachadas de hierro fundido", "Proteger la llegada a Katz’s alrededor de las 18:00"], "SoHo New York"),
-    photos: [["./assets/chinatown.jpg", "Downtown Manhattan hacia SoHo y Nolita"], ["./assets/financial-district.jpg", "Arquitectura del sur de Manhattan"]],
-    sights: [["Cast-iron architecture", "En Greene y Wooster Streets fijarse en columnas, grandes ventanas y fachadas prefabricadas de hierro."], ["Prince + Spring Streets", "Ejes comerciales principales; elegir solo las tiendas realmente prioritarias."], ["Nolita", "Calles de menor escala, boutiques independientes y transición natural hacia Bowery."], ["New York or Nowhere + Supreme", "Resolver las dos compras en secuencia antes de caminar a Katz’s."]]
+    photos: [["./assets/soho-greene-street.jpg", "Greene Street · SoHo Cast-Iron Historic District"], ["./assets/nolita.webp", "Nolita · Elizabeth Street"]],
+    sights: [["Cast-iron architecture", "En Greene y Wooster Streets fijarse en columnas, grandes ventanas y fachadas prefabricadas de hierro.", "./assets/soho-greene-street.jpg", "Cast-iron architecture · Greene Street"], ["Prince + Spring Streets", "Ejes comerciales principales; elegir solo las tiendas realmente prioritarias.", "./assets/soho-greene-street.jpg", "SoHo Historic District"], ["Nolita", "Calles de menor escala, boutiques independientes y transición natural hacia Bowery.", "./assets/nolita.webp", "Nolita · Elizabeth Street"], ["New York or Nowhere", "Tienda de ropa y objetos inspirados en la ciudad; resolver la compra sin alargar demasiado la parada.", "./assets/new-york-or-nowhere.jpg", "New York or Nowhere · 250 Lafayette Street"], ["Supreme", "Flagship en el histórico edificio de 190 Bowery; comprobar fila antes de decidir entrar.", "./assets/supreme.jpg", "Supreme · 190 Bowery"]]
   }
 });
 
@@ -708,12 +717,11 @@ function placeDetailView(id) {
       <h1>${place.title}</h1>
       <p class="detail-address">${place.address}</p>
     </header>
-    <div class="gallery-label"><span>Fotografías</span>${place.photos.length > 1 ? "<b>Desliza →</b>" : ""}</div>
-    <div class="photo-scroll">${place.photos.map(([src, alt]) => `<figure><img src="${src}" alt="${alt}" loading="lazy" onerror="this.onerror=null;this.src='./assets/nyc-skyline.png'"><figcaption>${alt}</figcaption></figure>`).join("")}</div>
+    ${place.photos.length ? `<div class="gallery-label"><span>Fotografías</span>${place.photos.length > 1 ? "<b>Desliza →</b>" : ""}</div><div class="photo-scroll">${place.photos.map(([src, alt]) => `<figure><img src="${src}" alt="${alt}" loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>${alt}</figcaption></figure>`).join("")}</div>` : ""}
     <section class="detail-body">
       <p class="detail-summary">${place.summary}</p>
       ${place.callout ? `<div class="ticket-callout"><span>Tu boleto</span><strong>${place.callout}</strong></div>` : ""}
-      ${place.sights ? `<div class="sights-section"><p class="section-kicker">Lugares a ver</p>${place.sights.map(([name, note, photo, caption], index) => `<article class="sight-item"><span>${String(index + 1).padStart(2, "0")}</span><div>${photo ? `<figure class="sight-photo"><img src="${photo}" alt="${caption || name}" loading="lazy"><figcaption>${caption || name}</figcaption></figure>` : ""}<h2>${name}</h2><p>${note}</p></div></article>`).join("")}</div>` : ""}
+      ${place.sights ? `<div class="sights-section"><p class="section-kicker">Lugares a ver</p>${place.sights.map(([name, note, photo, caption], index) => `<article class="sight-item"><span>${String(index + 1).padStart(2, "0")}</span><div>${photo ? `<figure class="sight-photo"><img src="${photo}" alt="${caption || name}" loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>${caption || name}</figcaption></figure>` : ""}<h2>${name}</h2><p>${note}</p></div></article>`).join("")}</div>` : ""}
       <div class="detail-list"><p class="section-kicker">Qué tener en cuenta</p><ul>${place.notes.map(note => `<li>${note}</li>`).join("")}</ul></div>
       ${place.routeImage ? `<a class="route-card" href="${place.map}" target="_blank" rel="noopener"><img src="${place.routeImage}" alt="Recorrido a pie por Midtown"><span>Abrir ruta en Google Maps ↗</span></a>` : ""}
       <div class="detail-actions"><a href="${place.map}" target="_blank" rel="noopener">Abrir Maps ↗</a>${place.official ? `<a href="${place.official}" target="_blank" rel="noopener">Información oficial ↗</a>` : ""}<button data-copy="${place.address.replace(/"/g, "&quot;")}">Copiar dirección</button></div>
@@ -744,7 +752,7 @@ function infoView() {
       <article class="info-card"><h2>Vuelos</h2><p>Llegada · JFK · septiembre 10 · 06:15</p><p>Septiembre 16 · Delta 3779 · JFK → SAT<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p><p>Aeroméxico 633 · SAT → MEX<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p></article>
       <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y rutas recomendadas de cada día para llegar y regresar al hotel.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
       <article class="info-card"><h2>Reservas</h2><p><strong>Sep 10 · Yankees–Rockies</strong><br>Pinstripe Pass · confirmado</p><p><strong>Sep 11 · Yankees–Mets</strong><br>Section 421 · Row 14 · Seats 20–21 · confirmado</p><p>Sonny Rollins at Dizzy’s · Sep 10 · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
-      <article class="info-card photo-credits"><h2>Créditos fotográficos</h2><p>Fotografías adicionales de Central Park, Domino Park, High Line y Chelsea: Jon McIntosh, Library of Congress, Mig Gilbert, Aude y La Citta Vita, vía Wikimedia Commons.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Consultar licencias y fuentes ↗</a></article>
+      <article class="info-card photo-credits"><h2>Imágenes de la guía</h2><p>Cada fotografía fue seleccionada para corresponder al lugar o sala que describe. La ilustración panorámica aportada por el usuario se utiliza únicamente como identidad visual del encabezado, no como fotografía de un destino.</p><p>Las imágenes proceden de sitios oficiales de los recintos y parques, Wikimedia Commons y publicaciones que documentan los lugares indicados.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Consultar Wikimedia Commons ↗</a></article>
     </section></div>`;
 }
 
