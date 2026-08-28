@@ -1,4 +1,4 @@
-const APP_VERSION = "12";
+const APP_VERSION = "13";
 
 const tripDays = [
   {
@@ -151,8 +151,32 @@ const day2FerryRoutes = [
   {label:"Memorial + Chinatown", url:"https://www.google.com/maps/dir/?api=1&origin=9%2F11+Memorial%2C+New+York&destination=Mott+Street%2C+New+York&travelmode=walking&waypoints=City+Hall%2C+New+York"}
 ];
 
+const day6HighLineTimeline = [
+  ["08:30", "Desayuno", "Inicio del día", ""], ["09:30", "Upper West Side", "Salida hacia el museo", ""],
+  ["10:00–13:00", "American Museum of Natural History", "Dinosaurios · Human Origins · meteoritos · Gilder Center", "place-amnh"],
+  ["13:00–13:45", "Comida / Upper West Side", "Barney Greengrass o Zabar’s según el tiempo", "meal-day6-lunch"],
+  ["~14:15", "Hacia Hudson Yards", "Traslado al acceso de 30th Street", ""],
+  ["14:30–16:00", "High Line", "Entrar por Hudson Yards / 30th St y caminar hacia el sur", "place-highline"],
+  ["~16:00", "Chelsea + Meatpacking District", "Arquitectura, galerías y calles adoquinadas", "place-chelsea"],
+  ["~16:00–16:45", "Chelsea Market", "Parada opcional para recorrer puestos y descansar", "optional"],
+  ["~17:00", "SoHo + Nolita", "Continuar hacia el sur", "place-soho"],
+  ["17:15", "New York or Nowhere", "Parada de compras", "place-nyon"],
+  ["17:35", "Supreme", "Parada de compras", "place-supremeonly"],
+  ["~18:00–19:00", "Katz’s Delicatessen", "Cena temprana · pastrami clásico", "meal-day6-dinner"],
+  ["~19:30", "Lower East Side / regreso", "Paseo breve o regreso al Bronx", ""],
+  ["~20:30–21:00", "Highbridge Hotel", "Maletas listas para la salida", "place-hotel"]
+];
+
+const day6HighLineRoutes = [
+  {label:"Museo → Hudson Yards", url:"https://www.google.com/maps/dir/?api=1&origin=American+Museum+of+Natural+History&destination=High+Line+30th+Street+Entrance&travelmode=transit"},
+  {label:"High Line hacia Chelsea", url:"https://www.google.com/maps/dir/?api=1&origin=High+Line+30th+Street+Entrance&destination=Chelsea+Market&travelmode=walking&waypoints=High+Line+23rd+Street"},
+  {label:"Chelsea → SoHo → Katz’s", url:"https://www.google.com/maps/dir/?api=1&origin=Chelsea+Market&destination=Katz%27s+Delicatessen&travelmode=walking&waypoints=New+York+or+Nowhere%7CSupreme+Bowery"}
+];
+
 function timelineForDay(index) {
-  return index === 1 && sessionStorage.getItem("day2Option") === "ferry" ? day2FerryTimeline : tripDays[index].timeline;
+  if (index === 1 && sessionStorage.getItem("day2Option") === "ferry") return day2FerryTimeline;
+  if (index === 5 && sessionStorage.getItem("day6Option") === "highline") return day6HighLineTimeline;
+  return tripDays[index].timeline;
 }
 
 const places = [
@@ -286,7 +310,7 @@ const placeByTitle = {
   "Brooklyn Bridge": "brooklynbridge", "DUMBO + Brooklyn Bridge Park": "dumbo", "NYC Ferry": "ferry", "Williamsburg": "williamsburg", "Discos + circuito musical": "records", "Qahwah House": "qahwah",
   "Yoseka Stationery": "yoseka", "Greenpoint": "greenpoint", "MoMA": "moma", "Primark Herald Square": "primark",
   "Herald Square + Macy’s": "herald", "Empire State Building": "herald", "Koreatown": "koreatown", "Top of the Rock": "topofrock", "Times Square de noche": "timessquare",
-  "American Museum of Natural History": "amnh", "Barney Greengrass": "barney", "Zabar’s": "zabars", "New York or Nowhere": "nyon", "Supreme": "supremeonly", "Katz’s Delicatessen": "katzs", "Coney Island": "coney", "Riverside Park": "riverside"
+  "American Museum of Natural History": "amnh", "Barney Greengrass": "barney", "Zabar’s": "zabars", "High Line": "highline", "Chelsea + Meatpacking District": "chelsea", "Chelsea Market": "chelsea", "SoHo + Nolita": "soho", "New York or Nowhere": "nyon", "Supreme": "supremeonly", "Katz’s Delicatessen": "katzs", "Coney Island": "coney", "Riverside Park": "riverside"
 };
 
 const localPhotoByPlace = {
@@ -300,6 +324,81 @@ const localPhotoByPlace = {
 
 Object.entries(localPhotoByPlace).forEach(([id, filename]) => {
   if (placeDetails[id]) placeDetails[id].photos = [["./assets/" + filename, placeDetails[id].title]];
+});
+
+const groupedPlaceDetails = {
+  financial: {
+    photos: [["./assets/financial-district.jpg", "Wall Street y el Financial District"], ["./assets/battery.jpg", "Bowling Green y Lower Manhattan"]],
+    sights: [["Bowling Green", "El parque público más antiguo de Nueva York. Observar la verja histórica y su posición entre Broadway y los edificios financieros."], ["Charging Bull", "La escultura de bronce suele tener mucha gente; mirar también la fuerza y el movimiento desde los costados, no solo la fotografía frontal."], ["Wall Street + NYSE", "La Bolsa se contempla desde fuera. Fijarse en su fachada neoclásica, las columnas y la bandera sobre Broad Street."], ["Federal Hall", "Frente a la Bolsa, marca el lugar donde George Washington prestó juramento como primer presidente."], ["Trinity Church", "Contraste neogótico entre rascacielos. Si está abierto, entrar al cementerio histórico y buscar la tumba de Alexander Hamilton."]]
+  },
+  seaport: {
+    photos: [["./assets/seaport.jpg", "South Street Seaport y Pier 17"], ["./assets/brooklyn-bridge.jpg", "Brooklyn Bridge desde el East River"]],
+    sights: [["Fulton Street", "Calles adoquinadas y edificios mercantiles que conservan la escala del antiguo puerto."], ["South Street Seaport Museum", "Ver desde fuera los barcos históricos y los edificios marítimos; entrar solo si hay tiempo adicional."], ["Pier 17", "Subir al waterfront y buscar vistas abiertas del Brooklyn Bridge, DUMBO y el East River."], ["Tin Building", "Mercado gastronómico restaurado junto al muelle; útil como pausa breve o para usar servicios."]]
+  },
+  chinatown: {
+    photos: [["./assets/chinatown.jpg", "Calles de Chinatown"], ["./assets/financial-district.jpg", "Transición desde Lower Manhattan"]],
+    sights: [["Canal Street", "Zona más intensa de vendedores y souvenirs. Mantener pertenencias controladas y comparar antes de comprar."], ["Mott Street", "Eje histórico con restaurantes, fruterías y comercios tradicionales; mirar también los letreros y fachadas."], ["Pell Street", "Calle corta y muy fotogénica que concentra peluquerías, restaurantes y rótulos verticales."], ["Doyers Street", "Curva histórica conocida como Bloody Angle; hoy reúne pequeños negocios y restaurantes."], ["Columbus Park", "Buen punto para observar la vida del barrio, músicos y partidas de cartas si el tiempo permite."]]
+  },
+  centralpark: {
+    photos: [["./assets/central-park.jpg", "Bethesda Terrace en Central Park"], ["./assets/bow-bridge.jpg", "Bow Bridge sobre The Lake"]],
+    sights: [["The Mall", "Paseo recto bajo olmos americanos; caminar hacia Bethesda observando estatuas y artistas callejeros."], ["Bethesda Terrace", "Bajar por las escaleras para ver los azulejos del techo de las arcadas y el eje hacia la fuente."], ["Bethesda Fountain", "La escultura Angel of the Waters es el centro visual; desde aquí se abre la vista hacia The Lake."], ["Bow Bridge", "Puente de hierro fundido con una de las vistas más clásicas del parque y del skyline sobre los árboles."], ["The Lake", "Mirar las barcas, The Ramble y los reflejos; no hace falta rodearlo completo antes de The Met."]]
+  },
+  met: {
+    photos: [["./assets/met.jpg", "The Metropolitan Museum of Art"], ["./assets/central-park.jpg", "Museum Mile junto a Central Park"]],
+    sights: [["Templo de Dendur", "El gran templo egipcio se entiende mejor rodeándolo y observando la luz del espacio."], ["Galerías egipcias", "Seguir la secuencia cronológica sin detenerse en cada vitrina."], ["Grecia y Roma", "Priorizar el gran patio de esculturas y algunas piezas señaladas."], ["Pintura europea", "Elegir previamente artistas imprescindibles para evitar recorrer salas sin dirección."], ["American Wing", "Buscar el patio, los interiores históricos y las vistas hacia Central Park."]]
+  },
+  roosevelt: {
+    photos: [["./assets/gantry.jpg", "East River desde Roosevelt Island"], ["./assets/nyc-skyline.png", "Skyline de Nueva York"]],
+    sights: [["Waterfront oriental", "Camino junto al East River con vistas de Queens y del tráfico fluvial."], ["Smallpox Hospital Ruins", "Ruinas neogóticas visibles desde el exterior; no se puede entrar al recinto."], ["Southpoint Park", "Transición tranquila hacia el extremo sur y buenas perspectivas del skyline."], ["Four Freedoms Park", "Memorial geométrico de Louis Kahn. Llegar antes del cierre y caminar hasta el busto de Roosevelt."]]
+  },
+  gantry: {
+    photos: [["./assets/gantry.jpg", "Gantry Plaza y skyline de Manhattan"], ["./assets/nyc-skyline.png", "Manhattan desde el East River"]],
+    sights: [["Gantry cranes", "Estructuras industriales que servían para cargar vagones en barcazas; enmarcan el skyline."], ["Pepsi-Cola Sign", "Letrero histórico de neón trasladado al waterfront; se aprecia mejor al caer la noche."], ["Long Island City waterfront", "Recorrer los muelles y plataformas para cambiar la perspectiva de Midtown."], ["Blue hour", "La combinación de cielo azul profundo y primeras luces de Manhattan suele ser el mejor momento fotográfico."]]
+  },
+  dumbo: {
+    photos: [["./assets/brooklyn-bridge.jpg", "DUMBO y los puentes del East River"], ["./assets/seaport.jpg", "Waterfront frente a Brooklyn"]],
+    sights: [["Washington Street", "La vista clásica del Manhattan Bridge entre edificios; respetar la circulación y fotografiar desde la acera."], ["Pebble Beach", "Playa de piedras con perspectiva abierta de Lower Manhattan y Brooklyn Bridge."], ["Jane’s Carousel", "Carrusel histórico dentro de un pabellón de cristal; verlo desde el paseo aunque no se suban."], ["Fulton Ferry Landing", "Antiguo punto de ferry y mirador hacia Manhattan; aquí también se toma NYC Ferry."], ["Brooklyn Bridge Park", "Muelles, jardines y bancas para caminar sin convertir la visita en una lista de monumentos."]]
+  },
+  williamsburg: {
+    photos: [["./assets/domino-park.jpg", "Domino Park y sus estructuras industriales"], ["./assets/williamsburg.jpg", "Waterfront de Williamsburg"]],
+    sights: [["Domino Park", "Antigua refinería Domino Sugar: observar grúas, conductos conservados, paseo elevado y vistas de Manhattan."], ["Bedford Avenue", "Eje comercial para recorrer tiendas, cafés y el movimiento cotidiano del barrio."], ["Marsha P. Johnson State Park", "Waterfront gratuito con restos del antiguo muelle ferroviario y vistas del skyline."], ["Earwax + Face Records", "Dos paradas especialmente pertinentes para buscar vinilos y música sin alejarse demasiado del recorrido."], ["Music Hall + Brooklyn Bowl", "Pasar por los exteriores para reconocer parte del circuito musical de Williamsburg."]]
+  },
+  greenpoint: {
+    photos: [["./assets/greenpoint.jpg", "Calles y waterfront de Greenpoint"], ["./assets/williamsburg.jpg", "North Brooklyn frente a Manhattan"]],
+    sights: [["West Street", "Antiguos edificios industriales mezclados con estudios, tiendas y residencias."], ["Yoseka Stationery", "Tienda para probar plumas y papel con calma; reservar la hora completa prevista."], ["WNYC Transmitter Park", "Parque construido en una antigua estación de radio con muelle y vistas directas de Manhattan."], ["Greenpoint waterfront", "Caminar sin ruta rígida y observar el contraste entre el barrio residencial y el borde industrial."]]
+  },
+  herald: {
+    photos: [["./assets/midtown-grand-central.jpg", "Arquitectura de Midtown"], ["./assets/nyc-skyline.png", "Skyline de Manhattan"]],
+    sights: [["Herald Square", "Pequeña plaza en la intersección de Broadway, Sixth Avenue y 34th Street."], ["Macy’s", "Ver la fachada histórica y los escaparates; entrar solo si quieren convertirlo en parada de compras."], ["Empire State Building", "Buscar una perspectiva desde 34th Street y otra desde Broadway para apreciar el remate Art Déco."]]
+  },
+  koreatown: {
+    photos: [["./assets/midtown-grand-central.jpg", "Midtown alrededor de Koreatown"], ["./assets/nyc-skyline.png", "Manhattan de noche"]],
+    sights: [["W 32nd Street", "Calle principal con letreros verticales, tiendas de belleza, karaoke y restaurantes en varios pisos."], ["Grace Street", "Parada opcional para café, té, shaved ice o postre."], ["Woorijip", "Opción informal para probar varios platos coreanos sin hacer una comida larga."], ["Anytime Kitchen", "Alternativa para sentarse con más calma si el horario y el hambre lo permiten."]]
+  },
+  amnh: {
+    photos: [["./assets/nyc-skyline.png", "Nueva York · guía del museo"], ["./assets/central-park.jpg", "Central Park junto al museo"]],
+    sights: [["Dinosaurios", "Priorizar los grandes esqueletos y fósiles más representativos sin detenerse en todas las vitrinas."], ["Hall of Human Origins", "Recorrido claro por evolución humana, herramientas y reconstrucciones."], ["Meteoritos", "Buscar el meteorito Willamette y las piezas relacionadas con ciencias planetarias."], ["Gilder Center", "Arquitectura contemporánea, insectario y nuevas galerías conectadas con el museo histórico."], ["Rose Center", "La esfera de Hayden domina el espacio; decidir con anticipación si añadirán una función del planetario."]]
+  }
+};
+
+Object.entries(groupedPlaceDetails).forEach(([id, enhancement]) => Object.assign(placeDetails[id], enhancement));
+
+Object.assign(placeDetails, {
+  highline: {
+    ...guide("High Line", "Día 6 · opción High Line", "Parque elevado construido sobre una antigua vía ferroviaria. La ruta entra en Hudson Yards y desciende hacia Chelsea.", ["Entrar por 30th Street", "Caminar hacia el sur para evitar retrocesos", "Reservar alrededor de 90 minutos", "Llevar agua y protección solar; hay pocos tramos cubiertos"], "High Line 30th Street Entrance New York"),
+    photos: [["./assets/high-line.jpg", "Chelsea vista desde High Line"], ["./assets/chelsea-market.jpg", "Chelsea Market visto desde High Line"]],
+    sights: [["Hudson Yards + Vessel", "Antes de entrar, mirar el nuevo conjunto urbano y el exterior de Vessel; no es necesario añadir otra visita."], ["30th Street Grove", "Inicio más tranquilo con vegetación, antiguos rieles y vistas hacia el Hudson."], ["10th Avenue Square", "Gradas y gran ventanal sobre la avenida; buen punto para detenerse y observar la ciudad."], ["Chelsea Market Passage", "Tramo donde la vía atraviesa edificios industriales y conecta con el acceso al mercado."], ["Gansevoort Woodland", "Final arbolado cerca del Meatpacking District y del Whitney Museum."]]
+  },
+  chelsea: {
+    ...guide("Chelsea + Meatpacking District", "Día 6 · opción High Line", "Transición desde el parque elevado hacia calles industriales, galerías, mercado y el antiguo distrito cárnico.", ["Chelsea Market es opcional", "Mantener el bloque flexible para llegar a SoHo", "Las calles adoquinadas pueden ser incómodas con calzado poco estable"], "Chelsea Market New York"),
+    photos: [["./assets/chelsea-market.jpg", "Chelsea Market desde High Line"], ["./assets/high-line.jpg", "High Line a través de Chelsea"]],
+    sights: [["Chelsea Market", "Mercado dentro de la antigua fábrica de Nabisco. Recorrer el pasillo principal, observar detalles industriales y usarlo como descanso."], ["Meatpacking District", "Calles adoquinadas, antiguos almacenes y arquitectura contemporánea alrededor de Gansevoort Street."], ["Whitney Museum exterior", "Edificio de Renzo Piano al final de High Line; verlo desde fuera salvo que decidan sustituir otra actividad."], ["Little Island", "Parque sobre pilotes visible desde el waterfront; solo añadirlo si llevan buen ritmo."]]
+  },
+  soho: {
+    ...guide("SoHo + Nolita", "Día 6 · opción High Line", "Paseo de conexión entre Chelsea y las tiendas pendientes antes de continuar al Lower East Side.", ["No convertirlo en una ruta exhaustiva de compras", "Mirar las fachadas de hierro fundido", "Proteger la llegada a Katz’s alrededor de las 18:00"], "SoHo New York"),
+    photos: [["./assets/chinatown.jpg", "Downtown Manhattan hacia SoHo y Nolita"], ["./assets/financial-district.jpg", "Arquitectura del sur de Manhattan"]],
+    sights: [["Cast-iron architecture", "En Greene y Wooster Streets fijarse en columnas, grandes ventanas y fachadas prefabricadas de hierro."], ["Prince + Spring Streets", "Ejes comerciales principales; elegir solo las tiendas realmente prioritarias."], ["Nolita", "Calles de menor escala, boutiques independientes y transición natural hacia Bowery."], ["New York or Nowhere + Supreme", "Resolver las dos compras en secuencia antes de caminar a Katz’s."]]
+  }
 });
 
 const dayRoutes = [
@@ -521,14 +620,16 @@ function itineraryView() {
   const index = Number(sessionStorage.getItem("selectedDay") || 0);
   const day = tripDays[index] || tripDays[0];
   const day2Option = sessionStorage.getItem("day2Option") || "urban";
+  const day6Option = sessionStorage.getItem("day6Option") || "flexible";
   const timeline = timelineForDay(index);
-  const routes = index === 1 && day2Option === "ferry" ? day2FerryRoutes : (dayRoutes[index] || []);
+  const routes = index === 1 && day2Option === "ferry" ? day2FerryRoutes : index === 5 && day6Option === "highline" ? day6HighLineRoutes : (dayRoutes[index] || []);
+  const displayedTheme = index === 1 && day2Option === "ferry" ? "Staten Island Ferry · 9/11 · Chinatown · Subway Series" : index === 5 && day6Option === "highline" ? "Natural History · High Line · Chelsea · SoHo · Katz’s" : day.theme;
   return `<div class="fade-in">
     <header class="page-header">
       <button class="back" data-action="home">← New York</button>
       <p class="section-kicker">Día ${index + 1}</p>
       <h1>${day.month} ${day.number}</h1>
-      <p class="subtitle">${day.theme}</p>
+      <p class="subtitle">${displayedTheme}</p>
       <img class="mini-skyline" src="./assets/nyc-skyline.png" alt="">
     </header>
     ${dayStrip()}
@@ -536,6 +637,10 @@ function itineraryView() {
       <button class="${day2Option === "urban" ? "active" : ""}" data-day2-option="urban"><span>Opción 1</span><strong>Recorrido urbano completo</strong><small>Seaport · Pier 17 · mayor variedad</small></button>
       <button class="${day2Option === "ferry" ? "active" : ""}" data-day2-option="ferry"><span>Opción 2</span><strong>Mejor vista de la Estatua</strong><small>Staten Island Ferry · skyline desde el agua</small></button>
     </div><p class="option-status">${day2Option === "ferry" ? "Activa: ferry y vista cercana de la Estatua" : "Activa: paseo urbano completo por Lower Manhattan"}</p></section>` : ""}
+    ${index === 5 ? `<section class="day2-options" aria-label="Versiones del Día 6"><p class="section-kicker">Elige el enfoque de la tarde</p><div class="day2-option-grid">
+      <button class="${day6Option === "flexible" ? "active" : ""}" data-day6-option="flexible"><span>Opción 1</span><strong>Upper West Side + flexible</strong><small>Zabar’s · compras pendientes · Coney o descanso</small></button>
+      <button class="${day6Option === "highline" ? "active" : ""}" data-day6-option="highline"><span>Opción 2</span><strong>High Line + Chelsea</strong><small>Hudson Yards · SoHo · tiendas · Katz’s</small></button>
+    </div><p class="option-status">${day6Option === "highline" ? "Activa: High Line, Chelsea, SoHo y Lower East Side" : "Activa: Upper West Side y tarde flexible"}</p></section>` : ""}
     <section class="day-route-panel">
       <div><p class="section-kicker">Mapa de ruta</p><h2>Recorrido del día</h2><span class="online-note">Requiere internet</span></div>
       <div class="route-segments">${routes.map((route, routeIndex) => `<a href="${route.url}" target="_blank" rel="noopener"><span>0${routeIndex + 1}</span>${route.label}<b>Maps ↗</b></a>`).join("")}</div>
@@ -569,8 +674,8 @@ function itineraryView() {
 function mealView(meal = "day1-lunch") {
   const data = mealOptions[meal] || mealOptions["day1-lunch"];
   return `<div class="fade-in">
+    <button class="sticky-back" data-action="itinerary">${backToDayLabel()}</button>
     <header class="page-header">
-      <button class="back back-prominent" data-action="itinerary">${backToDayLabel()}</button>
       <p class="section-kicker">${data.kicker}</p>
       <h1>${data.title}</h1>
       <p class="section-note">${data.intro}</p>
@@ -597,8 +702,8 @@ function mealView(meal = "day1-lunch") {
 function placeDetailView(id) {
   const place = placeDetails[id] || placeDetails.bryant;
   return `<div class="fade-in place-detail">
+    <button class="sticky-back" data-action="back-origin">${placeBackLabel()}</button>
     <header class="page-header detail-header">
-      <button class="back back-prominent" data-action="back-origin">${placeBackLabel()}</button>
       <p class="section-kicker">${place.kicker}</p>
       <h1>${place.title}</h1>
       <p class="detail-address">${place.address}</p>
@@ -639,6 +744,7 @@ function infoView() {
       <article class="info-card"><h2>Vuelos</h2><p>Llegada · JFK · septiembre 10 · 06:15</p><p>Septiembre 16 · Delta 3779 · JFK → SAT<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p><p>Aeroméxico 633 · SAT → MEX<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p></article>
       <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y rutas recomendadas de cada día para llegar y regresar al hotel.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
       <article class="info-card"><h2>Reservas</h2><p><strong>Sep 10 · Yankees–Rockies</strong><br>Pinstripe Pass · confirmado</p><p><strong>Sep 11 · Yankees–Mets</strong><br>Section 421 · Row 14 · Seats 20–21 · confirmado</p><p>Sonny Rollins at Dizzy’s · Sep 10 · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
+      <article class="info-card photo-credits"><h2>Créditos fotográficos</h2><p>Fotografías adicionales de Central Park, Domino Park, High Line y Chelsea: Jon McIntosh, Library of Congress, Mig Gilbert, Aude y La Citta Vita, vía Wikimedia Commons.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Consultar licencias y fuentes ↗</a></article>
     </section></div>`;
 }
 
@@ -663,19 +769,24 @@ function render(route = "home") {
   app.innerHTML = views[safeRoute]();
   navItems.forEach(item => item.classList.toggle("active", item.dataset.route === safeRoute || (["itinerary", "meal", "place"].includes(safeRoute) && item.dataset.route === "itinerary") || (safeRoute === "transport" && item.dataset.route === "info")));
   history.replaceState(null, "", `#${safeRoute}`);
+  app.focus({ preventScroll: true });
   if (safeRoute === "itinerary" && sessionStorage.getItem("restoreTimeline") === "true") {
     const savedItem = app.querySelector(`[data-timeline-item="${sessionStorage.getItem("timelineItem")}"]`);
-    requestAnimationFrame(() => savedItem?.scrollIntoView({ block: "center", behavior: "instant" }));
+    const savedScroll = Number(sessionStorage.getItem("itineraryScroll") || 0);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (savedItem) savedItem.scrollIntoView({ block: "center", behavior: "auto" });
+      else window.scrollTo({ top: savedScroll, behavior: "auto" });
+    }));
     sessionStorage.removeItem("restoreTimeline");
   } else {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }
-  requestAnimationFrame(() => app.querySelector(".day-chip.active")?.scrollIntoView({ inline: "center", block: "nearest", behavior: "instant" }));
-  app.focus({ preventScroll: true });
+  requestAnimationFrame(() => app.querySelector(".day-chip.active")?.scrollIntoView({ inline: "center", block: "nearest", behavior: "auto" }));
 }
 
 function rememberTimeline(element) {
   const item = element.closest("[data-timeline-item]");
+  sessionStorage.setItem("itineraryScroll", String(window.scrollY));
   if (item) sessionStorage.setItem("timelineItem", item.dataset.timelineItem);
 }
 
@@ -714,6 +825,8 @@ document.addEventListener("click", (event) => {
   if (action === "toggle-summary") { sessionStorage.setItem("summaryMode", sessionStorage.getItem("summaryMode") === "true" ? "false" : "true"); render("itinerary"); }
   const day2Option = event.target.closest("[data-day2-option]")?.dataset.day2Option;
   if (day2Option) { sessionStorage.setItem("day2Option", day2Option); sessionStorage.removeItem("restoreTimeline"); render("itinerary"); }
+  const day6Option = event.target.closest("[data-day6-option]")?.dataset.day6Option;
+  if (day6Option) { sessionStorage.setItem("day6Option", day6Option); sessionStorage.removeItem("restoreTimeline"); render("itinerary"); }
   const filter = event.target.closest("[data-place-filter]")?.dataset.placeFilter;
   if (filter) { document.querySelectorAll("[data-place-filter]").forEach(button => button.classList.toggle("active", button.dataset.placeFilter === filter)); filterPlaces(); }
   const copy = event.target.closest("[data-copy]");
