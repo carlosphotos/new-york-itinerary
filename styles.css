@@ -182,6 +182,12 @@ button { color: inherit; font: inherit; }
 .sight-item > span { color: var(--blue); font: 600 18px/1 var(--serif); }
 .sight-item h2 { margin: 0; font: 600 23px/1 var(--serif); }
 .sight-item p { margin: 7px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+.sight-photo { margin: 0 0 14px; }
+.sight-photo img { display: block; width: 100%; height: clamp(170px, 48vw, 270px); object-fit: cover; background: var(--blue-pale); filter: saturate(.85) contrast(.97); }
+.sight-photo figcaption { margin-top: 6px; color: var(--muted); font-size: 8px; letter-spacing: .06em; text-transform: uppercase; }
+.places-results { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: 16px; padding: 13px 14px; background: var(--blue-pale); border-left: 3px solid var(--blue); }
+.places-results strong { font: 600 18px/1.1 var(--serif); }
+.places-results span { flex: 0 0 auto; color: var(--muted); font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
 .place-card-button { display: block; width: 100%; color: inherit; text-align: left; background: transparent; border-left: 0; border-right: 0; border-bottom: 0; }
 .card-arrow { display: inline-block; margin-top: 14px; font-size: 8px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); }
 

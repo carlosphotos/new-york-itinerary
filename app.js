@@ -1,4 +1,4 @@
-const APP_VERSION = "13";
+const APP_VERSION = "14";
 
 const tripDays = [
   {
@@ -288,11 +288,11 @@ Object.assign(placeDetails, {
 
 Object.assign(placeDetails, {
   day2coffee: {
-    ...guide("Square Diner o Black Fox Coffee", "Día 2 · parada opcional", "Dos formas distintas de hacer una pausa: un diner clásico de Tribeca con referencia a Daredevil o un café rápido más cercano al recorrido financiero.", ["Elegir solo uno", "Square Diner funciona mejor si quieren sentarse o desayunar algo", "Black Fox funciona mejor si el horario está apretado", "Omitir la parada si condiciona Centre 360"], "Square Diner 33 Leonard Street New York"),
-    sights: [["Square Diner", "Diner clásico en Tribeca. Conviene para café, huevos, pancakes o algo pequeño y por la referencia visual a Daredevil."], ["Black Fox Coffee", "Alternativa más rápida para pedir café y seguir hacia Stone Street sin convertir la pausa en otra actividad."]]
+    ...guide("Square Diner o Black Fox Coffee", "Día 2 · parada opcional", "Dos formas distintas de hacer una pausa: un diner clásico de Tribeca o un café rápido más cercano al recorrido financiero.", ["Elegir solo uno", "Square Diner funciona mejor si quieren sentarse o desayunar algo", "Black Fox funciona mejor si el horario está apretado", "Omitir la parada si condiciona Centre 360"], "Square Diner 33 Leonard Street New York"),
+    sights: [["Square Diner", "Diner clásico de Tribeca con barra, booths y menú tradicional. Conviene para café, huevos, pancakes o algo pequeño.", "./assets/square-diner.jpg", "Square Diner · Tribeca"], ["Black Fox Coffee", "Alternativa más rápida para pedir café y seguir hacia Stone Street sin convertir la pausa en otra actividad.", "./assets/black-fox-coffee.jpg", "Black Fox Coffee · Financial District"]]
   },
   statenferry: guide("Staten Island Ferry", "Día 2 · opción Estatua", "Ferry público de ida y vuelta para conseguir una vista mucho más cercana de la Estatua de la Libertad y del skyline desde el agua.", ["El ferry es gratuito; no comprar boletos a vendedores", "Hay que desembarcar en Staten Island y volver a abordar", "Buscar el lado derecho al salir de Manhattan para la Estatua", "Dejar margen para espera y controles de acceso"], "Whitehall Terminal Staten Island Ferry New York"),
-  squarediner: guide("Square Diner", "Día 2 · opcional", "Café o desayuno tardío en un diner clásico de Tribeca, incorporado también por su vínculo visual con Daredevil.", ["Mantener la parada entre 11:55 y 12:15", "Pedir café y algo pequeño si desayunaron temprano", "Omitirla si Centre 360 obliga a adelantar el resto del recorrido"], "Square Diner 33 Leonard Street New York"),
+  squarediner: guide("Square Diner", "Día 2 · opcional", "Café o desayuno tardío en un diner clásico de Tribeca, con barra, booths y ambiente neoyorquino tradicional.", ["Mantener la parada entre 11:55 y 12:15", "Pedir café y algo pequeño si desayunaron temprano", "Omitirla si Centre 360 obliga a adelantar el resto del recorrido"], "Square Diner 33 Leonard Street New York"),
   ferry: guide("NYC Ferry", "Día 4 · East River", "Traslado panorámico de DUMBO hacia Williamsburg.", ["Revisar la app y horarios unos días antes", "Los domingos la ruta East River puede dividirse", "Llegar al muelle con margen"], "Fulton Ferry Landing Brooklyn"),
   records: guide("Discos + circuito musical", "Día 4 · Williamsburg", "Un tramo pensado para los intereses musicales del viaje.", ["Earwax Records", "Face Records NYC", "Pasar por Music Hall of Williamsburg y Brooklyn Bowl"], "Earwax Records Brooklyn"),
   qahwah: guide("Qahwah House", "Día 4 · café opcional", "Café yemení sobre Bedford Avenue para usar solo si no hubo parada en DUMBO.", ["Probar café yemení o té", "Mantener la parada corta", "Omitirla si reduce el tiempo de Yoseka"], "Qahwah House Williamsburg Brooklyn"),
@@ -314,7 +314,7 @@ const placeByTitle = {
 };
 
 const localPhotoByPlace = {
-  battery: "battery.jpg", financial: "financial-district.jpg", stone: "financial-district.jpg", squarediner: "financial-district.jpg", day2coffee: "financial-district.jpg", statenferry: "battery.jpg",
+  battery: "battery.jpg", financial: "financial-district.jpg", stone: "financial-district.jpg", squarediner: "square-diner.jpg", day2coffee: "square-diner.jpg", statenferry: "battery.jpg",
   seaport: "seaport.jpg", ferry: "seaport.jpg", oculus: "oculus.jpg", centre360: "oculus.jpg", memorial: "memorial.jpg",
   chinatown: "chinatown.jpg", supreme: "chinatown.jpg", nyon: "chinatown.jpg", supremeonly: "chinatown.jpg", katzs: "chinatown.jpg",
   met: "met.jpg", roosevelt: "gantry.jpg", tram: "gantry.jpg", gantry: "gantry.jpg",
@@ -344,8 +344,8 @@ const groupedPlaceDetails = {
     sights: [["The Mall", "Paseo recto bajo olmos americanos; caminar hacia Bethesda observando estatuas y artistas callejeros."], ["Bethesda Terrace", "Bajar por las escaleras para ver los azulejos del techo de las arcadas y el eje hacia la fuente."], ["Bethesda Fountain", "La escultura Angel of the Waters es el centro visual; desde aquí se abre la vista hacia The Lake."], ["Bow Bridge", "Puente de hierro fundido con una de las vistas más clásicas del parque y del skyline sobre los árboles."], ["The Lake", "Mirar las barcas, The Ramble y los reflejos; no hace falta rodearlo completo antes de The Met."]]
   },
   met: {
-    photos: [["./assets/met.jpg", "The Metropolitan Museum of Art"], ["./assets/central-park.jpg", "Museum Mile junto a Central Park"]],
-    sights: [["Templo de Dendur", "El gran templo egipcio se entiende mejor rodeándolo y observando la luz del espacio."], ["Galerías egipcias", "Seguir la secuencia cronológica sin detenerse en cada vitrina."], ["Grecia y Roma", "Priorizar el gran patio de esculturas y algunas piezas señaladas."], ["Pintura europea", "Elegir previamente artistas imprescindibles para evitar recorrer salas sin dirección."], ["American Wing", "Buscar el patio, los interiores históricos y las vistas hacia Central Park."]]
+    photos: [["./assets/met.jpg", "The Metropolitan Museum of Art"]],
+    sights: [["Templo de Dendur", "El gran templo egipcio se entiende mejor rodeándolo y observando la luz del espacio.", "./assets/met-dendur.jpg", "Sala 131 · Templo de Dendur"], ["Galerías egipcias", "Seguir la secuencia cronológica sin detenerse en cada vitrina.", "./assets/met-dendur.jpg", "Ala de arte egipcio · conexión con Dendur"], ["Grecia y Roma", "Priorizar el gran patio de esculturas y algunas piezas señaladas.", "./assets/met-greek-roman.jpg", "Leon Levy and Shelby White Court"], ["Pintura europea", "Elegir previamente artistas imprescindibles para evitar recorrer salas sin dirección.", "./assets/met-european-paintings.jpg", "Galerías de pintura europea 1300–1800"], ["American Wing", "Buscar el patio, los interiores históricos y las vistas hacia Central Park.", "./assets/met-american-wing.jpg", "Charles Engelhard Court · American Wing"]]
   },
   roosevelt: {
     photos: [["./assets/gantry.jpg", "East River desde Roosevelt Island"], ["./assets/nyc-skyline.png", "Skyline de Nueva York"]],
@@ -713,7 +713,7 @@ function placeDetailView(id) {
     <section class="detail-body">
       <p class="detail-summary">${place.summary}</p>
       ${place.callout ? `<div class="ticket-callout"><span>Tu boleto</span><strong>${place.callout}</strong></div>` : ""}
-      ${place.sights ? `<div class="sights-section"><p class="section-kicker">Lugares a ver</p>${place.sights.map(([name, note], index) => `<article class="sight-item"><span>0${index + 1}</span><div><h2>${name}</h2><p>${note}</p></div></article>`).join("")}</div>` : ""}
+      ${place.sights ? `<div class="sights-section"><p class="section-kicker">Lugares a ver</p>${place.sights.map(([name, note, photo, caption], index) => `<article class="sight-item"><span>${String(index + 1).padStart(2, "0")}</span><div>${photo ? `<figure class="sight-photo"><img src="${photo}" alt="${caption || name}" loading="lazy"><figcaption>${caption || name}</figcaption></figure>` : ""}<h2>${name}</h2><p>${note}</p></div></article>`).join("")}</div>` : ""}
       <div class="detail-list"><p class="section-kicker">Qué tener en cuenta</p><ul>${place.notes.map(note => `<li>${note}</li>`).join("")}</ul></div>
       ${place.routeImage ? `<a class="route-card" href="${place.map}" target="_blank" rel="noopener"><img src="${place.routeImage}" alt="Recorrido a pie por Midtown"><span>Abrir ruta en Google Maps ↗</span></a>` : ""}
       <div class="detail-actions"><a href="${place.map}" target="_blank" rel="noopener">Abrir Maps ↗</a>${place.official ? `<a href="${place.official}" target="_blank" rel="noopener">Información oficial ↗</a>` : ""}<button data-copy="${place.address.replace(/"/g, "&quot;")}">Copiar dirección</button></div>
@@ -732,7 +732,7 @@ function placesView() {
     return "barrios";
   };
   return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Guardados para el viaje</p><h1>Lugares</h1><p class="section-note">Busca o filtra para encontrar rápidamente una ficha.</p></header>
-    <section class="places-tools"><label><span>Buscar</span><input type="search" id="placeSearch" placeholder="Nombre, barrio o día"></label><div class="filter-row">${["todos","museos","barrios","compras","transporte"].map((filter, index) => `<button class="${index === 0 ? "active" : ""}" data-place-filter="${filter}">${filter}</button>`).join("")}</div></section>
+    <section class="places-tools"><label><span>Buscar</span><input type="search" id="placeSearch" placeholder="Nombre, barrio o día"></label><div class="filter-row">${["todos","museos","barrios","compras","transporte"].map((filter, index) => `<button class="${index === 0 ? "active" : ""}" data-place-filter="${filter}">${filter}</button>`).join("")}</div><div class="places-results" aria-live="polite"><strong id="placesResultsLabel">Todos los lugares</strong><span id="placesResultsCount">${Object.keys(placeDetails).length} lugares</span></div></section>
     <section class="cards places-list">${Object.entries(placeDetails).map(([id, place]) => `<button class="place-card place-card-button" data-place="${id}" data-category="${categoryFor(place)}" data-search="${`${place.title} ${place.kicker} ${place.summary}`.toLowerCase()}"><h2>${place.title}</h2><div class="place-meta"><span class="tag">${place.kicker}</span></div><p>${place.summary}</p><span class="card-arrow">Ver lugar →</span></button>`).join("")}</section><p class="empty-results" hidden>No encontramos lugares con ese filtro.</p></div>`;
 }
 
@@ -802,6 +802,11 @@ function filterPlaces() {
   });
   const empty = document.querySelector(".empty-results");
   if (empty) empty.hidden = visible !== 0;
+  const filterLabels = { todos: "Todos los lugares", museos: "Museos", barrios: "Barrios y recorridos", compras: "Compras", transporte: "Transporte" };
+  const resultLabel = document.querySelector("#placesResultsLabel");
+  const resultCount = document.querySelector("#placesResultsCount");
+  if (resultLabel) resultLabel.textContent = query ? `Resultados para “${query}”` : filterLabels[activeFilter];
+  if (resultCount) resultCount.textContent = `${visible} ${visible === 1 ? "lugar" : "lugares"}`;
 }
 
 document.addEventListener("click", (event) => {
