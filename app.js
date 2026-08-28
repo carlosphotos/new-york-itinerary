@@ -41,11 +41,12 @@ const placeDetails = {
     map: "https://www.google.com/maps/search/?api=1&query=John+F+Kennedy+International+Airport"
   },
   hotel: {
-    kicker: "~09:00 · Highbridge", title: "Hotel / Highbridge", address: "Highbridge · New York",
-    photos: [["./assets/nyc-skyline.png", "Identidad visual de Nueva York"]],
-    summary: "Primera parada para dejar maletas y, más tarde, hacer check-in y descansar. Falta añadir el nombre y la dirección exacta del hotel.",
+    kicker: "~09:00 · The Bronx", title: "Highbridge Hotel", address: "1263 Edward L Grant Hwy · Bronx",
+    photos: [["https://images.squarespace-cdn.com/content/v1/63a3654ddfcb706a000acbea/ed6d60d5-cce0-4d28-8816-7c3f3f7c7091/HBH_1662-s_low-res.jpg", "Exterior del Highbridge Hotel"]],
+    summary: "Primera parada para dejar maletas y, más tarde, hacer check-in y descansar. El hotel está cerca de Yankee Stadium.",
     notes: ["Dejar maletas ~09:00", "Regresar ~14:30", "Check-in 15:00"],
-    map: "https://www.google.com/maps/search/?api=1&query=Highbridge+New+York"
+    map: "https://www.google.com/maps/search/?api=1&query=Highbridge+Hotel+1263+Edward+L+Grant+Hwy+Bronx",
+    official: "https://www.highbridgehotel.com/"
   },
   bryant: {
     kicker: "~10:15 · Midtown", title: "Bryant Park", address: "Bryant Park · 6th Ave & 42nd St",
@@ -58,7 +59,15 @@ const placeDetails = {
     kicker: "10:15–13:30 · Walking route", title: "Midtown clásico", address: "Bryant Park → Grand Central → Fifth Avenue → Rockefeller Center",
     photos: [["https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/IGrand_Central_Terminal%2C_71-105_E._42nd_St._New_York.jpg/960px-IGrand_Central_Terminal%2C_71-105_E._42nd_St._New_York.jpg", "Grand Central y el Chrysler Building"], ["https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/New-York_-_Bryant_Park.jpg/960px-New-York_-_Bryant_Park.jpg", "Bryant Park y la biblioteca"]],
     summary: "Un recorrido compacto por la arquitectura clásica de Midtown, con tiempo flexible para entrar a tiendas sobre Fifth Avenue.",
-    notes: ["Bryant Park y New York Public Library", "Grand Central y Chrysler Building", "St. Patrick’s Cathedral", "Rockefeller Center y tiendas de Fifth Avenue"],
+    notes: ["Mantener el paseo flexible: entrar solo a los interiores que no tengan fila", "Reservar la mayor parte de las tiendas para Fifth Avenue", "Salir hacia la comida alrededor de las 13:30 para proteger el regreso al hotel"],
+    sights: [
+      ["Bryant Park", "Recorrer el césped y la terraza de la biblioteca. Fijarse en el contraste entre el jardín y los rascacielos."],
+      ["New York Public Library", "Ver los leones Patience y Fortitude, Astor Hall y, si el acceso está disponible, la Rose Main Reading Room."],
+      ["Grand Central Terminal", "Mirar el techo celeste del Main Concourse, el reloj central y probar la Whispering Gallery junto al Oyster Bar."],
+      ["Chrysler Building", "La visita principal es exterior: observar la corona Art Déco y sus formas inspiradas en automóviles. El acceso interior puede ser limitado."],
+      ["Fifth Avenue + St. Patrick’s", "Entrar a la catedral para ver vitrales y bóvedas; mantener silencio si hay servicio. Elegir solo una o dos tiendas para no perder tiempo."],
+      ["Rockefeller Center", "Caminar por Channel Gardens, ver la estatua de Atlas, la plaza y la fachada Art Déco de 30 Rockefeller Plaza."]
+    ],
     routeImage: "./assets/midtown-route.svg",
     map: "https://www.google.com/maps/dir/?api=1&origin=Bryant+Park%2C+New+York&destination=Rockefeller+Center%2C+New+York&travelmode=walking&waypoints=Grand+Central+Terminal%2C+New+York%7CSt.+Patrick%27s+Cathedral%2C+New+York"
   },
@@ -73,7 +82,7 @@ const placeDetails = {
   },
   dizzys: {
     kicker: "21:00 · Columbus Circle", title: "Dizzy’s Club", address: "Frederick P. Rose Hall · Broadway at 60th St",
-    photos: [["./assets/nyc-skyline.png", "Vista de Manhattan, identidad del viaje"]],
+    photos: [["https://images.ctfassets.net/1aemqu6a6t65/22XtH5bb82TDJ6K99D9PNl/d3c9836cec8c300cd67011b8cdc3fd00/dizzysclubcocacolafromhouseleft?fit=fill&h=630&q=82&w=1200", "Interior de Dizzy’s Club con vista al skyline"]],
     summary: "Club íntimo de Jazz at Lincoln Center con vistas panorámicas de Central Park y del skyline. Llegada prevista ~20:40.",
     notes: ["Set de las 21:00", "Reservas recomendadas", "Confirmar acceso y código de reserva"],
     map: "https://www.google.com/maps/search/?api=1&query=Dizzy%27s+Club+Broadway+at+60th+Street+New+York",
@@ -177,6 +186,7 @@ function mealView(meal = "lunch") {
         </div>
       </article>`).join("")}
     </section>
+    <button class="return-itinerary" data-action="itinerary">← Regresar al itinerario</button>
   </div>`;
 }
 
@@ -193,6 +203,7 @@ function placeDetailView(id) {
     <section class="detail-body">
       <p class="detail-summary">${place.summary}</p>
       ${place.callout ? `<div class="ticket-callout"><span>Your ticket</span><strong>${place.callout}</strong></div>` : ""}
+      ${place.sights ? `<div class="sights-section"><p class="section-kicker">Lugares a ver</p>${place.sights.map(([name, note], index) => `<article class="sight-item"><span>0${index + 1}</span><div><h2>${name}</h2><p>${note}</p></div></article>`).join("")}</div>` : ""}
       <div class="detail-list"><p class="section-kicker">Keep in mind</p><ul>${place.notes.map(note => `<li>${note}</li>`).join("")}</ul></div>
       ${place.routeImage ? `<a class="route-card" href="${place.map}" target="_blank" rel="noopener"><img src="${place.routeImage}" alt="Recorrido a pie por Midtown"><span>Open live route in Google Maps ↗</span></a>` : ""}
       <div class="detail-actions"><a href="${place.map}" target="_blank" rel="noopener">Open in Maps ↗</a>${place.official ? `<a href="${place.official}" target="_blank" rel="noopener">Official info ↗</a>` : ""}</div>
