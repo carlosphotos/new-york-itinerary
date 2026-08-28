@@ -422,34 +422,63 @@ function backToDayLabel() {
   return `← Regresar al Día ${selectedDay().index + 1}`;
 }
 
+function placeBackLabel() {
+  return sessionStorage.getItem("detailOrigin") === "places" ? "← Regresar a Lugares" : backToDayLabel();
+}
+
 function dayStrip() {
   const selected = Number(sessionStorage.getItem("selectedDay") || 0);
-  return `<div class="day-strip" aria-label="Días del viaje">${tripDays.map((day, i) => `
-    <button class="day-chip ${i === selected ? "active" : ""}" data-day="${i}" aria-label="${day.name} ${day.number}">
-      <span class="day-number">${day.number}</span><span class="day-name">${day.name}</span>
-    </button>`).join("")}</div>`;
+  const shortDays = ["Jue", "Vie", "Sáb", "Dom", "Lun", "Mar", "Mié"];
+  return `<div class="day-strip-wrap"><div class="day-strip" aria-label="Días del viaje">${tripDays.map((day, i) => `
+    <button class="day-chip ${i === selected ? "active" : ""}" data-day="${i}" aria-label="Día ${i + 1}, septiembre ${day.number}">
+      <span class="day-number">${day.number}</span><span class="day-name">${shortDays[i]}</span>
+    </button>`).join("")}</div><span class="day-strip-hint">Desliza para ver todos los días →</span></div>`;
+}
+
+function tripContext() {
+  const today = new Date();
+  const start = new Date(2026, 8, 10);
+  const end = new Date(2026, 8, 16, 23, 59, 59);
+  const oneDay = 86400000;
+  if (today < start) return { index: 0, kicker: `Faltan ${Math.max(1, Math.ceil((start - today) / oneDay))} días`, title: "Tu viaje a Nueva York", theme: "El itinerario ya está listo", button: "Ver el primer día →" };
+  if (today > end) return { index: 0, kicker: "Guía del viaje", title: "Nueva York, día por día", theme: "Septiembre 10–16 · 2026", button: "Abrir el itinerario →" };
+  const index = Math.min(6, Math.floor((today - start) / oneDay));
+  return { index, kicker: `Hoy · Día ${index + 1}`, title: "Tu día en Nueva York", theme: tripDays[index].theme, button: "Ver el itinerario de hoy →" };
 }
 
 function homeView() {
+  const context = tripContext();
+  const day = tripDays[context.index];
+  const first = day.timeline[0];
   return `<div class="fade-in">
     <section class="hero">
       <img class="skyline" src="./assets/nyc-skyline.png" alt="Ilustración panorámica del skyline de Nueva York">
       <div class="hero-copy"><h1>NEW YORK</h1><p class="dates">September 10–16 · 2026</p></div>
     </section>
     <section class="section">
-      <p class="section-kicker">Today · Day one</p>
-      <h2 class="section-title">Your day<br>in New York</h2>
-      <p class="section-note">Arrival · Midtown · Baseball · Jazz</p>
+      <p class="section-kicker">${context.kicker}</p>
+      <h2 class="section-title">${context.title}</h2>
+      <p class="section-note">${context.theme}</p>
       <article class="today-card">
-        <p class="today-date">Thursday, September 10</p>
-        <p class="today-theme">New York begins here</p>
-        <p class="next-label">First stop</p>
-        <div class="next-row"><span class="next-time">06:15</span><span class="next-place">JFK</span><span class="next-detail">Arrival in New York</span></div>
-        <button class="text-button" data-action="day-one">View today’s itinerary →</button>
+        <p class="today-date">Día ${context.index + 1} · Septiembre ${day.number}</p>
+        <p class="today-theme">${day.theme}</p>
+        <p class="next-label">Primera parada</p>
+        <div class="next-row"><span class="next-time">${first[0]}</span><span class="next-place">${first[1]}</span><span class="next-detail">${first[2]}</span></div>
+        <button class="text-button" data-action="current-day" data-current-day="${context.index}">${context.button}</button>
       </article>
     </section>
     ${dayStrip()}
   </div>`;
+}
+
+function periodFor(time) {
+  const match = String(time).match(/(\d{1,2}):/);
+  if (!match) return "Opciones";
+  const hour = Number(match[1]);
+  if (hour === 0 || hour >= 20) return "Noche";
+  if (hour <= 11) return "Mañana";
+  if (hour <= 14) return "Mediodía";
+  return "Tarde";
 }
 
 function itineraryView() {
@@ -459,27 +488,39 @@ function itineraryView() {
   return `<div class="fade-in">
     <header class="page-header">
       <button class="back" data-action="home">← New York</button>
-      <p class="section-kicker">Day ${index + 1} · ${day.label}</p>
+      <p class="section-kicker">Día ${index + 1}</p>
       <h1>${day.month} ${day.number}</h1>
       <p class="subtitle">${day.theme}</p>
       <img class="mini-skyline" src="./assets/nyc-skyline.png" alt="">
     </header>
     ${dayStrip()}
     <section class="day-route-panel">
-      <div><p class="section-kicker">Route map</p><h2>Recorrido del día</h2></div>
-      <div class="route-segments">${routes.map((route, routeIndex) => `<a href="${route.url}" target="_blank" rel="noopener"><span>0${routeIndex + 1}</span>${route.label}<b>↗</b></a>`).join("")}</div>
+      <div><p class="section-kicker">Mapa de ruta</p><h2>Recorrido del día</h2><span class="online-note">Requiere internet</span></div>
+      <div class="route-segments">${routes.map((route, routeIndex) => `<a href="${route.url}" target="_blank" rel="noopener"><span>0${routeIndex + 1}</span>${route.label}<b>Maps ↗</b></a>`).join("")}</div>
     </section>
-    <ol class="timeline">${day.timeline.map(([time, title, detail, kind]) => {
+    <div class="timeline-toolbar"><p>Vista del itinerario</p><button data-action="toggle-summary" aria-pressed="${sessionStorage.getItem("summaryMode") === "true"}">${sessionStorage.getItem("summaryMode") === "true" ? "Ver todo" : "Ver resumen"}</button></div>
+    <ol class="timeline">${(() => {
+      const summary = sessionStorage.getItem("summaryMode") === "true";
+      let lastPeriod = "";
+      const seenPlaces = new Set();
+      return day.timeline.map(([time, title, detail, kind], itemIndex) => {
       const mappedPlace = placeByTitle[title];
       const placeId = kind.startsWith("place-") ? kind.slice(6) : mappedPlace;
-      return `
-      <li class="timeline-item ${placeId ? "featured" : ""} ${kind === "optional" ? "optional-item" : ""}">
+      const important = placeId || kind.startsWith("meal-") || itemIndex === 0 || itemIndex === day.timeline.length - 1;
+      const repeatedPlace = placeId && seenPlaces.has(placeId);
+      if (summary && (!important || repeatedPlace)) return "";
+      if (placeId) seenPlaces.add(placeId);
+      const period = periodFor(time);
+      const divider = period !== lastPeriod ? `<li class="time-period"><span>${period}</span></li>` : "";
+      lastPeriod = period;
+      return `${divider}
+      <li class="timeline-item ${placeId ? "featured" : ""} ${kind.startsWith("meal-") ? "meal-item" : ""} ${kind === "optional" ? "optional-item" : ""}" data-timeline-item="${itemIndex}">
         <time class="timeline-time">${time}</time><span class="timeline-line" aria-hidden="true"></span>
         <div class="timeline-content"><h2>${title}</h2><p>${detail}</p>
-          ${kind === "optional" ? `<span class="optional-label">Optional</span>` : ""}
-          ${kind.startsWith("meal-") ? `<button data-meal="${kind.slice(5)}">See options →</button>` : placeId ? `<button data-place="${placeId}">View place →</button>` : ""}
+          ${kind === "optional" ? `<span class="optional-label">Opcional</span>` : ""}
+          ${kind.startsWith("meal-") ? `<button data-meal="${kind.slice(5)}">Ver opciones →</button>` : placeId ? `<button data-place="${placeId}">Ver lugar →</button>` : ""}
         </div>
-      </li>`; }).join("")}</ol>
+      </li>`; }).join(""); })()}</ol>
   </div>`;
 }
 
@@ -499,11 +540,12 @@ function mealView(meal = "day1-lunch") {
         <h2>${item[0]}</h2>
         <p class="food-location">${item[3]}</p>
         <p>${item[4]}</p>
-        <div class="order-note"><span>What to order</span><p>${item[5]}</p></div>
+        <div class="order-note"><span>Qué pedir</span><p>${item[5]}</p></div>
         <div class="food-actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item[7])}" target="_blank" rel="noopener">Open in Maps ↗</a>
-          <a href="${item[6]}" target="_blank" rel="noopener">Menu ↗</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item[7])}" target="_blank" rel="noopener">Abrir Maps ↗</a>
+          <a href="${item[6]}" target="_blank" rel="noopener">Menú ↗</a>
         </div>
+        <span class="online-note">Enlaces externos · requieren internet</span>
       </article>`).join("")}
     </section>
     <button class="return-itinerary" data-action="itinerary">${backToDayLabel()}</button>
@@ -514,42 +556,52 @@ function placeDetailView(id) {
   const place = placeDetails[id] || placeDetails.bryant;
   return `<div class="fade-in place-detail">
     <header class="page-header detail-header">
-      <button class="back back-prominent" data-action="itinerary">${backToDayLabel()}</button>
+      <button class="back back-prominent" data-action="back-origin">${placeBackLabel()}</button>
       <p class="section-kicker">${place.kicker}</p>
       <h1>${place.title}</h1>
       <p class="detail-address">${place.address}</p>
     </header>
-    <div class="photo-scroll">${place.photos.map(([src, alt]) => `<img src="${src}" alt="${alt}" loading="lazy" onerror="this.onerror=null;this.src='./assets/nyc-skyline.png'">`).join("")}</div>
+    <div class="gallery-label"><span>Fotografías</span>${place.photos.length > 1 ? "<b>Desliza →</b>" : ""}</div>
+    <div class="photo-scroll">${place.photos.map(([src, alt]) => `<figure><img src="${src}" alt="${alt}" loading="lazy" onerror="this.onerror=null;this.src='./assets/nyc-skyline.png'"><figcaption>${alt}</figcaption></figure>`).join("")}</div>
     <section class="detail-body">
       <p class="detail-summary">${place.summary}</p>
-      ${place.callout ? `<div class="ticket-callout"><span>Your ticket</span><strong>${place.callout}</strong></div>` : ""}
+      ${place.callout ? `<div class="ticket-callout"><span>Tu boleto</span><strong>${place.callout}</strong></div>` : ""}
       ${place.sights ? `<div class="sights-section"><p class="section-kicker">Lugares a ver</p>${place.sights.map(([name, note], index) => `<article class="sight-item"><span>0${index + 1}</span><div><h2>${name}</h2><p>${note}</p></div></article>`).join("")}</div>` : ""}
-      <div class="detail-list"><p class="section-kicker">Keep in mind</p><ul>${place.notes.map(note => `<li>${note}</li>`).join("")}</ul></div>
-      ${place.routeImage ? `<a class="route-card" href="${place.map}" target="_blank" rel="noopener"><img src="${place.routeImage}" alt="Recorrido a pie por Midtown"><span>Open live route in Google Maps ↗</span></a>` : ""}
-      <div class="detail-actions"><a href="${place.map}" target="_blank" rel="noopener">Open in Maps ↗</a>${place.official ? `<a href="${place.official}" target="_blank" rel="noopener">Official info ↗</a>` : ""}</div>
+      <div class="detail-list"><p class="section-kicker">Qué tener en cuenta</p><ul>${place.notes.map(note => `<li>${note}</li>`).join("")}</ul></div>
+      ${place.routeImage ? `<a class="route-card" href="${place.map}" target="_blank" rel="noopener"><img src="${place.routeImage}" alt="Recorrido a pie por Midtown"><span>Abrir ruta en Google Maps ↗</span></a>` : ""}
+      <div class="detail-actions"><a href="${place.map}" target="_blank" rel="noopener">Abrir Maps ↗</a>${place.official ? `<a href="${place.official}" target="_blank" rel="noopener">Información oficial ↗</a>` : ""}<button data-copy="${place.address.replace(/"/g, "&quot;")}">Copiar dirección</button></div>
+      <p class="online-note">Maps e información oficial requieren internet. La dirección y esta ficha quedan guardadas.</p>
     </section>
-    <button class="return-itinerary" data-action="itinerary">${backToDayLabel()}</button>
+    <button class="return-itinerary" data-action="back-origin">${placeBackLabel()}</button>
   </div>`;
 }
 
 function placesView() {
-  return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Saved for the trip</p><h1>Places</h1><p class="section-note">Toca cualquier lugar para ver su información práctica.</p></header>
-    <section class="cards">${Object.entries(placeDetails).map(([id, place]) => `<button class="place-card place-card-button" data-place="${id}"><h2>${place.title}</h2><div class="place-meta"><span class="tag">${place.kicker}</span></div><p>${place.summary}</p><span class="card-arrow">View place →</span></button>`).join("")}</section></div>`;
+  const categoryFor = place => {
+    const text = `${place.kicker} ${place.title}`.toLowerCase();
+    if (/muse|moma|metropolitan/.test(text)) return "museos";
+    if (/compras|stationery|supreme|nowhere/.test(text)) return "compras";
+    if (/tram|ferry|airport|hotel/.test(text)) return "transporte";
+    return "barrios";
+  };
+  return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Guardados para el viaje</p><h1>Lugares</h1><p class="section-note">Busca o filtra para encontrar rápidamente una ficha.</p></header>
+    <section class="places-tools"><label><span>Buscar</span><input type="search" id="placeSearch" placeholder="Nombre, barrio o día"></label><div class="filter-row">${["todos","museos","barrios","compras","transporte"].map((filter, index) => `<button class="${index === 0 ? "active" : ""}" data-place-filter="${filter}">${filter}</button>`).join("")}</div></section>
+    <section class="cards places-list">${Object.entries(placeDetails).map(([id, place]) => `<button class="place-card place-card-button" data-place="${id}" data-category="${categoryFor(place)}" data-search="${`${place.title} ${place.kicker} ${place.summary}`.toLowerCase()}"><h2>${place.title}</h2><div class="place-meta"><span class="tag">${place.kicker}</span></div><p>${place.summary}</p><span class="card-arrow">Ver lugar →</span></button>`).join("")}</section><p class="empty-results" hidden>No encontramos lugares con ese filtro.</p></div>`;
 }
 
 function infoView() {
-  return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Travel notes</p><h1>Info</h1><p class="section-note">La información esencial, disponible incluso sin conexión.</p></header>
+  return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Datos del viaje</p><h1>Info</h1><p class="section-note">La información esencial, disponible incluso sin conexión.</p><span class="offline-badge">✓ Guardada para consultar sin conexión</span></header>
     <section class="cards">
-      <article class="info-card"><h2>Highbridge Hotel</h2><p>1263 Edward L Grant Hwy · Bronx<br>347-508-4550</p><p><strong>Reserva:</strong> <span class="placeholder">pendiente de añadir</span></p></article>
-      <article class="info-card"><h2>Flights</h2><p>Arrival · JFK · September 10 · 06:15</p><p>September 16 · Delta 3779 · JFK → SAT<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p><p>Aeroméxico 633 · SAT → MEX<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p></article>
-      <article class="info-card info-feature"><p class="section-kicker">Independent sheet</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y rutas recomendadas de cada día para llegar y regresar al hotel.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
-      <article class="info-card"><h2>Reservations</h2><p><strong>Sep 10 · Yankees–Rockies</strong><br>Pinstripe Pass · confirmado</p><p><strong>Sep 11 · Yankees–Mets</strong><br>Section 421 · Row 14 · Seats 20–21 · confirmado</p><p>Sonny Rollins at Dizzy’s · Sep 10 · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
-      <article class="info-card"><h2>Emergency</h2><p><strong>911</strong> · policía, incendio o ambulancia<br><strong>311</strong> · servicios y ayuda no urgente de NYC</p><p>Highbridge Hotel · 347-508-4550</p><p class="placeholder">Añadir aquí: números de reserva del hotel y vuelos, seguro y contacto de emergencia.</p></article>
+      <article class="info-card emergency-card"><p class="section-kicker">Acceso rápido</p><h2>Emergencia y regreso</h2><div class="emergency-actions"><a href="tel:911">Llamar 911</a><a href="tel:311">Llamar 311</a><a href="tel:+13475084550">Hotel</a></div><p><strong>911</strong> · policía, incendio o ambulancia<br><strong>311</strong> · servicios y ayuda no urgente de NYC</p><button class="info-link-button" data-action="transport">Cómo regresar al hotel →</button></article>
+      <article class="info-card"><h2>Highbridge Hotel</h2><p>1263 Edward L Grant Hwy · Bronx<br>347-508-4550</p><p><strong>Reserva:</strong> <span class="placeholder">pendiente de añadir</span></p><div class="inline-actions"><button data-copy="1263 Edward L Grant Hwy, Bronx, NY">Copiar dirección</button><a href="https://www.google.com/maps/search/?api=1&query=Highbridge+Hotel+Bronx" target="_blank" rel="noopener">Maps ↗</a></div></article>
+      <article class="info-card"><h2>Vuelos</h2><p>Llegada · JFK · septiembre 10 · 06:15</p><p>Septiembre 16 · Delta 3779 · JFK → SAT<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p><p>Aeroméxico 633 · SAT → MEX<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p></article>
+      <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y rutas recomendadas de cada día para llegar y regresar al hotel.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
+      <article class="info-card"><h2>Reservas</h2><p><strong>Sep 10 · Yankees–Rockies</strong><br>Pinstripe Pass · confirmado</p><p><strong>Sep 11 · Yankees–Mets</strong><br>Section 421 · Row 14 · Seats 20–21 · confirmado</p><p>Sonny Rollins at Dizzy’s · Sep 10 · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
     </section></div>`;
 }
 
 function transportView() {
-  return `<div class="fade-in"><header class="page-header"><button class="back back-prominent" data-action="info">← Regresar a Info</button><p class="section-kicker">Independent sheet</p><h1>Guía de transporte</h1><p class="section-note">Rutas sugeridas para 2026. Abre Maps antes de salir para confirmar servicio, obras y el mejor andén.</p></header>
+  return `<div class="fade-in"><header class="page-header"><button class="back back-prominent" data-action="info">← Regresar a Info</button><p class="section-kicker">Hoja independiente</p><h1>Guía de transporte</h1><p class="section-note">Rutas sugeridas para 2026. Abre Maps antes de salir para confirmar servicio, obras y el mejor andén.</p><span class="online-note">Las instrucciones quedan guardadas; Maps requiere internet</span></header>
     <section class="fare-grid">
       <article><span>Metro + local bus</span><strong>US$3.00</strong><p>OMNY · tope semanal US$35. Cada persona debe usar siempre su propia tarjeta o dispositivo.</p></article>
       <article><span>Roosevelt Tram</span><strong>US$3.00</strong><p>Misma tarifa MTA y acepta OMNY. Se vuelve a pagar para el viaje de regreso.</p></article>
@@ -569,8 +621,34 @@ function render(route = "home") {
   app.innerHTML = views[safeRoute]();
   navItems.forEach(item => item.classList.toggle("active", item.dataset.route === safeRoute || (["itinerary", "meal", "place"].includes(safeRoute) && item.dataset.route === "itinerary") || (safeRoute === "transport" && item.dataset.route === "info")));
   history.replaceState(null, "", `#${safeRoute}`);
-  window.scrollTo({ top: 0, behavior: "instant" });
+  if (safeRoute === "itinerary" && sessionStorage.getItem("restoreTimeline") === "true") {
+    const savedItem = app.querySelector(`[data-timeline-item="${sessionStorage.getItem("timelineItem")}"]`);
+    requestAnimationFrame(() => savedItem?.scrollIntoView({ block: "center", behavior: "instant" }));
+    sessionStorage.removeItem("restoreTimeline");
+  } else {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+  requestAnimationFrame(() => app.querySelector(".day-chip.active")?.scrollIntoView({ inline: "center", block: "nearest", behavior: "instant" }));
   app.focus({ preventScroll: true });
+}
+
+function rememberTimeline(element) {
+  const item = element.closest("[data-timeline-item]");
+  if (item) sessionStorage.setItem("timelineItem", item.dataset.timelineItem);
+}
+
+function filterPlaces() {
+  const query = (document.querySelector("#placeSearch")?.value || "").trim().toLowerCase();
+  const activeFilter = document.querySelector("[data-place-filter].active")?.dataset.placeFilter || "todos";
+  let visible = 0;
+  document.querySelectorAll(".places-list .place-card").forEach(card => {
+    const matchesFilter = activeFilter === "todos" || card.dataset.category === activeFilter;
+    const matchesQuery = !query || card.dataset.search.includes(query);
+    card.hidden = !(matchesFilter && matchesQuery);
+    if (!card.hidden) visible += 1;
+  });
+  const empty = document.querySelector(".empty-results");
+  if (empty) empty.hidden = visible !== 0;
 }
 
 document.addEventListener("click", (event) => {
@@ -581,15 +659,24 @@ document.addEventListener("click", (event) => {
   const action = event.target.closest("[data-action]")?.dataset.action;
   const meal = event.target.closest("[data-meal]")?.dataset.meal;
   const place = event.target.closest("[data-place]")?.dataset.place;
-  if (meal) { sessionStorage.setItem("selectedMeal", meal); render("meal"); }
-  if (place) { sessionStorage.setItem("selectedPlace", place); render("place"); }
+  if (meal) { rememberTimeline(event.target); sessionStorage.setItem("selectedMeal", meal); render("meal"); }
+  if (place) { rememberTimeline(event.target); sessionStorage.setItem("detailOrigin", location.hash.slice(1) === "places" ? "places" : "itinerary"); sessionStorage.setItem("selectedPlace", place); render("place"); }
   if (action === "day-one") { sessionStorage.setItem("selectedDay", "0"); render("itinerary"); }
+  if (action === "current-day") { sessionStorage.setItem("selectedDay", event.target.closest("[data-current-day]")?.dataset.currentDay || "0"); render("itinerary"); }
   if (action === "home") render("home");
-  if (action === "itinerary") render("itinerary");
+  if (action === "itinerary") { if (["meal", "place"].includes(location.hash.slice(1))) sessionStorage.setItem("restoreTimeline", "true"); render("itinerary"); }
+  if (action === "back-origin") { const origin = sessionStorage.getItem("detailOrigin"); if (origin === "places") render("places"); else { sessionStorage.setItem("restoreTimeline", "true"); render("itinerary"); } }
   if (action === "places") render("places");
   if (action === "info") render("info");
   if (action === "transport") render("transport");
+  if (action === "toggle-summary") { sessionStorage.setItem("summaryMode", sessionStorage.getItem("summaryMode") === "true" ? "false" : "true"); render("itinerary"); }
+  const filter = event.target.closest("[data-place-filter]")?.dataset.placeFilter;
+  if (filter) { document.querySelectorAll("[data-place-filter]").forEach(button => button.classList.toggle("active", button.dataset.placeFilter === filter)); filterPlaces(); }
+  const copy = event.target.closest("[data-copy]");
+  if (copy) navigator.clipboard?.writeText(copy.dataset.copy).then(() => { copy.textContent = "Copiado ✓"; });
 });
+
+document.addEventListener("input", event => { if (event.target.matches("#placeSearch")) filterPlaces(); });
 
 window.addEventListener("hashchange", () => render(location.hash.slice(1)));
 render(location.hash.slice(1) || "home");
