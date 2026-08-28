@@ -86,6 +86,15 @@ button { color: inherit; font: inherit; }
 .timeline-toolbar button { min-height: 40px; border: 0; background: transparent; color: var(--blue); font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 .time-period { margin: 12px 0 24px 82px; border-bottom: 1px solid var(--line); }
 .time-period span { display: inline-block; transform: translateY(6px); padding-right: 12px; background: var(--paper); color: var(--blue); font-size: 10px; font-weight: 600; letter-spacing: .17em; text-transform: uppercase; }
+.day2-options { margin: 25px 22px 0; padding-top: 21px; border-top: 1px solid var(--line); }
+.day2-option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
+.day2-option-grid button { min-height: 142px; padding: 16px 13px; border: 1px solid var(--line); background: var(--white); text-align: left; }
+.day2-option-grid button.active { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.day2-option-grid span { display: block; color: var(--blue); font-size: 9px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+.day2-option-grid strong { display: block; margin-top: 10px; font: 600 20px/1.05 var(--serif); }
+.day2-option-grid small { display: block; margin-top: 10px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+.day2-option-grid button.active small { color: rgba(248,245,239,.7); }
+.option-status { margin: 11px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
 
 .cards { display: grid; gap: 12px; padding: 24px 22px 0; }
 .place-card, .info-card { border-top: 1px solid var(--line); padding: 20px 2px 17px; }

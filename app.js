@@ -1,3 +1,5 @@
+const APP_VERSION = "12";
+
 const tripDays = [
   {
     number: "10", name: "Thu", label: "Thursday", month: "September", theme: "Arrival · Midtown · Baseball · Jazz",
@@ -16,13 +18,12 @@ const tripDays = [
     timeline: [
       ["08:30", "Desayuno", "Inicio tranquilo", ""], ["09:30", "Lower Manhattan", "Salida hacia The Battery", ""],
       ["10:30", "The Battery", "Waterfront · Estatua de la Libertad y Ellis Island", ""], ["11:00", "Bowling Green + Charging Bull", "Paseo breve", ""],
-      ["11:20–11:55", "Financial District", "Wall Street · NYSE · Federal Hall · Trinity Church", ""], ["11:55–12:15", "Square Diner", "Café o desayuno tardío opcional · referencia de Daredevil", "optional"],
+      ["11:20–11:55", "Financial District", "Wall Street · NYSE · Federal Hall · Trinity Church", ""], ["11:55–12:15", "Square Diner o Black Fox Coffee", "Café o desayuno tardío opcional", "optional"],
       ["12:15", "Stone Street", "Calle histórica", ""], ["12:35–13:20", "South Street Seaport + Pier 17", "Waterfront · vistas del Brooklyn Bridge", ""],
       ["13:40", "Oculus", "Arquitectura y vistazo a tiendas", ""], ["14:10", "Comida en Chinatown", "Cinco alternativas cantonés / dim sum", "meal-day2-lunch"],
       ["14:40", "9/11 Memorial", "North Pool · South Pool · Survivor Tree · One WTC", ""],
       ["~15:15", "Centre 360", "Prioridad si conseguimos reserva; horario flexible", "optional"],
-      ["~15:45–16:00", "Canal Street", "Vendedores y souvenirs", ""], ["16:00–16:15", "Mott + Pell Streets", "Calles históricas y ambiente de Chinatown", "place-chinatown"],
-      ["16:15–16:30", "Doyers Street", "Paseo breve antes de decidir extras", "place-chinatown"],
+      ["15:45–16:30", "Canal Street + Chinatown", "Canal · Mott · Pell · Doyers Street", "place-chinatown"],
       ["~16:30", "Supreme + New York or Nowhere", "Opcional si el tiempo y Centre 360 lo permiten", "optional"],
       ["~16:45", "Regreso al Bronx", "Traslado al hotel", ""], ["~17:30", "Hotel / cambio rápido", "Dejar compras y prepararse", ""],
       ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankee"], ["19:05", "Yankees vs. Mets", "Section 421 · Row 14 · Seats 20–21", "place-yankee"],
@@ -123,6 +124,36 @@ const tripDays = [
     ]
   }
 ];
+
+const day2FerryTimeline = [
+  ["08:30", "Desayuno", "Inicio tranquilo", ""], ["09:30", "Lower Manhattan", "Salida hacia The Battery", ""],
+  ["10:15", "The Battery", "Paseo breve antes del ferry", "place-battery"],
+  ["~10:30–12:00", "Staten Island Ferry", "Ida y vuelta · mejor vista de la Estatua y del skyline desde el agua", "place-statenferry"],
+  ["12:00", "Bowling Green + Charging Bull", "Paseo breve", ""],
+  ["12:20–13:00", "Financial District", "Wall Street · NYSE · Federal Hall · Trinity Church", ""],
+  ["13:00", "Stone Street", "Parada breve por la calle histórica", ""],
+  ["13:20", "Oculus", "Arquitectura y vistazo rápido", "place-oculus"],
+  ["13:45", "Comida en Chinatown", "Cinco alternativas cantonés / dim sum", "meal-day2-lunch"],
+  ["14:15", "9/11 Memorial", "North Pool · South Pool · Survivor Tree · One WTC", "place-memorial"],
+  ["~15:00", "Centre 360", "Sujeto al horario que consigamos", "optional"],
+  ["15:30–16:15", "Canal Street + Chinatown", "Canal · Mott · Pell · Doyers Street", "place-chinatown"],
+  ["16:15", "Supreme + New York or Nowhere", "Opcional según el tiempo", "optional"],
+  ["~16:30–16:45", "Regreso al Bronx", "Traslado al hotel", ""],
+  ["~17:30", "Hotel / cambio rápido", "Dejar compras y prepararse", ""],
+  ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankee"],
+  ["19:05", "Yankees vs. Mets", "Section 421 · Row 14 · Seats 20–21", "place-yankee"],
+  ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Highbridge Hotel", "Fin del día", "place-hotel"]
+];
+
+const day2FerryRoutes = [
+  {label:"Battery + Staten Island Ferry", url:"https://www.google.com/maps/dir/?api=1&origin=The+Battery%2C+New+York&destination=Whitehall+Terminal%2C+New+York&travelmode=walking"},
+  {label:"Financial District + Memorial", url:"https://www.google.com/maps/dir/?api=1&origin=Whitehall+Terminal%2C+New+York&destination=9%2F11+Memorial%2C+New+York&travelmode=walking&waypoints=Charging+Bull%7CStone+Street%7COculus+World+Trade+Center"},
+  {label:"Memorial + Chinatown", url:"https://www.google.com/maps/dir/?api=1&origin=9%2F11+Memorial%2C+New+York&destination=Mott+Street%2C+New+York&travelmode=walking&waypoints=City+Hall%2C+New+York"}
+];
+
+function timelineForDay(index) {
+  return index === 1 && sessionStorage.getItem("day2Option") === "ferry" ? day2FerryTimeline : tripDays[index].timeline;
+}
 
 const places = [
   ["JFK Airport", "Queens · Arrival", "Llegada y conexión hacia Manhattan. Añadiremos terminal, ruta y detalles del traslado."],
@@ -232,6 +263,11 @@ Object.assign(placeDetails, {
 });
 
 Object.assign(placeDetails, {
+  day2coffee: {
+    ...guide("Square Diner o Black Fox Coffee", "Día 2 · parada opcional", "Dos formas distintas de hacer una pausa: un diner clásico de Tribeca con referencia a Daredevil o un café rápido más cercano al recorrido financiero.", ["Elegir solo uno", "Square Diner funciona mejor si quieren sentarse o desayunar algo", "Black Fox funciona mejor si el horario está apretado", "Omitir la parada si condiciona Centre 360"], "Square Diner 33 Leonard Street New York"),
+    sights: [["Square Diner", "Diner clásico en Tribeca. Conviene para café, huevos, pancakes o algo pequeño y por la referencia visual a Daredevil."], ["Black Fox Coffee", "Alternativa más rápida para pedir café y seguir hacia Stone Street sin convertir la pausa en otra actividad."]]
+  },
+  statenferry: guide("Staten Island Ferry", "Día 2 · opción Estatua", "Ferry público de ida y vuelta para conseguir una vista mucho más cercana de la Estatua de la Libertad y del skyline desde el agua.", ["El ferry es gratuito; no comprar boletos a vendedores", "Hay que desembarcar en Staten Island y volver a abordar", "Buscar el lado derecho al salir de Manhattan para la Estatua", "Dejar margen para espera y controles de acceso"], "Whitehall Terminal Staten Island Ferry New York"),
   squarediner: guide("Square Diner", "Día 2 · opcional", "Café o desayuno tardío en un diner clásico de Tribeca, incorporado también por su vínculo visual con Daredevil.", ["Mantener la parada entre 11:55 y 12:15", "Pedir café y algo pequeño si desayunaron temprano", "Omitirla si Centre 360 obliga a adelantar el resto del recorrido"], "Square Diner 33 Leonard Street New York"),
   ferry: guide("NYC Ferry", "Día 4 · East River", "Traslado panorámico de DUMBO hacia Williamsburg.", ["Revisar la app y horarios unos días antes", "Los domingos la ruta East River puede dividirse", "Llegar al muelle con margen"], "Fulton Ferry Landing Brooklyn"),
   records: guide("Discos + circuito musical", "Día 4 · Williamsburg", "Un tramo pensado para los intereses musicales del viaje.", ["Earwax Records", "Face Records NYC", "Pasar por Music Hall of Williamsburg y Brooklyn Bowl"], "Earwax Records Brooklyn"),
@@ -245,7 +281,7 @@ Object.assign(placeDetails, {
 const placeByTitle = {
   "The Battery": "battery", "Bowling Green + Charging Bull": "financial", "Financial District": "financial", "Stone Street": "stone",
   "South Street Seaport + Pier 17": "seaport", "Oculus": "oculus", "9/11 Memorial": "memorial", "Centre 360": "centre360",
-  "Canal Street + Chinatown": "chinatown", "Supreme + New York or Nowhere": "supreme", "Square Diner": "squarediner", "Central Park": "centralpark", "The Met": "met",
+  "Canal Street + Chinatown": "chinatown", "Supreme + New York or Nowhere": "supreme", "Square Diner": "squarediner", "Square Diner o Black Fox Coffee": "day2coffee", "Staten Island Ferry": "statenferry", "Central Park": "centralpark", "The Met": "met",
   "Lexington Candy Shop": "lexington", "Roosevelt Island Tram": "tram", "Roosevelt Island": "roosevelt", "Gantry Plaza + Pepsi-Cola Sign": "gantry",
   "Brooklyn Bridge": "brooklynbridge", "DUMBO + Brooklyn Bridge Park": "dumbo", "NYC Ferry": "ferry", "Williamsburg": "williamsburg", "Discos + circuito musical": "records", "Qahwah House": "qahwah",
   "Yoseka Stationery": "yoseka", "Greenpoint": "greenpoint", "MoMA": "moma", "Primark Herald Square": "primark",
@@ -254,7 +290,7 @@ const placeByTitle = {
 };
 
 const localPhotoByPlace = {
-  battery: "battery.jpg", financial: "financial-district.jpg", stone: "financial-district.jpg", squarediner: "financial-district.jpg",
+  battery: "battery.jpg", financial: "financial-district.jpg", stone: "financial-district.jpg", squarediner: "financial-district.jpg", day2coffee: "financial-district.jpg", statenferry: "battery.jpg",
   seaport: "seaport.jpg", ferry: "seaport.jpg", oculus: "oculus.jpg", centre360: "oculus.jpg", memorial: "memorial.jpg",
   chinatown: "chinatown.jpg", supreme: "chinatown.jpg", nyon: "chinatown.jpg", supremeonly: "chinatown.jpg", katzs: "chinatown.jpg",
   met: "met.jpg", roosevelt: "gantry.jpg", tram: "gantry.jpg", gantry: "gantry.jpg",
@@ -449,7 +485,7 @@ function tripContext() {
 function homeView() {
   const context = tripContext();
   const day = tripDays[context.index];
-  const first = day.timeline[0];
+  const first = timelineForDay(context.index)[0];
   return `<div class="fade-in">
     <section class="hero">
       <img class="skyline" src="./assets/nyc-skyline.png" alt="Ilustración panorámica del skyline de Nueva York">
@@ -484,7 +520,9 @@ function periodFor(time) {
 function itineraryView() {
   const index = Number(sessionStorage.getItem("selectedDay") || 0);
   const day = tripDays[index] || tripDays[0];
-  const routes = dayRoutes[index] || [];
+  const day2Option = sessionStorage.getItem("day2Option") || "urban";
+  const timeline = timelineForDay(index);
+  const routes = index === 1 && day2Option === "ferry" ? day2FerryRoutes : (dayRoutes[index] || []);
   return `<div class="fade-in">
     <header class="page-header">
       <button class="back" data-action="home">← New York</button>
@@ -494,6 +532,10 @@ function itineraryView() {
       <img class="mini-skyline" src="./assets/nyc-skyline.png" alt="">
     </header>
     ${dayStrip()}
+    ${index === 1 ? `<section class="day2-options" aria-label="Versiones del Día 2"><p class="section-kicker">Elige el enfoque del día</p><div class="day2-option-grid">
+      <button class="${day2Option === "urban" ? "active" : ""}" data-day2-option="urban"><span>Opción 1</span><strong>Recorrido urbano completo</strong><small>Seaport · Pier 17 · mayor variedad</small></button>
+      <button class="${day2Option === "ferry" ? "active" : ""}" data-day2-option="ferry"><span>Opción 2</span><strong>Mejor vista de la Estatua</strong><small>Staten Island Ferry · skyline desde el agua</small></button>
+    </div><p class="option-status">${day2Option === "ferry" ? "Activa: ferry y vista cercana de la Estatua" : "Activa: paseo urbano completo por Lower Manhattan"}</p></section>` : ""}
     <section class="day-route-panel">
       <div><p class="section-kicker">Mapa de ruta</p><h2>Recorrido del día</h2><span class="online-note">Requiere internet</span></div>
       <div class="route-segments">${routes.map((route, routeIndex) => `<a href="${route.url}" target="_blank" rel="noopener"><span>0${routeIndex + 1}</span>${route.label}<b>Maps ↗</b></a>`).join("")}</div>
@@ -503,10 +545,10 @@ function itineraryView() {
       const summary = sessionStorage.getItem("summaryMode") === "true";
       let lastPeriod = "";
       const seenPlaces = new Set();
-      return day.timeline.map(([time, title, detail, kind], itemIndex) => {
+      return timeline.map(([time, title, detail, kind], itemIndex) => {
       const mappedPlace = placeByTitle[title];
       const placeId = kind.startsWith("place-") ? kind.slice(6) : mappedPlace;
-      const important = placeId || kind.startsWith("meal-") || itemIndex === 0 || itemIndex === day.timeline.length - 1;
+      const important = placeId || kind.startsWith("meal-") || itemIndex === 0 || itemIndex === timeline.length - 1;
       const repeatedPlace = placeId && seenPlaces.has(placeId);
       if (summary && (!important || repeatedPlace)) return "";
       if (placeId) seenPlaces.add(placeId);
@@ -590,7 +632,7 @@ function placesView() {
 }
 
 function infoView() {
-  return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Datos del viaje</p><h1>Info</h1><p class="section-note">La información esencial, disponible incluso sin conexión.</p><span class="offline-badge">✓ Guardada para consultar sin conexión</span></header>
+  return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Datos del viaje · versión ${APP_VERSION}</p><h1>Info</h1><p class="section-note">La información esencial, disponible incluso sin conexión.</p><span class="offline-badge">✓ Guardada para consultar sin conexión</span></header>
     <section class="cards">
       <article class="info-card emergency-card"><p class="section-kicker">Acceso rápido</p><h2>Emergencia y regreso</h2><div class="emergency-actions"><a href="tel:911">Llamar 911</a><a href="tel:311">Llamar 311</a><a href="tel:+13475084550">Hotel</a></div><p><strong>911</strong> · policía, incendio o ambulancia<br><strong>311</strong> · servicios y ayuda no urgente de NYC</p><button class="info-link-button" data-action="transport">Cómo regresar al hotel →</button></article>
       <article class="info-card"><h2>Highbridge Hotel</h2><p>1263 Edward L Grant Hwy · Bronx<br>347-508-4550</p><p><strong>Reserva:</strong> <span class="placeholder">pendiente de añadir</span></p><div class="inline-actions"><button data-copy="1263 Edward L Grant Hwy, Bronx, NY">Copiar dirección</button><a href="https://www.google.com/maps/search/?api=1&query=Highbridge+Hotel+Bronx" target="_blank" rel="noopener">Maps ↗</a></div></article>
@@ -670,6 +712,8 @@ document.addEventListener("click", (event) => {
   if (action === "info") render("info");
   if (action === "transport") render("transport");
   if (action === "toggle-summary") { sessionStorage.setItem("summaryMode", sessionStorage.getItem("summaryMode") === "true" ? "false" : "true"); render("itinerary"); }
+  const day2Option = event.target.closest("[data-day2-option]")?.dataset.day2Option;
+  if (day2Option) { sessionStorage.setItem("day2Option", day2Option); sessionStorage.removeItem("restoreTimeline"); render("itinerary"); }
   const filter = event.target.closest("[data-place-filter]")?.dataset.placeFilter;
   if (filter) { document.querySelectorAll("[data-place-filter]").forEach(button => button.classList.toggle("active", button.dataset.placeFilter === filter)); filterPlaces(); }
   const copy = event.target.closest("[data-copy]");
@@ -686,4 +730,13 @@ const installButton = document.querySelector("#installButton");
 window.addEventListener("beforeinstallprompt", event => { event.preventDefault(); installPrompt = event; installButton.hidden = false; });
 installButton.addEventListener("click", async () => { if (!installPrompt) return; installPrompt.prompt(); await installPrompt.userChoice; installPrompt = null; installButton.hidden = true; });
 
-if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+if ("serviceWorker" in navigator) window.addEventListener("load", async () => {
+  let reloading = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (reloading) return;
+    reloading = true;
+    window.location.reload();
+  });
+  const registration = await navigator.serviceWorker.register("./sw.js");
+  registration.update();
+});
