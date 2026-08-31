@@ -1,4 +1,4 @@
-const APP_VERSION = "17";
+const APP_VERSION = "18";
 
 const tripDays = [
   {
@@ -83,7 +83,7 @@ const tripDays = [
     ]
   },
   {
-    number: "14", name: "Mon", label: "Monday", month: "September", theme: "MoMA · Primark · High Line · Village · Top of the Rock",
+    number: "14", name: "Mon", label: "Monday", month: "September", theme: "MoMA · High Line · Chelsea · Village · Top of the Rock",
     timeline: [
       ["09:00", "Desayuno", "Inicio del día", ""], ["10:15", "Llegar al MoMA", "Prepararse para apertura", ""],
       ["10:30–11:15", "MoMA · Collection 1880s–1940s", "Modernismo, Van Gogh, Picasso y Matisse", "place-moma"],
@@ -92,10 +92,12 @@ const tripDays = [
       ["12:40–13:00", "MoMA · Sculpture Garden", "Pausa final y tienda si hay tiempo", "place-moma"], ["13:00–13:45", "Comida", "Kin Ramen plan A · Bill’s Bar & Burger plan B", "meal-day5-lunch"],
       ["~14:00–15:00", "Primark Herald Square", "Bloque principal de compras", "place-primark"],
       ["~15:00–15:10", "Empire State Building", "Vista exterior desde 34th Street", "place-herald"],
-      ["Opcional", "Koreatown", "Solo si sobra tiempo; ya no compite con High Line + Village", "optional"],
+      ["Opcional", "Koreatown", "Primer sacrificio del día; solo 20–30 min si existe margen real", "optional"],
       ["~15:30–16:35", "High Line", "Entrar por Hudson Yards / 30th St y caminar de norte a sur", "place-highline"],
-      ["~16:45–17:50", "West / Greenwich Village + 4 tiendas", "Paseo y compras al final de High Line; nombres del TikTok pendientes", "place-village"],
-      ["17:50–18:30", "Hacia Rockefeller Center", "Traslado con margen para la entrada", ""],
+      ["~16:35–17:00", "Chelsea Market", "Mercado · antigua fábrica Nabisco · snack o café opcional", "place-chelsea"],
+      ["~17:00–17:15", "Meatpacking District", "Gansevoort Street · adoquines · edificios industriales · Whitney exterior", "place-chelsea"],
+      ["~17:15–18:00", "West / Greenwich Village + 4 tiendas", "Bleecker · Greenwich Letterpress · an.mé · C.O. Bigelow · The Locavore", "place-village"],
+      ["18:00–18:30", "Hacia Rockefeller Center", "Traslado con margen para la entrada", ""],
       ["~18:30–20:00", "Top of the Rock", "Entrada 18:30–18:45 · luz · atardecer · noche · vista del Empire State", "place-topofrock"],
       ["~20:15", "Cena por Rockefeller / Midtown", "Elegir según hora de salida", "meal-day5-dinner"],
       ["~21:15–21:45", "Times Square de noche", "Luces · pantallas · Broadway · visita breve", "place-timessquare"],
@@ -103,7 +105,7 @@ const tripDays = [
     ]
   },
   {
-    number: "15", name: "Tue", label: "Tuesday", month: "September", theme: "Natural History · Upper West Side · Coney Island",
+    number: "15", name: "Tue", label: "Tuesday", month: "September", theme: "Natural History · Upper West Side · Riverside Park · Coney Island",
     timeline: [
       ["08:30", "Desayuno", "Inicio del día", ""], ["09:30", "Upper West Side", "Salida hacia el museo", ""],
       ["10:00–10:50", "AMNH · Dinosaurios", "Fósiles y grandes esqueletos", "place-amnh"],
@@ -112,9 +114,9 @@ const tripDays = [
       ["12:05–12:40", "AMNH · Gilder Center", "Arquitectura, insectario y nuevas galerías", "place-amnh"],
       ["12:40–13:00", "AMNH · Rose Center", "Hayden Sphere y exterior del planetario", "place-amnh"],
       ["~13:15", "Barney Greengrass", "Deli clásico · bagel con nova o sándwich", "meal-day6-lunch"],
-      ["14:15–14:30", "Upper West Side", "Amsterdam · Broadway · brownstones", ""], ["14:30–14:45", "Zabar’s · deli", "Quesos, salmón, bagels y productos importados", "place-zabars"],
-      ["14:45–15:00", "Zabar’s · cocina + café", "Utensilios y café opcional", "place-zabars"],
-      ["~15:00–16:15", "Hacia Coney Island", "Traslado desde Upper West Side", ""],
+      ["14:15–14:35", "Upper West Side + Zabar’s", "Broadway · brownstones · deli · cocina · café opcional", "place-zabars"],
+      ["14:35–15:00", "Riverside Park", "Paseo de 15–20 min junto al Hudson; no intentar recorrerlo entero", "place-riverside"],
+      ["~15:00–16:15", "Hacia Coney Island", "Traslado desde Riverside Park / Upper West Side", ""],
       ["~16:15–18:45", "Coney Island", "Boardwalk · playa · Wonder Wheel/Cyclone exterior · Nathan’s · ambiente", "place-coney"],
       ["~18:45–20:00", "Regreso", "Volver al Bronx y preparar maletas", ""],
       ["~20:30–21:00", "Highbridge Hotel", "Maletas listas para la salida", "place-hotel"]
@@ -168,20 +170,22 @@ const day6ManhattanTimeline = [
   ["12:05–12:40", "AMNH · Gilder Center", "Arquitectura, insectario y nuevas galerías", "place-amnh"],
   ["12:40–13:00", "AMNH · Rose Center", "Hayden Sphere y exterior del planetario", "place-amnh"],
   ["~13:15", "Barney Greengrass", "Deli clásico · bagel con nova o sándwich", "meal-day6-lunch"],
-  ["14:15–15:00", "Upper West Side + Zabar’s", "Barrio, deli, cocina y café opcional", "place-zabars"],
+  ["14:15–14:35", "Upper West Side + Zabar’s", "Broadway · brownstones · deli · cocina · café opcional", "place-zabars"],
+  ["14:35–15:00", "Riverside Park", "Paseo de 15–20 min junto al Hudson; no intentar recorrerlo entero", "place-riverside"],
   ["~15:00–15:45", "Hacia Morgan Library", "Traslado a Madison Avenue", ""],
   ["15:45–16:45", "Morgan Library", "Biblioteca histórica, manuscritos y arquitectura", "place-morgan"],
-  ["~17:15", "New York or Nowhere", "Solo si quedó pendiente del Día 2", "place-nyon"],
-  ["~17:35", "Supreme", "Solo si quedó pendiente del Día 2", "place-supremeonly"],
-  ["~18:00–19:00", "Katz’s Delicatessen", "Cena temprana · pastrami clásico", "meal-day6-dinner"],
-  ["~19:30", "Lower East Side / regreso", "Paseo breve o regreso al Bronx", ""],
+  ["~17:15–17:50", "SoHo / Nolita", "Broadway · Prince · Greene · arquitectura cast-iron · New York or Nowhere", "place-soho"],
+  ["~17:50", "Supreme", "Bowery · solo si quedó pendiente del Día 2", "place-supremeonly"],
+  ["~18:15–19:15", "Katz’s Delicatessen", "Cena temprana · pastrami clásico", "meal-day6-dinner"],
+  ["~19:15–19:45", "Lower East Side", "Paseo breve antes de regresar", ""],
   ["~20:30–21:00", "Highbridge Hotel", "Maletas listas para la salida", "place-hotel"]
 ];
 
 const day6ManhattanRoutes = [
-  {label:"AMNH → Zabar’s → Morgan", url:"https://www.google.com/maps/dir/?api=1&origin=American+Museum+of+Natural+History&destination=The+Morgan+Library+%26+Museum&travelmode=transit&waypoints=Zabar%27s"},
-  {label:"Morgan → NYON → Supreme", url:"https://www.google.com/maps/dir/?api=1&origin=The+Morgan+Library+%26+Museum&destination=Supreme+Bowery&travelmode=transit&waypoints=New+York+or+Nowhere"},
-  {label:"Supreme → Katz’s", url:"https://www.google.com/maps/dir/?api=1&origin=Supreme+Bowery&destination=Katz%27s+Delicatessen&travelmode=walking"}
+  {label:"AMNH → Zabar’s → Riverside Park", url:"https://www.google.com/maps/dir/?api=1&origin=American+Museum+of+Natural+History&destination=Riverside+Park+West+79th+Street&travelmode=walking&waypoints=Zabar%27s"},
+  {label:"Riverside Park → Morgan", url:"https://www.google.com/maps/dir/?api=1&origin=Riverside+Park+West+79th+Street&destination=The+Morgan+Library+%26+Museum&travelmode=transit"},
+  {label:"Morgan → SoHo / Nolita", url:"https://www.google.com/maps/dir/?api=1&origin=The+Morgan+Library+%26+Museum&destination=Prince+Street+and+Greene+Street%2C+New+York&travelmode=transit"},
+  {label:"NYON → Supreme → Katz’s", url:"https://www.google.com/maps/dir/?api=1&origin=New+York+or+Nowhere&destination=Katz%27s+Delicatessen&travelmode=walking&waypoints=Supreme+Bowery"}
 ];
 
 function timelineForDay(index) {
@@ -337,16 +341,21 @@ Object.assign(placeDetails, {
     photos: [["./assets/do-the-right-thing-way.jpg", "Do the Right Thing Way · Bed-Stuy"]]
   },
   village: {
-    ...guide("West / Greenwich Village + 4 tiendas", "Día 5 · 16:45", "Paseo compacto al terminar High Line, combinando calles del Village con las cuatro tiendas guardadas del TikTok.", ["Entrar desde Gansevoort Street al terminar High Line", "Mantener el bloque en unos 65 minutos", "Los nombres y direcciones exactos de las cuatro tiendas siguen pendientes de añadir", "Salir hacia Rockefeller Center a más tardar alrededor de las 17:50"], "West Village New York"),
-    photos: [["./assets/west-village.jpg", "Calles del West Village"]],
-    sights: [["West Village", "Calles irregulares, brownstones, fachadas bajas y pequeños comercios cerca de Gansevoort, Hudson y Bleecker.", "./assets/west-village.jpg", "Calles del West Village"], ["Greenwich Village", "Usar el paseo como conexión, no como recorrido exhaustivo; priorizar las tiendas y una o dos calles representativas.", "./assets/west-village.jpg", "Greenwich Village"], ["Cuatro tiendas del TikTok", "Bloque reservado. Faltan los cuatro nombres y direcciones para ordenar la ruta y crear una ficha individual de cada tienda.", "", ""]]
+    ...guide("West / Greenwich Village + 4 tiendas", "Día 5 · 17:15–18:00", "Paseo compacto desde Meatpacking por Bleecker y las calles residenciales del Village, enlazando cuatro tiendas independientes.", ["Entrar desde Gansevoort Street al terminar Meatpacking", "Mantener el bloque en unos 45 minutos", "Greenwich Letterpress está un piso arriba y no tiene rampa", "Si una tienda tiene fila, priorizar el paseo y salir hacia Rockefeller a las 18:00"], "West Village New York"),
+    photos: [["./assets/west-village.jpg", "Calles del West Village"], ["./assets/greenwich-letterpress.jpg", "Greenwich Letterpress · 15 Christopher Street"], ["./assets/an-me-bleecker.webp", "an.mé · 249 Bleecker Street"], ["./assets/co-bigelow.jpg", "C.O. Bigelow · 414 Sixth Avenue"], ["./assets/the-locavore.jpg", "The Locavore Variety Store · 434 Sixth Avenue"]],
+    sights: [["West Village + Bleecker Street", "Calles irregulares, brownstones, fachadas bajas y pequeños comercios durante la transición desde Meatpacking.", "./assets/west-village.jpg", "Calles del West Village"], ["Greenwich Letterpress", "Papelería independiente con tarjetas, pequeños regalos y productos de letterpress. Dirección: 15 Christopher Street.", "./assets/greenwich-letterpress.jpg", "Interior de Greenwich Letterpress"], ["an.mé", "Boutique de ropa, juguetes, accesorios y regalos para niños. Dirección: 249 Bleecker Street.", "./assets/an-me-bleecker.webp", "an.mé · Bleecker Street"], ["C.O. Bigelow", "Farmacia y botica histórica con productos de belleza, cuidado personal y remedios. Dirección: 414 Sixth Avenue.", "./assets/co-bigelow.jpg", "C.O. Bigelow · Sixth Avenue"], ["The Locavore", "Variety store centrada en productos independientes hechos o producidos alrededor de Nueva York. Dirección: 434 Sixth Avenue.", "./assets/the-locavore.jpg", "The Locavore Variety Store"]],
+    map: "https://www.google.com/maps/dir/?api=1&origin=Whitney+Museum+of+American+Art&destination=The+Locavore+Variety+Store&travelmode=walking&waypoints=an.me+249+Bleecker+Street%7CGreenwich+Letterpress%7CC.O.+Bigelow"
   },
   morgan: {
     ...guide("Morgan Library", "Día 6 · opción B", "Biblioteca y museo en la antigua colección de J. Pierpont Morgan, con interiores históricos, manuscritos y exposiciones.", ["225 Madison Avenue, entre 36th y 37th Streets", "Priorizar la biblioteca original y el despacho de Morgan", "La biblioteca histórica suele tener acceso gratuito los martes de 15:00 a 17:00; confirmar antes del viaje", "Mantener la visita en aproximadamente una hora"], "The Morgan Library and Museum 225 Madison Avenue New York"),
     photos: [["./assets/morgan-library.jpg", "The Morgan Library & Museum · Madison Avenue"]],
     official: "https://www.themorgan.org/visit"
   },
-  riverside: guide("Riverside Park", "Día 6 · alternativa tranquila", "Opción para bajar el ritmo antes del vuelo de regreso.", ["Pasear junto al Hudson", "Resolver compras pendientes", "Volver temprano para preparar maletas"], "Riverside Park New York")
+  riverside: {
+    ...guide("Riverside Park", "Día 6 · 14:35–15:00", "Pausa breve junto al Hudson integrada en la mañana común del Día 6, antes de elegir Coney Island o Manhattan.", ["Entrar desde el entorno de West 79th Street después de Zabar’s", "Dedicar solo 15–20 minutos al waterfront", "No intentar recorrer el parque entero", "Salir puntualmente a las 15:00 para proteger cualquiera de las dos opciones"], "Riverside Park West 79th Street New York"),
+    photos: [["./assets/riverside-park.jpg", "Riverside Park junto al Hudson"]],
+    sights: [["Hudson River promenade", "Bajar hacia el agua, caminar un tramo corto y usar las bancas como pausa antes del traslado largo de la tarde.", "./assets/riverside-park.jpg", "Riverside Park · Hudson River"]]
+  }
 });
 
 Object.assign(placeDetails.supreme, {
@@ -368,7 +377,7 @@ const placeByTitle = {
   "Brooklyn Bridge": "brooklynbridge", "DUMBO + Brooklyn Bridge Park": "dumbo", "Bed-Stuy · Do the Right Thing": "bedstuy", "NYC Ferry": "ferry", "Williamsburg": "williamsburg", "Discos + circuito musical": "records", "Qahwah House": "qahwah",
   "Yoseka Stationery": "yoseka", "Greenpoint": "greenpoint", "MoMA": "moma", "Primark Herald Square": "primark",
   "Herald Square + Macy’s": "herald", "Empire State Building": "herald", "Koreatown": "koreatown", "West / Greenwich Village + 4 tiendas": "village", "Top of the Rock": "topofrock", "Times Square de noche": "timessquare",
-  "American Museum of Natural History": "amnh", "Barney Greengrass": "barney", "Zabar’s": "zabars", "Morgan Library": "morgan", "High Line": "highline", "Chelsea + Meatpacking District": "chelsea", "Chelsea Market": "chelsea", "SoHo + Nolita": "soho", "New York or Nowhere": "nyon", "Supreme": "supremeonly", "Katz’s Delicatessen": "katzs", "Coney Island": "coney", "Riverside Park": "riverside"
+  "American Museum of Natural History": "amnh", "Barney Greengrass": "barney", "Zabar’s": "zabars", "Morgan Library": "morgan", "High Line": "highline", "Chelsea + Meatpacking District": "chelsea", "Chelsea Market": "chelsea", "Meatpacking District": "chelsea", "SoHo + Nolita": "soho", "SoHo / Nolita": "soho", "New York or Nowhere": "nyon", "Supreme": "supremeonly", "Katz’s Delicatessen": "katzs", "Coney Island": "coney", "Riverside Park": "riverside"
 };
 
 const localPhotoByPlace = {
@@ -446,14 +455,14 @@ Object.assign(placeDetails, {
     sights: [["Hudson Yards + Vessel", "Antes de entrar, mirar el nuevo conjunto urbano y el exterior de Vessel; no es necesario añadir otra visita.", "./assets/vessel.jpg", "Vessel · Hudson Yards"], ["30th Street Grove", "Inicio más tranquilo con vegetación, antiguos rieles y vistas hacia el Hudson.", "./assets/high-line-tracks.jpg", "High Line · rieles y plantaciones"], ["10th Avenue Square", "Gradas y gran ventanal sobre la avenida; buen punto para detenerse y observar la ciudad.", "./assets/high-line-10th-square.jpg", "10th Avenue Square"], ["Chelsea Market Passage", "Tramo donde la vía atraviesa edificios industriales y conecta con el acceso al mercado.", "./assets/high-line.jpg", "High Line a través de Chelsea"], ["Gansevoort Woodland", "Final arbolado cerca del Meatpacking District y del Whitney Museum.", "./assets/high-line-gansevoort.jpg", "Gansevoort Woodland"]]
   },
   chelsea: {
-    ...guide("Chelsea + Meatpacking District", "Día 6 · opción High Line", "Transición desde el parque elevado hacia calles industriales, galerías, mercado y el antiguo distrito cárnico.", ["Chelsea Market es opcional", "Mantener el bloque flexible para llegar a SoHo", "Las calles adoquinadas pueden ser incómodas con calzado poco estable"], "Chelsea Market New York"),
+    ...guide("Chelsea Market + Meatpacking", "Día 5 · 16:35–17:15", "Transición natural desde High Line hacia el Village, pasando por la antigua fábrica Nabisco y el distrito de antiguos almacenes.", ["Chelsea Market: visita rápida de 25 minutos", "Snack o café solo si no provoca retraso", "Meatpacking: paseo exterior de unos 15 minutos", "Las calles adoquinadas pueden ser incómodas con calzado poco estable", "Salir hacia el Village alrededor de las 17:15"], "Chelsea Market New York"),
     photos: [["./assets/chelsea-market-interior.jpg", "Interior de Chelsea Market"], ["./assets/meatpacking.jpg", "Gansevoort Street · Meatpacking District"]],
     sights: [["Chelsea Market", "Mercado dentro de la antigua fábrica de Nabisco. Recorrer el pasillo principal, observar detalles industriales y usarlo como descanso.", "./assets/chelsea-market-interior.jpg", "Chelsea Market · pasillo principal"], ["Meatpacking District", "Calles adoquinadas, antiguos almacenes y arquitectura contemporánea alrededor de Gansevoort Street.", "./assets/meatpacking.jpg", "Gansevoort Street · Meatpacking District"], ["Whitney Museum exterior", "Edificio de Renzo Piano al final de High Line; verlo desde fuera salvo que decidan sustituir otra actividad.", "./assets/whitney.jpg", "Whitney Museum of American Art"], ["Little Island", "Parque sobre pilotes visible desde el waterfront; solo añadirlo si llevan buen ritmo.", "./assets/little-island.jpg", "Little Island"]]
   },
   soho: {
-    ...guide("SoHo + Nolita", "Día 6 · opción High Line", "Paseo de conexión entre Chelsea y las tiendas pendientes antes de continuar al Lower East Side.", ["No convertirlo en una ruta exhaustiva de compras", "Mirar las fachadas de hierro fundido", "Proteger la llegada a Katz’s alrededor de las 18:00"], "SoHo New York"),
+    ...guide("SoHo / Nolita + NYON", "Día 6 · opción B", "Paseo de 30–40 minutos por arquitectura cast-iron, calles comerciales y Nolita antes de continuar hacia Bowery y Lower East Side.", ["Entrar por Broadway, Prince o Greene según la ruta desde Morgan", "No convertirlo en un recorrido exhaustivo de compras", "New York or Nowhere forma parte de este mismo bloque", "Salir hacia Supreme alrededor de las 17:50", "Proteger la llegada a Katz’s alrededor de las 18:15"], "SoHo New York"),
     photos: [["./assets/soho-greene-street.jpg", "Greene Street · SoHo Cast-Iron Historic District"], ["./assets/nolita.webp", "Nolita · Elizabeth Street"]],
-    sights: [["Cast-iron architecture", "En Greene y Wooster Streets fijarse en columnas, grandes ventanas y fachadas prefabricadas de hierro.", "./assets/soho-greene-street.jpg", "Cast-iron architecture · Greene Street"], ["Prince + Spring Streets", "Ejes comerciales principales; elegir solo las tiendas realmente prioritarias.", "./assets/soho-greene-street.jpg", "SoHo Historic District"], ["Nolita", "Calles de menor escala, boutiques independientes y transición natural hacia Bowery.", "./assets/nolita.webp", "Nolita · Elizabeth Street"], ["New York or Nowhere", "Tienda de ropa y objetos inspirados en la ciudad; resolver la compra sin alargar demasiado la parada.", "./assets/new-york-or-nowhere.jpg", "New York or Nowhere · 250 Lafayette Street"], ["Supreme", "Flagship en el histórico edificio de 190 Bowery; comprobar fila antes de decidir entrar.", "./assets/supreme.jpg", "Supreme · 190 Bowery"]]
+    sights: [["Broadway + Prince Street", "Ejes comerciales para entrar al barrio y orientar el paseo sin intentar recorrerlo completo.", "./assets/soho-greene-street.jpg", "SoHo Historic District"], ["Greene Street · cast-iron", "Fijarse en columnas, grandes ventanas y fachadas prefabricadas de hierro, además de los tramos adoquinados.", "./assets/soho-greene-street.jpg", "Cast-iron architecture · Greene Street"], ["Nolita", "Calles de menor escala, boutiques independientes y transición natural hacia Lafayette y Bowery.", "./assets/nolita.webp", "Nolita · Elizabeth Street"], ["New York or Nowhere", "Tienda de ropa y objetos inspirados en la ciudad. Dirección: 250 Lafayette Street.", "./assets/new-york-or-nowhere.jpg", "New York or Nowhere · 250 Lafayette Street"]]
   }
 });
 
@@ -462,8 +471,8 @@ const dayRoutes = [
   [{label:"Battery → Printemps → Seaport", url:"https://www.google.com/maps/dir/?api=1&origin=The+Battery%2C+New+York&destination=Pier+17%2C+New+York&travelmode=walking&waypoints=Charging+Bull%7CFederal+Hall%7CPrintemps+New+York%7CStone+Street"}, {label:"Oculus → Memorial → Centre 360 → Chinatown", url:"https://www.google.com/maps/dir/?api=1&origin=Oculus%2C+New+York&destination=Mott+Street%2C+New+York&travelmode=walking&waypoints=9%2F11+Memorial%7CCity+Hall%2C+New+York"}],
   [{label:"Central Park + UES", url:"https://www.google.com/maps/dir/?api=1&origin=The+Mall+Central+Park&destination=Lexington+Candy+Shop%2C+New+York&travelmode=walking&waypoints=Bethesda+Terrace%7CThe+Metropolitan+Museum+of+Art"}, {label:"Roosevelt Island + LIC", url:"https://www.google.com/maps/dir/?api=1&origin=Roosevelt+Island+Tramway&destination=Gantry+Plaza+State+Park&travelmode=transit&waypoints=Four+Freedoms+Park"}],
   [{label:"Bridge + DUMBO", url:"https://www.google.com/maps/dir/?api=1&origin=Brooklyn+Bridge+Pedestrian+Entrance+Manhattan&destination=Fulton+Ferry+Landing&travelmode=walking&waypoints=Washington+Street+DUMBO%7CBrooklyn+Bridge+Park%7CPebble+Beach"}, {label:"Bed-Stuy opcional", url:"https://www.google.com/maps/dir/?api=1&origin=Fulton+Ferry+Landing&destination=Do+the+Right+Thing+Way+Brooklyn&travelmode=transit"}, {label:"Williamsburg + Greenpoint", url:"https://www.google.com/maps/dir/?api=1&origin=Domino+Park&destination=WNYC+Transmitter+Park&travelmode=walking&waypoints=Bedford+Avenue%7CMarsha+P.+Johnson+State+Park%7CYoseka+Stationery"}],
-  [{label:"MoMA → Primark → High Line", url:"https://www.google.com/maps/dir/?api=1&origin=MoMA%2C+New+York&destination=High+Line+30th+Street+Entrance&travelmode=walking&waypoints=Primark+Herald+Square%7CEmpire+State+Building"}, {label:"High Line norte → sur", url:"https://www.google.com/maps/dir/?api=1&origin=High+Line+30th+Street+Entrance&destination=High+Line+Gansevoort+Street&travelmode=walking"}, {label:"Village → Top of the Rock → Times Square", url:"https://www.google.com/maps/dir/?api=1&origin=West+Village%2C+New+York&destination=Times+Square%2C+New+York&travelmode=transit&waypoints=Top+of+the+Rock"}],
-  [{label:"Upper West Side", url:"https://www.google.com/maps/dir/?api=1&origin=American+Museum+of+Natural+History&destination=Zabar%27s%2C+New+York&travelmode=walking&waypoints=Barney+Greengrass"}, {label:"Upper West Side → Coney Island", url:"https://www.google.com/maps/dir/?api=1&origin=Zabar%27s%2C+New+York&destination=Coney+Island+Boardwalk%2C+Brooklyn&travelmode=transit"}],
+  [{label:"MoMA → Primark → High Line", url:"https://www.google.com/maps/dir/?api=1&origin=MoMA%2C+New+York&destination=High+Line+30th+Street+Entrance&travelmode=walking&waypoints=Primark+Herald+Square%7CEmpire+State+Building"}, {label:"High Line norte → sur", url:"https://www.google.com/maps/dir/?api=1&origin=High+Line+30th+Street+Entrance&destination=High+Line+Gansevoort+Street&travelmode=walking"}, {label:"Chelsea Market → Meatpacking", url:"https://www.google.com/maps/dir/?api=1&origin=High+Line+Gansevoort+Street&destination=Whitney+Museum+of+American+Art&travelmode=walking&waypoints=Chelsea+Market"}, {label:"Village + cuatro tiendas", url:"https://www.google.com/maps/dir/?api=1&origin=Whitney+Museum+of+American+Art&destination=The+Locavore+Variety+Store&travelmode=walking&waypoints=an.me+249+Bleecker+Street%7CGreenwich+Letterpress%7CC.O.+Bigelow"}, {label:"Village → Top of the Rock → Times Square", url:"https://www.google.com/maps/dir/?api=1&origin=The+Locavore+Variety+Store&destination=Times+Square%2C+New+York&travelmode=transit&waypoints=Top+of+the+Rock"}],
+  [{label:"AMNH → Zabar’s → Riverside Park", url:"https://www.google.com/maps/dir/?api=1&origin=American+Museum+of+Natural+History&destination=Riverside+Park+West+79th+Street&travelmode=walking&waypoints=Zabar%27s"}, {label:"Riverside Park → Coney Island", url:"https://www.google.com/maps/dir/?api=1&origin=Riverside+Park+West+79th+Street&destination=Coney+Island+Boardwalk%2C+Brooklyn&travelmode=transit"}],
   [{label:"Highbridge Hotel to JFK", url:"https://www.google.com/maps/dir/?api=1&origin=Highbridge+Hotel%2C+Bronx&destination=John+F.+Kennedy+International+Airport&travelmode=driving"}]
 ];
 
@@ -579,16 +588,19 @@ const transportDays = [
     ["Bed-Stuy opcional", "El desvío a Do the Right Thing Way requiere transporte y añade 60–90 minutos; activarlo solo si el día va adelantado.", "Fulton Ferry Landing", "Do the Right Thing Way Brooklyn"],
     ["Greenpoint → hotel", "G desde Greenpoint Av a Court Sq; 7 a 42 St–Bryant Park y D a 167 St.", "WNYC Transmitter Park", "Highbridge Hotel Bronx"]
   ]},
-  { day: "Día 5 · lunes 14", summary: "Bronx → MoMA → Primark → High Line → Village → Top of the Rock → Times Square", legs: [
+  { day: "Día 5 · lunes 14", summary: "Bronx → MoMA → Primark → High Line → Chelsea Market → Meatpacking → Village → Top of the Rock", legs: [
     ["Hotel → MoMA", "D desde 167 St hasta 7 Av; caminar hacia el museo.", "Highbridge Hotel Bronx", "Museum of Modern Art New York"],
     ["Empire State → High Line", "Caminar hacia el acceso de 30th St / Hudson Yards; Koreatown solo entra si hay margen real.", "Empire State Building", "High Line 30th Street Entrance"],
-    ["Village → Top of the Rock", "Usar metro desde West 4 St o Christopher St según dónde terminen las tiendas; confirmar la ruta en Maps.", "West Village New York", "Top of the Rock New York"],
+    ["High Line → Village", "Salir por Gansevoort; entrar brevemente a Chelsea Market, cruzar Meatpacking y continuar por Bleecker hacia las cuatro tiendas.", "High Line Gansevoort Street", "The Locavore Variety Store"],
+    ["Village → Top of the Rock", "Usar metro desde West 4 St al terminar en Sixth Avenue; confirmar la ruta más rápida en Maps.", "The Locavore Variety Store", "Top of the Rock New York"],
     ["Times Square → hotel", "Caminar a 42 St–Bryant Park y tomar D directo hasta 167 St.", "Times Square New York", "Highbridge Hotel Bronx"]
   ]},
-  { day: "Día 6 · martes 15", summary: "Bronx → Upper West Side → Coney Island o Morgan/LES", legs: [
+  { day: "Día 6 · martes 15", summary: "Bronx → Upper West Side → Riverside Park → Coney Island o Morgan/SoHo/LES", legs: [
     ["Hotel → Natural History", "D desde 167 St a 145 St; cambiar al C hasta 81 St–Museum of Natural History.", "Highbridge Hotel Bronx", "American Museum of Natural History"],
-    ["Upper West Side → Coney Island", "Ruta larga en metro; confirmar servicio y calcular aproximadamente 70–80 minutos por trayecto.", "Zabar's New York", "Coney Island Boardwalk Brooklyn"],
-    ["Upper West Side → Morgan", "Bajar hacia 42 St y continuar a Madison Avenue; Maps definirá la combinación más rápida.", "Zabar's New York", "The Morgan Library and Museum"],
+    ["Zabar’s → Riverside Park", "Caminar hacia el Hudson y dedicar solo 15–20 minutos al waterfront antes de iniciar el traslado.", "Zabar's New York", "Riverside Park West 79th Street"],
+    ["Riverside Park → Coney Island", "Ruta larga en metro; confirmar servicio y calcular aproximadamente 70–80 minutos por trayecto.", "Riverside Park West 79th Street", "Coney Island Boardwalk Brooklyn"],
+    ["Riverside Park → Morgan", "Bajar hacia Midtown y continuar a Madison Avenue; Maps definirá la combinación más rápida.", "Riverside Park West 79th Street", "The Morgan Library and Museum"],
+    ["Morgan → SoHo / Nolita", "Bajar a Prince Street; caminar por Greene, pasar por NYON y continuar hacia Supreme y Katz’s.", "The Morgan Library and Museum", "New York or Nowhere"],
     ["Katz’s / LES → hotel", "F desde 2 Av a Broadway–Lafayette; cambiar al D hasta 167 St.", "Katz's Delicatessen", "Highbridge Hotel Bronx"],
     ["Upper West Side → hotel", "C desde 81 St a 145 St; cambiar al D hasta 167 St.", "Zabar's New York", "Highbridge Hotel Bronx"]
   ]},
@@ -680,7 +692,7 @@ function itineraryView() {
   const day6Option = sessionStorage.getItem("day6Option") === "manhattan" ? "manhattan" : "coney";
   const timeline = timelineForDay(index);
   const routes = index === 1 && day2Option === "ferry" ? day2FerryRoutes : index === 5 && day6Option === "manhattan" ? day6ManhattanRoutes : (dayRoutes[index] || []);
-  const displayedTheme = index === 1 && day2Option === "ferry" ? "Printemps · Staten Island Ferry · 9/11 · Chinatown · Subway Series" : index === 5 && day6Option === "manhattan" ? "Natural History · Morgan Library · NYON · Supreme · Katz’s" : day.theme;
+  const displayedTheme = index === 1 && day2Option === "ferry" ? "Printemps · Staten Island Ferry · 9/11 · Chinatown · Subway Series" : index === 5 && day6Option === "manhattan" ? "Natural History · Riverside Park · Morgan Library · SoHo · Katz’s" : day.theme;
   return `<div class="fade-in">
     <header class="page-header">
       <button class="back" data-action="home">← New York</button>
@@ -696,8 +708,8 @@ function itineraryView() {
     </div><p class="option-status">${day2Option === "ferry" ? "Activa: ferry y vista cercana de la Estatua" : "Activa: paseo urbano completo por Lower Manhattan"}</p></section>` : ""}
     ${index === 5 ? `<section class="day2-options" aria-label="Versiones del Día 6"><p class="section-kicker">Elige el enfoque de la tarde</p><div class="day2-option-grid">
       <button class="${day6Option === "coney" ? "active" : ""}" data-day6-option="coney"><span>Opción A</span><strong>Coney Island</strong><small>Boardwalk · playa · Wonder Wheel · Nathan’s</small></button>
-      <button class="${day6Option === "manhattan" ? "active" : ""}" data-day6-option="manhattan"><span>Opción B</span><strong>Manhattan pendiente</strong><small>Morgan · NYON · Supreme · Katz’s</small></button>
-    </div><p class="option-status">${day6Option === "manhattan" ? "Activa: Morgan Library, compras pendientes y Lower East Side" : "Activa: Coney Island durante 2–2½ horas"}</p></section>` : ""}
+      <button class="${day6Option === "manhattan" ? "active" : ""}" data-day6-option="manhattan"><span>Opción B</span><strong>Manhattan pendiente</strong><small>Morgan · SoHo/Nolita · NYON · Supreme · Katz’s</small></button>
+    </div><p class="option-status">${day6Option === "manhattan" ? "Activa: Riverside Park, Morgan, SoHo/Nolita y Lower East Side" : "Activa: Riverside Park y Coney Island durante 2–2½ horas"}</p></section>` : ""}
     <section class="day-route-panel">
       <div><p class="section-kicker">Mapa de ruta</p><h2>Recorrido del día</h2><span class="online-note">Requiere internet</span></div>
       <div class="route-segments">${routes.map((route, routeIndex) => `<a href="${route.url}" target="_blank" rel="noopener"><span>0${routeIndex + 1}</span>${route.label}<b>Maps ↗</b></a>`).join("")}</div>

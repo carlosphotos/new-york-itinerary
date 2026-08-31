@@ -1,4 +1,4 @@
-const CACHE = "new-york-guide-v17";
+const CACHE = "new-york-guide-v18";
 const ASSETS = [
   "./",
   "./index.html",
@@ -9,6 +9,7 @@ const ASSETS = [
   "./assets/amnh-gilder.jpg",
   "./assets/amnh-human-origins.jpg",
   "./assets/amnh-meteorite.jpg",
+  "./assets/an-me-bleecker.webp",
   "./assets/anytime-kitchen.jpg",
   "./assets/audit-bethesda-terrace.jpg",
   "./assets/audit-bowling-green.jpg",
@@ -29,6 +30,7 @@ const ASSETS = [
   "./assets/central-park.jpg",
   "./assets/chelsea-market-interior.jpg",
   "./assets/chinatown.jpg",
+  "./assets/co-bigelow.jpg",
   "./assets/columbus-park.jpg",
   "./assets/coney-island.jpg",
   "./assets/dizzys-club.jpg",
@@ -44,6 +46,7 @@ const ASSETS = [
   "./assets/gantry-plaza.jpg",
   "./assets/gantry.jpg",
   "./assets/grace-street.jpg",
+  "./assets/greenwich-letterpress.jpg",
   "./assets/herald-square.jpg",
   "./assets/high-line-10th-square.jpg",
   "./assets/high-line-gansevoort.jpg",
@@ -82,6 +85,7 @@ const ASSETS = [
   "./assets/rockefeller-center.jpg",
   "./assets/roosevelt-island.jpg",
   "./assets/rose-center.jpg",
+  "./assets/riverside-park.jpg",
   "./assets/seaport-fulton.webp",
   "./assets/seaport.jpg",
   "./assets/soho-greene-street.jpg",
@@ -89,6 +93,7 @@ const ASSETS = [
   "./assets/st-patricks.jpg",
   "./assets/supreme.jpg",
   "./assets/the-battery.jpg",
+  "./assets/the-locavore.jpg",
   "./assets/tin-building.jpg",
   "./assets/transmitter-park.jpg",
   "./assets/trinity-church.jpg",
