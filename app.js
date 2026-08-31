@@ -1,4 +1,4 @@
-const APP_VERSION = "20";
+const APP_VERSION = "21";
 
 const tripDays = [
   {
@@ -839,6 +839,7 @@ function infoView() {
       <article class="info-card"><h2>Highbridge Hotel</h2><p>1263 Edward L Grant Hwy · Bronx<br>347-508-4550</p><p><strong>Reserva:</strong> <span class="placeholder">pendiente de añadir</span></p><div class="inline-actions"><button data-copy="1263 Edward L Grant Hwy, Bronx, NY">Copiar dirección</button><a href="https://www.google.com/maps/search/?api=1&query=Highbridge+Hotel+Bronx" target="_blank" rel="noopener">Maps ↗</a></div></article>
       <article class="info-card"><h2>Vuelos</h2><p>Llegada · JFK · septiembre 10 · 06:15</p><p>Septiembre 16 · Delta 3779 · JFK → SAT<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p><p>Aeroméxico 633 · SAT → MEX<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p></article>
       <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y rutas recomendadas de cada día para llegar y regresar al hotel.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
+      <article class="info-card info-feature language-feature"><p class="section-kicker">Para decir o mostrar</p><h2>Inglés útil</h2><p>Frases breves para el metro, restaurantes, hotel, compras, entradas y emergencias; más las palabras que conviene reconocer en los letreros.</p><button class="info-link-button" data-action="phrases">Abrir frases →</button></article>
       <article class="info-card"><h2>Reservas</h2><p><strong>Sep 10 · Yankees–Rockies</strong><br>Pinstripe Pass · confirmado</p><p><strong>Sep 11 · Yankees–Mets</strong><br>Section 421 · Row 14 · Seats 20–21 · confirmado</p><p>Sonny Rollins at Dizzy’s · Sep 10 · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
       <article class="info-card photo-credits"><h2>Imágenes de la guía</h2><p>Cada fotografía fue seleccionada para corresponder al lugar o sala que describe. La ilustración panorámica aportada por el usuario se utiliza únicamente como identidad visual del encabezado, no como fotografía de un destino.</p><p>Las imágenes proceden de sitios oficiales de los recintos y parques, Wikimedia Commons y publicaciones que documentan los lugares indicados.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Consultar Wikimedia Commons ↗</a></article>
     </section></div>`;
@@ -858,12 +859,80 @@ function transportView() {
   </div>`;
 }
 
-const views = { home: homeView, itinerary: itineraryView, meal: () => mealView(sessionStorage.getItem("selectedMeal") || "day1-lunch"), place: () => placeDetailView(sessionStorage.getItem("selectedPlace") || "bryant"), places: placesView, info: infoView, transport: transportView };
+const phraseSections = [
+  { title: "Esenciales", note: "Para iniciar una conversación o ganar tiempo.", items: [
+    ["Excuse me, could you help me?", "Disculpe, ¿podría ayudarme?"],
+    ["Could you speak more slowly, please?", "¿Podría hablar más despacio, por favor?"],
+    ["I’m sorry, I don’t understand.", "Lo siento, no entiendo."],
+    ["Do you speak Spanish?", "¿Habla español?"]
+  ]},
+  { title: "Metro y transporte", note: "Las direcciones y el tipo de tren importan más que el color de la línea.", items: [
+    ["Is this the uptown D train?", "¿Este es el tren D hacia uptown?"],
+    ["Does this train stop at 167th Street?", "¿Este tren para en 167th Street?"],
+    ["Is this a local or an express train?", "¿Este tren es local o express?"],
+    ["Which platform do we need?", "¿Qué andén necesitamos?"],
+    ["Which exit should we take for this place?", "¿Qué salida debemos tomar para este lugar?"]
+  ]},
+  { title: "Restaurantes y cafés", note: "En Estados Unidos se pide the check para solicitar la cuenta.", items: [
+    ["A table for two, please.", "Una mesa para dos, por favor."],
+    ["What do you recommend?", "¿Qué recomienda?"],
+    ["We’d like to share this.", "Nos gustaría compartir esto."],
+    ["Could we have the check, please?", "¿Nos trae la cuenta, por favor?"],
+    ["Is gratuity already included?", "¿La propina ya está incluida?"]
+  ]},
+  { title: "Hotel, tiendas y entradas", note: "Frases adaptadas a las paradas y reservas del itinerario.", items: [
+    ["We have a reservation under the name…", "Tenemos una reserva a nombre de…"],
+    ["Could you store our luggage until check-in?", "¿Podrían guardar nuestro equipaje hasta el check-in?"],
+    ["We need to check out very early.", "Necesitamos hacer check-out muy temprano."],
+    ["Do you have this in another size?", "¿Tiene esto en otra talla?"],
+    ["Where is the entrance for Section 421?", "¿Dónde está la entrada para la Sección 421?"]
+  ]},
+  { title: "Emergencias", note: "Di primero qué necesitas y después tu ubicación exacta.", items: [
+    ["I need help.", "Necesito ayuda."],
+    ["Please call 911.", "Por favor llame al 911."],
+    ["We need an ambulance.", "Necesitamos una ambulancia."],
+    ["We are at this address / intersection.", "Estamos en esta dirección / intersección."],
+    ["I speak Spanish. I need an interpreter.", "Hablo español. Necesito un intérprete."],
+    ["My passport / wallet / phone was stolen.", "Me robaron el pasaporte / cartera / teléfono."]
+  ]}
+];
+
+const phraseWords = [
+  ["Uptown / Downtown", "hacia el norte / hacia el sur"],
+  ["Local / Express", "todas las paradas / pocas paradas"],
+  ["Platform", "andén"],
+  ["Transfer", "transbordo"],
+  ["Last stop", "última parada"],
+  ["Service change", "cambio de servicio"],
+  ["Delayed", "con retraso"],
+  ["Out of service", "fuera de servicio"],
+  ["Shuttle bus", "autobús sustituto"],
+  ["Entrance / Exit", "entrada / salida"],
+  ["Check", "cuenta"],
+  ["For here / To go", "para comer aquí / para llevar"],
+  ["Gratuity included", "propina incluida"],
+  ["Restroom", "baño"],
+  ["Sold out", "agotado"],
+  ["Will call", "recoger boletos en taquilla"]
+];
+
+function phrasesView() {
+  return `<div class="fade-in phrases-view">
+    <header class="page-header"><button class="back back-prominent" data-action="info">← Regresar a Info</button><p class="section-kicker">Para decir, copiar o mostrar</p><h1>Inglés útil</h1><p class="section-note">Seleccionado para las situaciones concretas de este viaje. Toca “Copiar” si prefieres mostrar la frase en la pantalla.</p><span class="offline-badge">✓ Disponible sin conexión</span></header>
+    <section class="language-emergency"><p class="section-kicker">La frase más importante</p><strong lang="en">I speak Spanish. I need an interpreter.</strong><span>Hablo español. Necesito un intérprete.</span><p>911 y 311 ofrecen interpretación en la mayoría de los idiomas. En una emergencia, llama al 911; envía texto únicamente si no puedes llamar.</p></section>
+    <section class="phrase-sections">${phraseSections.map((section, sectionIndex) => `<article class="phrase-section"><div class="phrase-section-title"><span>${String(sectionIndex + 1).padStart(2, "0")}</span><div><h2>${section.title}</h2><p>${section.note}</p></div></div><ul>${section.items.map(([english, spanish]) => `<li><div><strong lang="en">${english}</strong><span>${spanish}</span></div><button class="phrase-copy" data-copy="${english.replace(/"/g, "&quot;")}">Copiar</button></li>`).join("")}</ul></article>`).join("")}</section>
+    <section class="vocabulary-section"><p class="section-kicker">Palabras que verás</p><h2>Glosario rápido</h2><div class="vocabulary-grid">${phraseWords.map(([english, spanish]) => `<article><strong lang="en">${english}</strong><span>${spanish}</span></article>`).join("")}</div></section>
+    <section class="phrase-sources"><p class="section-kicker">Referencias oficiales</p><p>La terminología de transporte sigue el mapa y los avisos de MTA. La nota de emergencias se contrastó con NYC.gov y NYC311.</p><div><a href="https://www.mta.info/map/5341" target="_blank" rel="noopener">Mapa MTA ↗</a><a href="https://www.nyc.gov/main/your-government/contact-nyc-government" target="_blank" rel="noopener">911 y 311 ↗</a><a href="https://portal.311.nyc.gov/article/?kanumber=KA-03541" target="_blank" rel="noopener">Ayuda en otros idiomas ↗</a></div><span class="online-note">Las frases quedan guardadas; las fuentes requieren internet</span></section>
+    <button class="return-itinerary" data-action="info">← Regresar a Info</button>
+  </div>`;
+}
+
+const views = { home: homeView, itinerary: itineraryView, meal: () => mealView(sessionStorage.getItem("selectedMeal") || "day1-lunch"), place: () => placeDetailView(sessionStorage.getItem("selectedPlace") || "bryant"), places: placesView, info: infoView, transport: transportView, phrases: phrasesView };
 
 function render(route = "home") {
   const safeRoute = views[route] ? route : "home";
   app.innerHTML = views[safeRoute]();
-  navItems.forEach(item => item.classList.toggle("active", item.dataset.route === safeRoute || (["itinerary", "meal", "place"].includes(safeRoute) && item.dataset.route === "itinerary") || (safeRoute === "transport" && item.dataset.route === "info")));
+  navItems.forEach(item => item.classList.toggle("active", item.dataset.route === safeRoute || (["itinerary", "meal", "place"].includes(safeRoute) && item.dataset.route === "itinerary") || (["transport", "phrases"].includes(safeRoute) && item.dataset.route === "info")));
   history.replaceState(null, "", `#${safeRoute}`);
   app.focus({ preventScroll: true });
   if (safeRoute === "itinerary" && sessionStorage.getItem("restoreTimeline") === "true") {
@@ -927,6 +996,7 @@ document.addEventListener("click", (event) => {
   if (action === "places") render("places");
   if (action === "info") render("info");
   if (action === "transport") render("transport");
+  if (action === "phrases") render("phrases");
   if (action === "toggle-summary") { sessionStorage.setItem("summaryMode", sessionStorage.getItem("summaryMode") === "true" ? "false" : "true"); render("itinerary"); }
   const day2Option = event.target.closest("[data-day2-option]")?.dataset.day2Option;
   if (day2Option) { sessionStorage.setItem("day2Option", day2Option); sessionStorage.removeItem("restoreTimeline"); render("itinerary"); }
