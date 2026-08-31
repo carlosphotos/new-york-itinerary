@@ -1,4 +1,4 @@
-const APP_VERSION = "22";
+const APP_VERSION = "23";
 
 const tripDays = [
   {
@@ -21,7 +21,7 @@ const tripDays = [
       ["10:30", "The Battery", "Waterfront · Estatua de la Libertad y Ellis Island", ""], ["11:00", "Bowling Green + Charging Bull", "Paseo breve", ""],
       ["11:20–11:50", "Financial District", "Wall Street · NYSE · Federal Hall · Trinity Church", ""],
       ["11:50–12:15", "Printemps New York", "One Wall Street · Red Room · diseño y moda", "place-printemps"],
-      ["Opcional", "Square Diner o Black Fox Coffee", "Diner clásico visto en Daredevil vs. café rápido; elegir solo si el horario lo permite", "optional"],
+      ["Opcional", "Square Diner o Black Fox Coffee", "Diner clásico para sentarse vs. café rápido; elegir solo si el horario lo permite", "optional"],
       ["12:15", "Stone Street", "Calle histórica", ""], ["12:35–13:20", "South Street Seaport + Pier 17", "Waterfront · vistas del Brooklyn Bridge", ""],
       ["13:40", "Oculus", "Arquitectura y vistazo a tiendas", ""],
       ["14:10–14:40", "9/11 Memorial", "North Pool · South Pool · Survivor Tree · One WTC", ""],
@@ -133,6 +133,34 @@ const tripDays = [
   }
 ];
 
+const day1USOpenTimeline = [
+  ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"],
+  ["~07:30–08:15", "Migración, equipaje y salida", "Completar la llegada y salir de la terminal", ""],
+  ["~09:00", "Highbridge Hotel", "Dejar equipaje antes de continuar a Queens", "place-hotel"],
+  ["~10:00–10:15", "Hacia Flushing Meadows", "Salida desde el Bronx hacia Queens", ""],
+  ["~11:15", "USTA Billie Jean King National Tennis Center", "Llegada y acceso a los grounds", "place-usopen"],
+  ["11:15–13:30/14:00", "US Open · Open for All Day", "Grounds gratuitos y abiertos al público durante el día; confirmar acceso y capacidad cerca de la fecha", "place-usopen"],
+  ["~14:00", "Regreso a Highbridge", "Salida puntual desde Flushing Meadows para proteger la tarde", ""],
+  ["~15:00", "Check-in", "Habitación y equipaje", "place-hotel"],
+  ["15:00–16:15", "Descanso", "Pausa breve antes del partido", ""],
+  ["~16:30–16:45", "Hacia Yankee Stadium", "Salida caminando desde el hotel", ""],
+  ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"],
+  ["19:05", "Yankees–Rockies", "Pinstripe Pass · gorro Yankees + NYON para los primeros 18,000", "place-yankee"],
+  ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""],
+  ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
+  ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"],
+  ["~22:30", "Cena tardía", "Opciones cerca de Columbus Circle", "meal-day1-dinner"],
+  ["~00:00", "Hotel", "Fin del día", "place-hotel"]
+];
+
+const day1USOpenRoutes = [
+  {label:"JFK → Highbridge Hotel", url:"https://www.google.com/maps/dir/?api=1&origin=John+F.+Kennedy+International+Airport&destination=Highbridge+Hotel+Bronx&travelmode=transit"},
+  {label:"Highbridge → US Open", url:"https://www.google.com/maps/dir/?api=1&origin=Highbridge+Hotel+Bronx&destination=USTA+Billie+Jean+King+National+Tennis+Center&travelmode=transit"},
+  {label:"US Open → Highbridge", url:"https://www.google.com/maps/dir/?api=1&origin=USTA+Billie+Jean+King+National+Tennis+Center&destination=Highbridge+Hotel+Bronx&travelmode=transit"},
+  {label:"Hotel → Yankee Stadium", url:"https://www.google.com/maps/dir/?api=1&origin=Highbridge+Hotel+Bronx&destination=Yankee+Stadium&travelmode=walking"},
+  {label:"Yankee Stadium → Dizzy’s", url:"https://www.google.com/maps/dir/?api=1&origin=Yankee+Stadium&destination=Dizzy%27s+Club+New+York&travelmode=transit"}
+];
+
 const day2FerryTimeline = [
   ["08:30", "Desayuno", "Inicio tranquilo", ""], ["09:30", "Lower Manhattan", "Salida hacia The Battery", ""],
   ["10:15", "The Battery", "Vista desde tierra antes de iniciar el tramo común", "place-battery"],
@@ -189,6 +217,7 @@ const day6ManhattanRoutes = [
 ];
 
 function timelineForDay(index) {
+  if (index === 0 && sessionStorage.getItem("day1Option") === "usopen") return day1USOpenTimeline;
   if (index === 1 && sessionStorage.getItem("day2Option") === "ferry") return day2FerryTimeline;
   if (index === 5 && sessionStorage.getItem("day6Option") === "manhattan") return day6ManhattanTimeline;
   return tripDays[index].timeline;
@@ -269,6 +298,13 @@ function guide(title, kicker, summary, notes, query) {
 }
 
 Object.assign(placeDetails, {
+  usopen: {
+    ...guide("US Open · Open for All Day", "Día 1 · opción B", "Visita diurna a los grounds del USTA Billie Jean King National Tennis Center durante la jornada gratuita del jueves 10 de septiembre.", ["US Open confirma que los grounds estarán abiertos gratuitamente al público durante el día", "La entrada libre a los grounds no incluye un asiento para la semifinal nocturna de Arthur Ashe Stadium", "Llegar alrededor de las 11:15 y salir a más tardar cerca de las 14:00", "Confirmar el acceso, la capacidad y cualquier requisito operativo pocos días antes", "Es una opción exigente por los traslados Bronx–Queens–Bronx antes de Yankees"], "USTA Billie Jean King National Tennis Center Flushing Meadows Corona Park New York"),
+    photos: [["./assets/us-open-tennis-center.jpg", "Arthur Ashe Stadium · USTA Billie Jean King National Tennis Center"]],
+    callout: "OPEN FOR ALL DAY · SEP 10 · GROUNDS GRATUITOS",
+    calloutLabel: "Acceso oficial",
+    official: "https://www.usopen.org/en_US/tickets/individual_tickets.html"
+  },
   midtownstores: {
     ...guide("Nintendo + LEGO + UNIQLO", "Día 1 · Fifth Avenue", "Tres tiendas prioritarias integradas al final del recorrido clásico, sin regresar sobre los mismos pasos.", ["Nintendo NY: Rockefeller Center · 10 Rockefeller Plaza", "LEGO Store: 636 Fifth Avenue", "UNIQLO Fifth Avenue: 660 Fifth Avenue", "Mantener el bloque entre 45 y 50 minutos para proteger comida y regreso al hotel"], "Nintendo New York Rockefeller Center"),
     photos: [["./assets/nintendo-ny.jpg", "Nintendo NY · Rockefeller Center"], ["./assets/lego-fifth-avenue.jpg", "LEGO Store · Fifth Avenue"], ["./assets/uniqlo-fifth-avenue.jpg", "UNIQLO Fifth Avenue"]],
@@ -322,11 +358,11 @@ Object.assign(placeDetails, {
 
 Object.assign(placeDetails, {
   day2coffee: {
-    ...guide("Square Diner o Black Fox Coffee", "Día 2 · parada opcional", "Dos formas distintas de hacer una pausa: el diner clásico asociado visualmente con Daredevil o un café rápido más cercano al recorrido financiero.", ["Elegir solo uno", "Square Diner funciona mejor si quieren sentarse o priorizar la referencia de Daredevil", "Black Fox funciona mejor si el horario está apretado", "Omitir la parada si condiciona Centre 360 o el ferry"], "Square Diner 33 Leonard Street New York"),
-    sights: [["Square Diner", "Diner clásico de Tribeca cuya fachada aparece como referencia de barrio en Daredevil. Conviene para café, huevos, pancakes o algo pequeño.", "./assets/square-diner.jpg", "Square Diner · Tribeca"], ["Black Fox Coffee", "Alternativa más rápida para pedir café y seguir hacia Printemps o Stone Street sin convertir la pausa en otra actividad.", "./assets/black-fox-coffee.jpg", "Black Fox Coffee · Financial District"]]
+    ...guide("Square Diner o Black Fox Coffee", "Día 2 · parada opcional", "Dos formas distintas de hacer una pausa: un diner clásico para sentarse o un café rápido más cercano al recorrido financiero.", ["Elegir solo uno", "Square Diner funciona mejor si quieren sentarse y comer algo pequeño", "Black Fox funciona mejor si el horario está apretado", "Omitir la parada si condiciona Centre 360 o el ferry"], "Square Diner 33 Leonard Street New York"),
+    sights: [["Square Diner", "Diner clásico de Tribeca con barra, mesas y una atmósfera neoyorquina tradicional. Conviene para café, huevos, pancakes o algo pequeño.", "./assets/square-diner.jpg", "Square Diner · Tribeca"], ["Black Fox Coffee", "Alternativa más rápida para pedir café y seguir hacia Printemps o Stone Street sin convertir la pausa en otra actividad.", "./assets/black-fox-coffee.jpg", "Black Fox Coffee · Financial District"]]
   },
   statenferry: guide("Staten Island Ferry", "Día 2 · opción Estatua", "Ferry público de ida y vuelta para conseguir una vista mucho más cercana de la Estatua de la Libertad y del skyline desde el agua.", ["El ferry es gratuito; no comprar boletos a vendedores", "Hay que desembarcar en Staten Island y volver a abordar", "Buscar el lado derecho al salir de Manhattan para la Estatua", "Dejar margen para espera y controles de acceso"], "Whitehall Terminal Staten Island Ferry New York"),
-  squarediner: guide("Square Diner", "Día 2 · opcional", "Café o desayuno tardío en un diner clásico de Tribeca, reconocible por su asociación visual con Daredevil.", ["Pedir café y algo pequeño si desayunaron temprano", "No asignarle una hora fija hasta confirmar Centre 360", "Omitirla si obliga a recortar Printemps, el ferry o el regreso al Bronx"], "Square Diner 33 Leonard Street New York"),
+  squarediner: guide("Square Diner", "Día 2 · opcional", "Café o desayuno tardío en un diner clásico de Tribeca con ambiente tradicional de barrio.", ["Pedir café y algo pequeño si desayunaron temprano", "No asignarle una hora fija hasta confirmar Centre 360", "Omitirla si obliga a recortar Printemps, el ferry o el regreso al Bronx"], "Square Diner 33 Leonard Street New York"),
   ferry: guide("NYC Ferry", "Día 4 · East River", "Traslado panorámico de DUMBO hacia Williamsburg.", ["Revisar la app y horarios unos días antes", "Los domingos la ruta East River puede dividirse", "Llegar al muelle con margen"], "Fulton Ferry Landing Brooklyn"),
   records: guide("Discos + circuito musical", "Día 4 · Williamsburg", "Un tramo pensado para los intereses musicales del viaje.", ["Earwax Records", "Face Records NYC", "Pasar por Music Hall of Williamsburg y Brooklyn Bowl"], "Earwax Records Brooklyn"),
   qahwah: guide("Qahwah House", "Día 4 · café opcional", "Café yemení sobre Bedford Avenue para usar solo si no hubo parada en DUMBO.", ["Probar café yemení o té", "Mantener la parada corta", "Omitirla si reduce el tiempo de Yoseka"], "Qahwah House Williamsburg Brooklyn"),
@@ -370,6 +406,7 @@ Object.assign(placeDetails.records, {
 });
 
 const placeByTitle = {
+  "USTA Billie Jean King National Tennis Center": "usopen", "US Open · Open for All Day": "usopen",
   "The Battery": "battery", "Bowling Green + Charging Bull": "financial", "Financial District": "financial", "Printemps New York": "printemps", "Stone Street": "stone",
   "South Street Seaport + Pier 17": "seaport", "Oculus": "oculus", "9/11 Memorial": "memorial", "Centre 360": "centre360",
   "Canal Street + Chinatown": "chinatown", "Supreme + New York or Nowhere": "supreme", "Square Diner": "squarediner", "Square Diner o Black Fox Coffee": "day2coffee", "Staten Island Ferry": "statenferry", "Central Park": "centralpark", "The Met": "met",
@@ -566,9 +603,11 @@ const mealOptions = {
 };
 
 const transportDays = [
-  { day: "Día 1 · jueves 10", summary: "JFK → Highbridge → Midtown → Bronx → Columbus Circle", legs: [
+  { day: "Día 1 · jueves 10", summary: "JFK → Highbridge → Midtown o US Open → Bronx → Columbus Circle", legs: [
     ["JFK → Highbridge Hotel", "AirTrain a Jamaica + E hasta 7 Av + D hasta 167 St. Con maletas, comparar con taxi/rideshare.", "JFK Airport", "Highbridge Hotel Bronx"],
     ["Midtown → hotel", "D desde 42 St–Bryant Park hasta 167 St; caminar al hotel.", "Bryant Park New York", "Highbridge Hotel Bronx"],
+    ["Opción B · hotel → US Open", "D desde 167 St hasta 42 St–Bryant Park; conectar con el 7 hasta Mets–Willets Point. Confirmar el servicio real en Maps.", "Highbridge Hotel Bronx", "USTA Billie Jean King National Tennis Center"],
+    ["Opción B · US Open → hotel", "7 desde Mets–Willets Point hasta 42 St–Bryant Park; conectar con el D a 167 St. Salir alrededor de las 14:00 para proteger el check-in.", "USTA Billie Jean King National Tennis Center", "Highbridge Hotel Bronx"],
     ["Yankee Stadium → Dizzy’s", "D desde 161 St–Yankee Stadium hasta 59 St–Columbus Circle.", "Yankee Stadium", "Dizzy's Club New York"],
     ["Dizzy’s → hotel", "D desde 59 St–Columbus Circle hasta 167 St.", "Dizzy's Club New York", "Highbridge Hotel Bronx"]
   ]},
@@ -634,7 +673,7 @@ function dayStrip(selectedOverride) {
   const selected = Number(selectedOverride ?? sessionStorage.getItem("selectedDay") ?? 0);
   const shortDays = ["Jue", "Vie", "Sáb", "Dom", "Lun", "Mar", "Mié"];
   const daySummaries = [
-    "JFK · MIDTOWN · YANKEES",
+    "JFK · MIDTOWN / US OPEN · YANKEES",
     "LOWER MANHATTAN · CHINATOWN",
     "CENTRAL PARK · THE MET · LIC",
     "DUMBO · WILLIAMSBURG · GREENPOINT",
@@ -679,7 +718,6 @@ function homeView() {
       <div class="stamp stamp-coney"><img src="./assets/coney-island.jpg" alt="Coney Island"><span>Coney</span></div>
       <div class="stamp stamp-portrait"><img src="./assets/our-new-york-stamp.jpg" alt="Ilustración de una pareja frente al skyline y la Estatua de la Libertad"><span>Our NYC</span></div>
       <div class="passport-title-card">
-        <span>New York City</span>
         <h1 id="trip-title">NEW YORK</h1>
         <p class="dates">September 10–16 · 2026</p>
       </div>
@@ -713,11 +751,12 @@ function periodFor(time) {
 function itineraryView() {
   const index = Number(sessionStorage.getItem("selectedDay") || 0);
   const day = tripDays[index] || tripDays[0];
+  const day1Option = sessionStorage.getItem("day1Option") === "usopen" ? "usopen" : "midtown";
   const day2Option = sessionStorage.getItem("day2Option") || "urban";
   const day6Option = sessionStorage.getItem("day6Option") === "manhattan" ? "manhattan" : "coney";
   const timeline = timelineForDay(index);
-  const routes = index === 1 && day2Option === "ferry" ? day2FerryRoutes : index === 5 && day6Option === "manhattan" ? day6ManhattanRoutes : (dayRoutes[index] || []);
-  const displayedTheme = index === 1 && day2Option === "ferry" ? "Printemps · Staten Island Ferry · 9/11 · Chinatown · Subway Series" : index === 5 && day6Option === "manhattan" ? "Natural History · Riverside Park · Morgan Library · SoHo · Katz’s" : day.theme;
+  const routes = index === 0 && day1Option === "usopen" ? day1USOpenRoutes : index === 1 && day2Option === "ferry" ? day2FerryRoutes : index === 5 && day6Option === "manhattan" ? day6ManhattanRoutes : (dayRoutes[index] || []);
+  const displayedTheme = index === 0 && day1Option === "usopen" ? "JFK · US Open · Yankees · Dizzy’s" : index === 1 && day2Option === "ferry" ? "Printemps · Staten Island Ferry · 9/11 · Chinatown · Subway Series" : index === 5 && day6Option === "manhattan" ? "Natural History · Riverside Park · Morgan Library · SoHo · Katz’s" : day.theme;
   return `<div class="fade-in">
     <header class="page-header">
       <button class="back" data-action="home">← New York</button>
@@ -727,6 +766,10 @@ function itineraryView() {
       <img class="mini-skyline" src="./assets/nyc-skyline.png" alt="">
     </header>
     ${dayStrip()}
+    ${index === 0 ? `<section class="day2-options" aria-label="Versiones del Día 1"><p class="section-kicker">Elige el enfoque del día</p><div class="day2-option-grid">
+      <button class="${day1Option === "midtown" ? "active" : ""}" data-day1-option="midtown"><span>Opción A</span><strong>Midtown clásico</strong><small>Bryant Park · Fifth Avenue · tiendas</small></button>
+      <button class="${day1Option === "usopen" ? "active" : ""}" data-day1-option="usopen"><span>Opción B</span><strong>US Open · Open for All Day</strong><small>Flushing Meadows · acceso diurno gratuito</small></button>
+    </div><p class="option-status">${day1Option === "usopen" ? "Activa: US Open, hotel, Yankees y Dizzy’s · horario exigente" : "Activa: Midtown clásico, tiendas, Yankees y Dizzy’s"}</p></section>` : ""}
     ${index === 1 ? `<section class="day2-options" aria-label="Versiones del Día 2"><p class="section-kicker">Elige el enfoque del día</p><div class="day2-option-grid">
       <button class="${day2Option === "urban" ? "active" : ""}" data-day2-option="urban"><span>Opción 1</span><strong>Recorrido urbano completo</strong><small>Printemps · Seaport · Pier 17</small></button>
       <button class="${day2Option === "ferry" ? "active" : ""}" data-day2-option="ferry"><span>Opción 2</span><strong>Mejor vista de la Estatua</strong><small>Printemps · Staten Island Ferry</small></button>
@@ -805,7 +848,7 @@ function placeDetailView(id) {
     ${place.photos.length ? `<div class="gallery-label"><span>Fotografías</span>${place.photos.length > 1 ? "<b>Desliza →</b>" : ""}</div><div class="photo-scroll">${place.photos.map(([src, alt]) => `<figure><img src="${src}" alt="${alt}" loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>${alt}</figcaption></figure>`).join("")}</div>` : ""}
     <section class="detail-body">
       <p class="detail-summary">${place.summary}</p>
-      ${place.callout ? `<div class="ticket-callout"><span>Tu boleto</span><strong>${place.callout}</strong></div>` : ""}
+      ${place.callout ? `<div class="ticket-callout"><span>${place.calloutLabel || "Tu boleto"}</span><strong>${place.callout}</strong></div>` : ""}
       ${place.sights ? `<div class="sights-section"><p class="section-kicker">Lugares a ver</p>${place.sights.map(([name, note, photo, caption], index) => `<article class="sight-item"><span>${String(index + 1).padStart(2, "0")}</span><div>${photo ? `<figure class="sight-photo"><img src="${photo}" alt="${caption || name}" loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>${caption || name}</figcaption></figure>` : ""}<h2>${name}</h2><p>${note}</p></div></article>`).join("")}</div>` : ""}
       <div class="detail-list"><p class="section-kicker">Qué tener en cuenta</p><ul>${place.notes.map(note => `<li>${note}</li>`).join("")}</ul></div>
       ${place.routeImage ? `<a class="route-card" href="${place.map}" target="_blank" rel="noopener"><img src="${place.routeImage}" alt="Recorrido a pie por Midtown"><span>Abrir ruta en Google Maps ↗</span></a>` : ""}
@@ -836,7 +879,7 @@ function infoView() {
       <article class="info-card"><h2>Highbridge Hotel</h2><p>1263 Edward L Grant Hwy · Bronx<br>347-508-4550</p><p><strong>Reserva:</strong> <span class="placeholder">pendiente de añadir</span></p><div class="inline-actions"><button data-copy="1263 Edward L Grant Hwy, Bronx, NY">Copiar dirección</button><a href="https://www.google.com/maps/search/?api=1&query=Highbridge+Hotel+Bronx" target="_blank" rel="noopener">Maps ↗</a></div></article>
       <article class="info-card"><h2>Vuelos</h2><p>Llegada · JFK · septiembre 10 · 06:15</p><p>Septiembre 16 · Delta 3779 · JFK → SAT<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p><p>Aeroméxico 633 · SAT → MEX<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p></article>
       <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y rutas recomendadas de cada día para llegar y regresar al hotel.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
-      <article class="info-card info-feature language-feature"><p class="section-kicker">Para decir o mostrar</p><h2>Inglés útil</h2><p>Frases breves para el metro, restaurantes, hotel, compras, entradas y emergencias; más las palabras que conviene reconocer en los letreros.</p><button class="info-link-button" data-action="phrases">Abrir frases →</button></article>
+      <article class="info-card info-feature language-feature"><p class="section-kicker">Para resolver situaciones reales</p><h2>Inglés práctico</h2><p>Frases específicas para cambios del metro, accesos y reservas, cenas tardías, hotel, compras, conexión aérea y emergencias.</p><button class="info-link-button" data-action="phrases">Abrir frases →</button></article>
       <article class="info-card"><h2>Reservas</h2><p><strong>Sep 10 · Yankees–Rockies</strong><br>Pinstripe Pass · confirmado</p><p><strong>Sep 11 · Yankees–Mets</strong><br>Section 421 · Row 14 · Seats 20–21 · confirmado</p><p>Sonny Rollins at Dizzy’s · Sep 10 · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
       <article class="info-card photo-credits"><h2>Imágenes de la guía</h2><p>Cada fotografía fue seleccionada para corresponder al lugar o sala que describe. La ilustración panorámica aportada por el usuario se utiliza únicamente como identidad visual del encabezado, no como fotografía de un destino.</p><p>Las imágenes proceden de sitios oficiales de los recintos y parques, Wikimedia Commons y publicaciones que documentan los lugares indicados.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Consultar Wikimedia Commons ↗</a></article>
     </section></div>`;
@@ -857,68 +900,70 @@ function transportView() {
 }
 
 const phraseSections = [
-  { title: "Esenciales", note: "Para iniciar una conversación o ganar tiempo.", items: [
-    ["Excuse me, could you help me?", "Disculpe, ¿podría ayudarme?"],
-    ["Could you speak more slowly, please?", "¿Podría hablar más despacio, por favor?"],
-    ["I’m sorry, I don’t understand.", "Lo siento, no entiendo."],
-    ["Do you speak Spanish?", "¿Habla español?"]
+  { title: "Metro y cambios de servicio", note: "Para confirmar dirección, paradas omitidas y alternativas antes de subir.", items: [
+    ["Is this entrance for uptown trains only?", "¿Esta entrada es solo para trenes hacia uptown?"],
+    ["Is this train running local or express today?", "¿Este tren está funcionando como local o express hoy?"],
+    ["Is this train skipping 167th Street?", "¿Este tren se está saltando 167th Street?"],
+    ["Are there any service changes on the D train tonight?", "¿Hay cambios de servicio en el tren D esta noche?"],
+    ["Which exit is closest to this address?", "¿Qué salida queda más cerca de esta dirección?"]
   ]},
-  { title: "Metro y transporte", note: "Las direcciones y el tipo de tren importan más que el color de la línea.", items: [
-    ["Is this the uptown D train?", "¿Este es el tren D hacia uptown?"],
-    ["Does this train stop at 167th Street?", "¿Este tren para en 167th Street?"],
-    ["Is this a local or an express train?", "¿Este tren es local o express?"],
-    ["Which platform do we need?", "¿Qué andén necesitamos?"],
-    ["Which exit should we take for this place?", "¿Qué salida debemos tomar para este lugar?"]
+  { title: "Entradas, museos y eventos", note: "Para Yankees, Dizzy’s, museos y observatorios con horario reservado.", items: [
+    ["We have timed tickets for 6:30 p.m.", "Tenemos entradas con horario para las 6:30 p. m."],
+    ["Where do we pick up the Yankees giveaway?", "¿Dónde recogemos el obsequio de los Yankees?"],
+    ["Where is the entrance for Section 421?", "¿Dónde está la entrada para la Sección 421?"],
+    ["We have tickets for the 9 p.m. set at Dizzy’s.", "Tenemos entradas para la función de las 9 p. m. en Dizzy’s."],
+    ["Could you point us to the Temple of Dendur?", "¿Podría indicarnos dónde está el Templo de Dendur?"],
+    ["Does this ticket allow re-entry?", "¿Esta entrada permite volver a entrar?"]
   ]},
-  { title: "Restaurantes y cafés", note: "En Estados Unidos se pide the check para solicitar la cuenta.", items: [
-    ["A table for two, please.", "Una mesa para dos, por favor."],
-    ["What do you recommend?", "¿Qué recomienda?"],
-    ["We’d like to share this.", "Nos gustaría compartir esto."],
-    ["Could we have the check, please?", "¿Nos trae la cuenta, por favor?"],
+  { title: "Comida y cenas tardías", note: "Para decidir rápido, compartir y confirmar si la cocina continúa abierta.", items: [
+    ["How long is the wait for two?", "¿Cuánto tiempo hay que esperar para una mesa de dos?"],
+    ["Is the kitchen still serving the full menu?", "¿La cocina todavía sirve el menú completo?"],
+    ["Could we order a few dishes to share?", "¿Podríamos pedir varios platos para compartir?"],
+    ["Could we get the rest to go?", "¿Podrían ponernos lo que sobró para llevar?"],
     ["Is gratuity already included?", "¿La propina ya está incluida?"]
   ]},
-  { title: "Hotel, tiendas y entradas", note: "Frases adaptadas a las paradas y reservas del itinerario.", items: [
-    ["We have a reservation under the name…", "Tenemos una reserva a nombre de…"],
+  { title: "Hotel, tiendas y aeropuerto", note: "Incluye la llegada, la salida de madrugada y la conexión en San Antonio.", items: [
     ["Could you store our luggage until check-in?", "¿Podrían guardar nuestro equipaje hasta el check-in?"],
-    ["We need to check out very early.", "Necesitamos hacer check-out muy temprano."],
-    ["Do you have this in another size?", "¿Tiene esto en otra talla?"],
-    ["Where is the entrance for Section 421?", "¿Dónde está la entrada para la Sección 421?"]
+    ["Could you confirm our car for 5:30 a.m.?", "¿Podrían confirmar nuestro transporte para las 5:30 a. m.?"],
+    ["Do you have this in stock at another location?", "¿Lo tienen disponible en otra sucursal?"],
+    ["Are our bags checked through to Mexico City?", "¿Nuestro equipaje está documentado hasta Ciudad de México?"],
+    ["Do we need to collect our bags in San Antonio?", "¿Tenemos que recoger el equipaje en San Antonio?"],
+    ["Which line is for bag drop?", "¿Qué fila es para documentar el equipaje?"]
   ]},
-  { title: "Emergencias", note: "Di primero qué necesitas y después tu ubicación exacta.", items: [
-    ["I need help.", "Necesito ayuda."],
-    ["Please call 911.", "Por favor llame al 911."],
-    ["We need an ambulance.", "Necesitamos una ambulancia."],
+  { title: "Si algo sale mal", note: "Para explicar una pérdida, dar ubicación o pedir asistencia en español.", items: [
+    ["The last place I had it was…", "El último lugar donde lo tuve fue…"],
+    ["My phone / wallet / passport is missing.", "No encuentro mi teléfono / cartera / pasaporte."],
+    ["Could you help me contact the hotel?", "¿Podría ayudarme a contactar al hotel?"],
     ["We are at this address / intersection.", "Estamos en esta dirección / intersección."],
-    ["I speak Spanish. I need an interpreter.", "Hablo español. Necesito un intérprete."],
-    ["My passport / wallet / phone was stolen.", "Me robaron el pasaporte / cartera / teléfono."]
+    ["I speak Spanish. I need an interpreter.", "Hablo español. Necesito un intérprete."]
   ]}
 ];
 
 const phraseWords = [
-  ["Uptown / Downtown", "hacia el norte / hacia el sur"],
-  ["Local / Express", "todas las paradas / pocas paradas"],
-  ["Platform", "andén"],
-  ["Transfer", "transbordo"],
-  ["Last stop", "última parada"],
-  ["Service change", "cambio de servicio"],
-  ["Delayed", "con retraso"],
-  ["Out of service", "fuera de servicio"],
-  ["Shuttle bus", "autobús sustituto"],
-  ["Entrance / Exit", "entrada / salida"],
-  ["Check", "cuenta"],
-  ["For here / To go", "para comer aquí / para llevar"],
-  ["Gratuity included", "propina incluida"],
-  ["Restroom", "baño"],
+  ["Uptown-only entrance", "entrada solo hacia uptown"],
+  ["Running express", "circulando como express"],
+  ["Making local stops", "haciendo todas las paradas"],
+  ["Skipping this stop", "no parará en esta estación"],
+  ["Service suspended", "servicio suspendido"],
+  ["Shuttle buses are running", "hay autobuses sustitutos"],
+  ["Delays in both directions", "retrasos en ambas direcciones"],
+  ["Transfer is available", "hay transbordo disponible"],
+  ["Timed entry", "entrada con horario"],
+  ["Re-entry not permitted", "no se permite volver a entrar"],
+  ["Bag check / coat check", "revisión de bolsas / guardarropa"],
+  ["Last seating", "último horario para sentarse"],
+  ["Kitchen closed", "cocina cerrada"],
   ["Sold out", "agotado"],
-  ["Will call", "recoger boletos en taquilla"]
+  ["Bag drop", "documentación de equipaje"],
+  ["Checked through", "documentado hasta el destino final"]
 ];
 
 function phrasesView() {
   return `<div class="fade-in phrases-view">
-    <header class="page-header"><button class="back back-prominent" data-action="info">← Regresar a Info</button><p class="section-kicker">Para decir, copiar o mostrar</p><h1>Inglés útil</h1><p class="section-note">Seleccionado para las situaciones concretas de este viaje. Toca “Copiar” si prefieres mostrar la frase en la pantalla.</p><span class="offline-badge">✓ Disponible sin conexión</span></header>
+    <header class="page-header"><button class="back back-prominent" data-action="info">← Regresar a Info</button><p class="section-kicker">Para resolver situaciones reales</p><h1>Inglés práctico</h1><p class="section-note">Frases adaptadas a este itinerario y expresiones que podrías escuchar. Toca “Copiar” si prefieres mostrarlas en la pantalla.</p><span class="offline-badge">✓ Disponible sin conexión</span></header>
     <section class="language-emergency"><p class="section-kicker">La frase más importante</p><strong lang="en">I speak Spanish. I need an interpreter.</strong><span>Hablo español. Necesito un intérprete.</span><p>911 y 311 ofrecen interpretación en la mayoría de los idiomas. En una emergencia, llama al 911; envía texto únicamente si no puedes llamar.</p></section>
     <section class="phrase-sections">${phraseSections.map((section, sectionIndex) => `<article class="phrase-section"><div class="phrase-section-title"><span>${String(sectionIndex + 1).padStart(2, "0")}</span><div><h2>${section.title}</h2><p>${section.note}</p></div></div><ul>${section.items.map(([english, spanish]) => `<li><div><strong lang="en">${english}</strong><span>${spanish}</span></div><button class="phrase-copy" data-copy="${english.replace(/"/g, "&quot;")}">Copiar</button></li>`).join("")}</ul></article>`).join("")}</section>
-    <section class="vocabulary-section"><p class="section-kicker">Palabras que verás</p><h2>Glosario rápido</h2><div class="vocabulary-grid">${phraseWords.map(([english, spanish]) => `<article><strong lang="en">${english}</strong><span>${spanish}</span></article>`).join("")}</div></section>
+    <section class="vocabulary-section"><p class="section-kicker">Lo que podrías escuchar o leer</p><h2>Avisos y expresiones</h2><div class="vocabulary-grid">${phraseWords.map(([english, spanish]) => `<article><strong lang="en">${english}</strong><span>${spanish}</span></article>`).join("")}</div></section>
     <section class="phrase-sources"><p class="section-kicker">Referencias oficiales</p><p>La terminología de transporte sigue el mapa y los avisos de MTA. La nota de emergencias se contrastó con NYC.gov y NYC311.</p><div><a href="https://www.mta.info/map/5341" target="_blank" rel="noopener">Mapa MTA ↗</a><a href="https://www.nyc.gov/main/your-government/contact-nyc-government" target="_blank" rel="noopener">911 y 311 ↗</a><a href="https://portal.311.nyc.gov/article/?kanumber=KA-03541" target="_blank" rel="noopener">Ayuda en otros idiomas ↗</a></div><span class="online-note">Las frases quedan guardadas; las fuentes requieren internet</span></section>
     <button class="return-itinerary" data-action="info">← Regresar a Info</button>
   </div>`;
@@ -995,6 +1040,8 @@ document.addEventListener("click", (event) => {
   if (action === "transport") render("transport");
   if (action === "phrases") render("phrases");
   if (action === "toggle-summary") { sessionStorage.setItem("summaryMode", sessionStorage.getItem("summaryMode") === "true" ? "false" : "true"); render("itinerary"); }
+  const day1Option = event.target.closest("[data-day1-option]")?.dataset.day1Option;
+  if (day1Option) { sessionStorage.setItem("day1Option", day1Option); sessionStorage.removeItem("restoreTimeline"); render("itinerary"); }
   const day2Option = event.target.closest("[data-day2-option]")?.dataset.day2Option;
   if (day2Option) { sessionStorage.setItem("day2Option", day2Option); sessionStorage.removeItem("restoreTimeline"); render("itinerary"); }
   const day6Option = event.target.closest("[data-day6-option]")?.dataset.day6Option;
