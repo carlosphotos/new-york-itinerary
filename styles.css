@@ -139,6 +139,11 @@ button { color: inherit; font: inherit; }
 .day2-option-grid small { display: block; margin-top: 10px; color: var(--muted); font-size: 10px; line-height: 1.45; }
 .day2-option-grid button.active small { color: rgba(248,245,239,.7); }
 .option-status { margin: 11px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.day2-option-grid.three-options button:last-child { grid-column: 1 / -1; min-height: 112px; }
+.choice-consequence { margin: 18px 22px 0; padding: 19px 20px 20px; border-left: 3px solid var(--blue); background: var(--pale); }
+.choice-consequence.warning { border-left-color: var(--terracotta); background: rgba(179,98,66,.08); }
+.choice-consequence h2 { margin: 7px 0 8px; font: 600 25px/1.05 var(--serif); }
+.choice-consequence > p:last-child { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.62; }
 
 .cards { display: grid; gap: 12px; padding: 24px 22px 0; }
 .place-card, .info-card { border-top: 1px solid var(--line); padding: 20px 2px 17px; }
@@ -274,5 +279,6 @@ button { color: inherit; font: inherit; }
 @keyframes fade { from { opacity: 0; transform: translateY(5px); } }
 @media (max-width: 350px) { .passport-title-card { width: 90%; } .passport-title-card h1 { font-size: 41px; } .stamp-gantry { left: 18px; } .stamp-coney { right: 23px; } .day-strip { grid-auto-columns: 144px; } .journey-card { grid-template-columns: 1fr; } .journey-button { width: 100%; } }
 @media (min-width: 600px) { .passport-hero { min-height: 555px; } .passport-title-card { top: 185px; } .stamp-midtown { top: 50px; left: 35px; width: 170px; height: 111px; } .stamp-yankees { top: 47px; right: 48px; width: 130px; height: 130px; } .stamp-met { top: 323px; left: 48px; width: 132px; height: 132px; } .stamp-brooklyn { top: 318px; right: 25px; width: 182px; height: 108px; } .stamp-gantry { top: 440px; left: 170px; width: 156px; height: 88px; } .stamp-coney { top: 424px; right: 112px; width: 118px; height: 118px; } .stamp-portrait { top: 426px; width: 80px; height: 105px; } .passport-skyline { height: 138px; } }
+@media (min-width: 600px) { .day2-option-grid.three-options { grid-template-columns: repeat(3, 1fr); } .day2-option-grid.three-options button:last-child { grid-column: auto; min-height: 142px; } }
 @media (min-width: 700px) { body { background: #e9e6df; } .app-shell { background: var(--paper); box-shadow: 0 0 60px rgba(30,40,45,.12); } }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; animation: none !important; } }
