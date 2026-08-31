@@ -1,4 +1,4 @@
-const APP_VERSION = "18";
+const APP_VERSION = "20";
 
 const tripDays = [
   {
@@ -630,13 +630,28 @@ function placeBackLabel() {
   return sessionStorage.getItem("detailOrigin") === "places" ? "← Regresar a Lugares" : backToDayLabel();
 }
 
-function dayStrip() {
-  const selected = Number(sessionStorage.getItem("selectedDay") || 0);
+function dayStrip(selectedOverride) {
+  const selected = Number(selectedOverride ?? sessionStorage.getItem("selectedDay") ?? 0);
   const shortDays = ["Jue", "Vie", "Sáb", "Dom", "Lun", "Mar", "Mié"];
-  return `<div class="day-strip-wrap"><div class="day-strip" aria-label="Días del viaje">${tripDays.map((day, i) => `
-    <button class="day-chip ${i === selected ? "active" : ""}" data-day="${i}" aria-label="Día ${i + 1}, septiembre ${day.number}">
-      <span class="day-number">${day.number}</span><span class="day-name">${shortDays[i]}</span>
-    </button>`).join("")}</div><span class="day-strip-hint">Desliza para ver todos los días →</span></div>`;
+  const daySummaries = [
+    "JFK · MIDTOWN · YANKEES",
+    "LOWER MANHATTAN · CHINATOWN",
+    "CENTRAL PARK · THE MET · LIC",
+    "DUMBO · WILLIAMSBURG · GREENPOINT",
+    "MOMA · HIGH LINE · VILLAGE",
+    "AMNH · RIVERSIDE · CONEY / SOHO",
+    "JFK · REGRESO"
+  ];
+  return `<div class="day-strip-wrap">
+    <div class="day-strip-heading"><span>Elige un día</span><small>Septiembre 2026</small></div>
+    <div class="day-strip" aria-label="Días del viaje">${tripDays.map((day, i) => `
+      <button class="day-chip ${i === selected ? "active" : ""}" data-day="${i}" aria-label="Día ${i + 1}, ${shortDays[i]} ${day.number} de septiembre: ${daySummaries[i]}" ${i === selected ? 'aria-current="date"' : ""}>
+        <span class="day-index">Día ${i + 1}</span>
+        <span class="day-date"><strong>${day.number}</strong><em>Sep</em><b>${shortDays[i]}</b></span>
+        <span class="day-summary">${daySummaries[i]}</span>
+      </button>`).join("")}</div>
+    <span class="day-strip-hint">Desliza para ver los siete días →</span>
+  </div>`;
 }
 
 function tripContext() {
@@ -655,23 +670,36 @@ function homeView() {
   const day = tripDays[context.index];
   const first = timelineForDay(context.index)[0];
   return `<div class="fade-in">
-    <section class="hero">
-      <img class="skyline" src="./assets/nyc-skyline.png" alt="Ilustración panorámica del skyline de Nueva York">
-      <div class="hero-copy"><h1>NEW YORK</h1><p class="dates">September 10–16 · 2026</p></div>
+    <section class="passport-hero" aria-labelledby="trip-title">
+      <p class="passport-overline">Travel file · NYC / 26</p>
+      <div class="stamp stamp-midtown"><img src="./assets/midtown-grand-central.jpg" alt="Grand Central y el edificio Chrysler"><span>Midtown</span></div>
+      <div class="stamp stamp-yankees"><img src="./assets/yankee-stadium.jpg" alt="Yankee Stadium"><span>Bronx</span></div>
+      <div class="stamp stamp-met"><img src="./assets/met-dendur.jpg" alt="Templo de Dendur en The Met"><span>The Met</span></div>
+      <div class="stamp stamp-brooklyn"><img src="./assets/brooklyn-bridge.jpg" alt="Brooklyn Bridge"><span>Brooklyn</span></div>
+      <div class="stamp stamp-gantry"><img src="./assets/gantry.jpg" alt="Letrero de Pepsi-Cola en Gantry Plaza"><span>Queens</span></div>
+      <div class="stamp stamp-coney"><img src="./assets/coney-island.jpg" alt="Coney Island"><span>Coney</span></div>
+      <div class="passport-title-card">
+        <span>New York City</span>
+        <h1 id="trip-title">NEW YORK</h1>
+        <p class="dates">September 10–16 · 2026</p>
+      </div>
+      <p class="passport-route">JFK · BRONX · MANHATTAN · BROOKLYN · QUEENS</p>
+      <img class="passport-skyline" src="./assets/nyc-skyline.png" alt="Ilustración panorámica del skyline de Nueva York">
     </section>
-    <section class="section">
+    <section class="section home-intro">
       <p class="section-kicker">${context.kicker}</p>
       <h2 class="section-title">${context.title}</h2>
       <p class="section-note">${context.theme}</p>
       <article class="today-card">
-        <p class="today-date">Día ${context.index + 1} · Septiembre ${day.number}</p>
+        <span class="today-watermark" aria-hidden="true">${String(context.index + 1).padStart(2, "0")}</span>
+        <p class="today-date">Día ${context.index + 1} · ${day.number} de septiembre</p>
         <p class="today-theme">${day.theme}</p>
         <p class="next-label">Primera parada</p>
         <div class="next-row"><span class="next-time">${first[0]}</span><span class="next-place">${first[1]}</span><span class="next-detail">${first[2]}</span></div>
         <button class="text-button" data-action="current-day" data-current-day="${context.index}">${context.button}</button>
       </article>
     </section>
-    ${dayStrip()}
+    ${dayStrip(context.index)}
   </div>`;
 }
 
@@ -849,7 +877,11 @@ function render(route = "home") {
   } else {
     window.scrollTo({ top: 0, behavior: "auto" });
   }
-  requestAnimationFrame(() => app.querySelector(".day-chip.active")?.scrollIntoView({ inline: "center", block: "nearest", behavior: "auto" }));
+  requestAnimationFrame(() => {
+    const activeDay = app.querySelector(".day-chip.active");
+    const strip = activeDay?.closest(".day-strip");
+    if (activeDay && strip) strip.scrollTo({ left: activeDay.offsetLeft - (strip.clientWidth - activeDay.offsetWidth) / 2, behavior: "auto" });
+  });
 }
 
 function rememberTimeline(element) {
