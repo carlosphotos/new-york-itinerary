@@ -1,4 +1,4 @@
-const APP_VERSION = "21";
+const APP_VERSION = "22";
 
 const tripDays = [
   {
@@ -654,21 +654,20 @@ function dayStrip(selectedOverride) {
   </div>`;
 }
 
-function tripContext() {
-  const today = new Date();
+function tripContext(today = new Date()) {
   const start = new Date(2026, 8, 10);
   const end = new Date(2026, 8, 16, 23, 59, 59);
   const oneDay = 86400000;
-  if (today < start) return { index: 0, kicker: `Faltan ${Math.max(1, Math.ceil((start - today) / oneDay))} días`, title: "Tu viaje a Nueva York", theme: "El itinerario ya está listo", button: "Ver el primer día →" };
-  if (today > end) return { index: 0, kicker: "Guía del viaje", title: "Nueva York, día por día", theme: "Septiembre 10–16 · 2026", button: "Abrir el itinerario →" };
+  if (today < start) return { index: 0, kicker: `Faltan ${Math.max(1, Math.ceil((start - today) / oneDay))} días`, title: "Inicia tu viaje", theme: "Día 1 · 10 de septiembre", button: "Abrir el Día 1 →", note: "La selección avanzará automáticamente con cada fecha del viaje." };
+  if (today > end) return { index: 6, kicker: "Viaje completado", title: "Tu guía sigue aquí", theme: "Día 7 · 16 de septiembre", button: "Abrir el Día 7 →", note: "También puedes volver a cualquier día desde la selección inferior." };
   const index = Math.min(6, Math.floor((today - start) / oneDay));
-  return { index, kicker: `Hoy · Día ${index + 1}`, title: "Tu día en Nueva York", theme: tripDays[index].theme, button: "Ver el itinerario de hoy →" };
+  return { index, kicker: `Hoy · Día ${index + 1}`, title: index === 0 ? "Inicia tu viaje" : "Continúa tu viaje", theme: `Día ${index + 1} · ${tripDays[index].number} de septiembre`, button: `Abrir el Día ${index + 1} →`, note: "Esta selección corresponde automáticamente a la fecha de hoy." };
 }
 
 function homeView() {
   const context = tripContext();
   const day = tripDays[context.index];
-  const first = timelineForDay(context.index)[0];
+  const shortDays = ["Jueves", "Viernes", "Sábado", "Domingo", "Lunes", "Martes", "Miércoles"];
   return `<div class="fade-in">
     <section class="passport-hero" aria-labelledby="trip-title">
       <p class="passport-overline">Travel file · NYC / 26</p>
@@ -678,6 +677,7 @@ function homeView() {
       <div class="stamp stamp-brooklyn"><img src="./assets/brooklyn-bridge.jpg" alt="Brooklyn Bridge"><span>Brooklyn</span></div>
       <div class="stamp stamp-gantry"><img src="./assets/gantry.jpg" alt="Letrero de Pepsi-Cola en Gantry Plaza"><span>Queens</span></div>
       <div class="stamp stamp-coney"><img src="./assets/coney-island.jpg" alt="Coney Island"><span>Coney</span></div>
+      <div class="stamp stamp-portrait"><img src="./assets/our-new-york-stamp.jpg" alt="Ilustración de una pareja frente al skyline y la Estatua de la Libertad"><span>Our NYC</span></div>
       <div class="passport-title-card">
         <span>New York City</span>
         <h1 id="trip-title">NEW YORK</h1>
@@ -690,14 +690,11 @@ function homeView() {
       <p class="section-kicker">${context.kicker}</p>
       <h2 class="section-title">${context.title}</h2>
       <p class="section-note">${context.theme}</p>
-      <article class="today-card">
-        <span class="today-watermark" aria-hidden="true">${String(context.index + 1).padStart(2, "0")}</span>
-        <p class="today-date">Día ${context.index + 1} · ${day.number} de septiembre</p>
-        <p class="today-theme">${day.theme}</p>
-        <p class="next-label">Primera parada</p>
-        <div class="next-row"><span class="next-time">${first[0]}</span><span class="next-place">${first[1]}</span><span class="next-detail">${first[2]}</span></div>
-        <button class="text-button" data-action="current-day" data-current-day="${context.index}">${context.button}</button>
+      <article class="journey-card">
+        <div class="journey-selection"><span>Selección automática</span><strong>Día ${context.index + 1}</strong><small>${shortDays[context.index]} · ${day.number} SEP</small></div>
+        <button class="journey-button" data-action="current-day" data-current-day="${context.index}">${context.button}</button>
       </article>
+      <p class="journey-note">${context.note}</p>
     </section>
     ${dayStrip(context.index)}
   </div>`;
