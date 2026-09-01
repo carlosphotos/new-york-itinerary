@@ -1,21 +1,21 @@
-const APP_VERSION = "25";
+const APP_VERSION = "26";
 
 const tripDays = [
   {
-    number: "10", name: "Thu", label: "Thursday", month: "September", theme: "JFK · Midtown clásico · Yankees · Dizzy’s",
+    theme: "Llegada · Midtown clásico · Yankees · Dizzy’s",
     timeline: [
-      ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"], ["~09:00", "Dejar equipaje", "Primera pausa logística antes de continuar", ""],
+      ["Mañana", "Llegada a Nueva York", "Inicio del viaje", ""], ["~09:00", "Primera pausa", "Organizar el día antes de continuar", ""],
       ["~10:15", "Bryant Park", "Primera pausa en Midtown", "place-bryant"], ["10:15–12:40", "Midtown clásico", "Bryant Park · NYPL · Grand Central · Chrysler · St. Patrick’s · Rockefeller", "place-midtown"],
       ["12:40–13:30", "Nintendo + LEGO + UNIQLO", "Tres tiendas prioritarias alrededor de Rockefeller y Fifth Avenue", "place-midtownstores"],
       ["~13:30", "Comida ligera", "Opciones cercanas según el recorrido", "meal-day1-lunch"], ["~14:30", "Regreso y check-in", "Traslado para completar la llegada", ""],
       ["15:00", "Check-in", "Habitación y equipaje", ""], ["15:00–16:30", "Descanso", "Pausa antes del partido", ""],
-      ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"], ["19:05", "Yankees–Rockies", "Pinstripe Pass · gorro Yankees + NYON para los primeros 18,000", "place-yankee"],
+      ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"], ["19:05", "Yankees–Rockies", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
       ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""], ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
       ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"], ["~22:30", "Cena tardía", "Opciones cerca de Columbus Circle", "meal-day1-dinner"], ["~00:00", "Fin del día", "Descanso", ""]
     ]
   },
   {
-    number: "11", name: "Fri", label: "Friday", month: "September", theme: "Lower Manhattan · 9/11 · Chinatown · Subway Series",
+    theme: "Lower Manhattan · 9/11 · Chinatown · Subway Series",
     timeline: [
       ["08:30", "Desayuno", "Inicio tranquilo", ""], ["09:30", "Lower Manhattan", "Salida hacia The Battery", ""],
       ["10:30", "The Battery", "Waterfront · Estatua de la Libertad y Ellis Island", ""], ["11:00", "Bowling Green + Charging Bull", "Paseo breve", ""],
@@ -30,12 +30,12 @@ const tripDays = [
       ["~16:05", "Comida en Chinatown", "Uncle Lou vs. Wo Hop · ajustar según Centre 360", "meal-day2-lunch"],
       ["~16:30", "Supreme + New York or Nowhere", "Opcional si el tiempo y Centre 360 lo permiten", "optional"],
       ["~16:45", "Regreso al Bronx", "Traslado para cambiarse", ""], ["~17:30", "Cambio rápido", "Dejar compras y prepararse", ""],
-      ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeemets"], ["19:05", "Yankees vs. Mets", "Section 421 · Row 14 · Seats 20–21", "place-yankeemets"],
+      ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeemets"], ["19:05", "Yankees vs. Mets", "Subway Series · partido de la noche", "place-yankeemets"],
       ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Fin del día", "Descanso", ""]
     ]
   },
   {
-    number: "12", name: "Sat", label: "Saturday", month: "September", theme: "Central Park · The Met · Roosevelt Island · Gantry Plaza",
+    theme: "Central Park · The Met · Roosevelt Island · Gantry Plaza",
     timeline: [
       ["09:00", "Desayuno", "Inicio del día", ""], ["10:00–10:25", "The Mall", "Paseo arbolado hacia Bethesda", "place-centralpark"],
       ["10:25–10:55", "Bethesda Terrace + Fountain", "Arcadas, fuente y vista de The Lake", "place-centralpark"],
@@ -58,7 +58,7 @@ const tripDays = [
     ]
   },
   {
-    number: "13", name: "Sun", label: "Sunday", month: "September", theme: "Brooklyn Bridge · DUMBO · Williamsburg · Greenpoint",
+    theme: "Brooklyn Bridge · DUMBO · Williamsburg · Greenpoint",
     timeline: [
       ["08:30", "Desayuno", "Inicio del día", ""], ["09:15", "Hacia Brooklyn Bridge", "Acceso desde Manhattan", ""],
       ["10:00–10:45", "Brooklyn Bridge", "Cruce completo hacia Brooklyn", ""],
@@ -83,7 +83,7 @@ const tripDays = [
     ]
   },
   {
-    number: "14", name: "Mon", label: "Monday", month: "September", theme: "MoMA · High Line · Chelsea · Village · Top of the Rock",
+    theme: "MoMA · High Line · Chelsea · Village · Top of the Rock",
     timeline: [
       ["09:00", "Desayuno", "Inicio del día", ""], ["10:15", "Llegar al MoMA", "Prepararse para apertura", ""],
       ["10:30–11:15", "MoMA · Collection 1880s–1940s", "Modernismo, Van Gogh, Picasso y Matisse", "place-moma"],
@@ -105,7 +105,7 @@ const tripDays = [
     ]
   },
   {
-    number: "15", name: "Tue", label: "Tuesday", month: "September", theme: "Natural History · Upper West Side · Riverside Park · Coney Island",
+    theme: "Natural History · Upper West Side · Riverside Park · Coney Island",
     timeline: [
       ["08:30", "Desayuno", "Inicio del día", ""], ["09:30", "Upper West Side", "Salida hacia el museo", ""],
       ["10:00–10:50", "AMNH · Dinosaurios", "Fósiles y grandes esqueletos", "place-amnh"],
@@ -123,20 +123,16 @@ const tripDays = [
     ]
   },
   {
-    number: "16", name: "Wed", label: "Wednesday", month: "September", theme: "Return · JFK · San Antonio · Mexico City",
+    theme: "Regreso · fin del viaje",
     timeline: [
-      ["~05:00", "Despertar", "Maletas listas desde la noche anterior", ""], ["05:15", "Check-out", "Equipaje listo", ""],
-      ["~05:30", "Salida hacia JFK", "Traslado reservado", ""], ["~06:15", "JFK", "Check-in · equipaje · seguridad", "place-jfk"],
-      ["09:00", "Delta 3779", "JFK → San Antonio", ""], ["12:15", "San Antonio", "Conexión · 2 h 06 min", ""],
-      ["14:21", "Aeroméxico 633", "SAT → MEX", ""], ["15:30", "Ciudad de México", "Fin del viaje", ""]
+      ["Mañana", "Regreso", "Fin del itinerario", ""]
     ]
   }
 ];
 
 const day1USOpenShortTimeline = [
-  ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"],
-  ["~07:30–08:15", "Migración, equipaje y salida", "Completar la llegada y salir de la terminal", ""],
-  ["~09:00", "Dejar equipaje", "Pausa logística antes de continuar a Queens", ""],
+  ["Mañana", "Llegada a Nueva York", "Inicio del viaje", ""],
+  ["~09:00", "Primera pausa", "Organizar el día antes de continuar a Queens", ""],
   ["~10:00", "US Open · llegada", "Acceso sujeto al horario operativo; confirmar la hora exacta antes del viaje", "place-usopen"],
   ["~10:00–11:30/11:45", "US Open corto", "Visita de aproximadamente 1 h 15–1 h 30 a los grounds", "place-usopen"],
   ["~11:30/11:45", "Salida a Manhattan", "Proteger este corte para conservar el recorrido breve de Midtown", ""],
@@ -149,7 +145,7 @@ const day1USOpenShortTimeline = [
   ["~15:00", "Check-in", "Habitación y equipaje", ""],
   ["15:00–16:30", "Descanso", "Pausa antes del partido", ""],
   ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"],
-  ["19:05", "Yankees–Rockies", "Pinstripe Pass · gorro Yankees + NYON para los primeros 18,000", "place-yankee"],
+  ["19:05", "Yankees–Rockies", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
   ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""],
   ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
   ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"],
@@ -158,9 +154,8 @@ const day1USOpenShortTimeline = [
 ];
 
 const day1USOpenLongTimeline = [
-  ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"],
-  ["~07:30–08:15", "Migración, equipaje y salida", "Completar la llegada y salir de la terminal", ""],
-  ["~09:00", "Dejar equipaje", "Pausa logística antes de continuar a Queens", ""],
+  ["Mañana", "Llegada a Nueva York", "Inicio del viaje", ""],
+  ["~09:00", "Primera pausa", "Organizar el día antes de continuar a Queens", ""],
   ["~10:00–10:15", "Hacia Flushing Meadows", "Salida desde el Bronx hacia Queens", ""],
   ["~11:15", "USTA Billie Jean King National Tennis Center", "Llegada y acceso a los grounds", "place-usopen"],
   ["11:15–13:30/14:00", "US Open · Open for All Day", "Grounds gratuitos y abiertos al público durante el día; confirmar acceso y capacidad cerca de la fecha", "place-usopen"],
@@ -169,7 +164,7 @@ const day1USOpenLongTimeline = [
   ["15:00–16:15", "Descanso", "Pausa breve antes del partido", ""],
   ["~16:30–16:45", "Hacia Yankee Stadium", "Salida con margen hacia el estadio", ""],
   ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"],
-  ["19:05", "Yankees–Rockies", "Pinstripe Pass · gorro Yankees + NYON para los primeros 18,000", "place-yankee"],
+  ["19:05", "Yankees–Rockies", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
   ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""],
   ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
   ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"],
@@ -205,7 +200,7 @@ const day2FerryTimeline = [
   ["~16:30–16:45", "Regreso al Bronx", "Traslado para cambiarse", ""],
   ["~17:30", "Cambio rápido", "Dejar compras y prepararse", ""],
   ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeemets"],
-  ["19:05", "Yankees vs. Mets", "Section 421 · Row 14 · Seats 20–21", "place-yankeemets"],
+  ["19:05", "Yankees vs. Mets", "Subway Series · partido de la noche", "place-yankeemets"],
   ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Fin del día", "Descanso", ""]
 ];
 
@@ -218,7 +213,7 @@ const day2FerryRoutes = [
 
 const day3TimesSquareTimeline = tripDays[2].timeline.slice(0, -2).concat([
   ["~20:50–21:25", "Gantry → Times Square", "Tomar la línea 7 desde Vernon Blvd–Jackson Av", ""],
-  ["~21:25–21:55", "Times Square de noche", "Luces · pantallas · Broadway · visita breve trasladada desde el lunes", "place-timessquare"],
+  ["~21:25–21:55", "Times Square de noche", "Luces · pantallas · Broadway · visita breve trasladada desde el Día 5", "place-timessquare"],
   ["~22:00", "Cena por Midtown", "Cena posterior a Times Square; Café Henri deja de ser la opción principal de esta variante", "meal-day5-dinner"],
   ["~23:00", "Fin del día", "Regreso y descanso", ""]
 ]);
@@ -249,7 +244,7 @@ const day5AfterShortUSOpen = [
 ];
 
 const day5AfterLongUSOpen = [
-  ["14:00–14:30", "Grand Central + Chrysler", "Recuperar dos pendientes del jueves con una visita concentrada", "place-midtown"],
+  ["14:00–14:30", "Grand Central + Chrysler", "Recuperar dos pendientes del Día 1 con una visita concentrada", "place-midtown"],
   ["14:30–15:20", "Bryant Park + NYPL", "Parque, fachada, leones y biblioteca según acceso", "place-midtown"],
   ["15:20–15:45", "Five Below Fifth Avenue", "Parada rápida en 530 Fifth Avenue", "place-fivebelow"],
   ["15:45–16:10", "St. Patrick’s Cathedral", "Interior y fachada", "place-midtown"],
@@ -387,20 +382,12 @@ function timelineForDay(index) {
 }
 
 const places = [
-  ["JFK Airport", "Queens · Arrival", "Llegada y conexión hacia Manhattan. Añadiremos terminal, ruta y detalles del traslado."],
   ["Bryant Park", "Midtown · Park", "Punto de partida para el paseo clásico por Midtown y las tiendas."],
-  ["Yankee Stadium", "The Bronx · Baseball", "Sep 10: Pinstripe Pass confirmado. Sep 11: Section 421 · Row 14 · Seats 20–21."],
+  ["Yankee Stadium", "The Bronx · Baseball", "Dos noches de béisbol y ambiente clásico del Bronx."],
   ["Dizzy’s Club", "Columbus Circle · Jazz", "Sonny Rollins · 21:00. Pendiente: confirmación y código de reserva."],
 ];
 
 const placeDetails = {
-  jfk: {
-    kicker: "06:15 · Queens", title: "JFK Airport", address: "John F. Kennedy International Airport · Queens",
-    photos: [["./assets/jfk-terminal.jpg", "JFK International Airport"]],
-    summary: "Punto de llegada. La ficha queda preparada para añadir terminal, vuelo y detalles del traslado cuando estén confirmados.",
-    notes: ["Tener pasaporte y datos del vuelo a mano", "Confirmar terminal antes del viaje", "Abrir Maps al salir de equipaje"],
-    map: "https://www.google.com/maps/search/?api=1&query=John+F+Kennedy+International+Airport"
-  },
   bryant: {
     kicker: "~10:15 · Midtown", title: "Bryant Park", address: "Bryant Park · 6th Ave & 42nd St",
     photos: [["./assets/bryant-park.jpg", "Bryant Park y la New York Public Library"]],
@@ -427,11 +414,10 @@ const placeDetails = {
   yankee: {
     kicker: "19:05 · The Bronx", title: "Yankee Stadium", address: "1 E 161 St · Bronx",
     photos: [["./assets/yankee-stadium.jpg", "Exterior de Yankee Stadium"]],
-    summary: "Yankees–Rockies. Pinstripe Pass de pie, primera bebida incluida y giveaway Yankees + New York or Nowhere Knit Hat.",
-    notes: ["Llegar ~17:00 para recorrer el estadio y entrar antes de que se agote el regalo", "Giveaway para los primeros 18,000 asistentes; sujeto a disponibilidad y cambios", "Buscar zonas sociales y espacios standing room", "Canjear la bebida mostrando el boleto", "No ocupar asientos ni lugares SRO asignados"],
-    callout: "PINSTRIPE PASS · Standing room · Primera bebida · Gorro NYY + NYON, primeros 18,000",
+    summary: "Yankees–Rockies y una primera visita al estadio, con tiempo para recorrerlo antes del juego.",
+    notes: ["Llegar ~17:00 para recorrer el estadio", "El giveaway es para los primeros asistentes y está sujeto a disponibilidad y cambios", "Ubicar baños y opciones de comida antes de que empiece el partido", "Conservar margen para salir hacia Dizzy’s"],
     map: "https://www.google.com/maps/search/?api=1&query=Yankee+Stadium+1+E+161+St+Bronx",
-    official: "https://www.mlb.com/yankees/tickets/specials/pinstripe-pass"
+    official: "https://www.mlb.com/yankees/ballpark"
   },
   dizzys: {
     kicker: "21:00 · Columbus Circle", title: "Dizzy’s Club", address: "Frederick P. Rose Hall · Broadway at 60th St",
@@ -454,14 +440,14 @@ function guide(title, kicker, summary, notes, query) {
 
 Object.assign(placeDetails, {
   usopen: {
-    ...guide("US Open · Open for All Day", "Día 1 · opciones 1 y 2", "Visita diurna a los grounds del USTA Billie Jean King National Tennis Center durante la jornada gratuita del jueves 10 de septiembre.", ["US Open confirma que los grounds estarán abiertos gratuitamente al público durante el día", "La entrada libre a los grounds no incluye un asiento para la semifinal nocturna de Arthur Ashe Stadium", "Opción 1: visita corta de aproximadamente 1 h 15–1 h 30 y salida estricta hacia Manhattan", "Opción 2: visita de 2–3 horas y regreso directo para el check-in", "Confirmar la hora exacta de acceso, la capacidad y cualquier requisito operativo pocos días antes"], "USTA Billie Jean King National Tennis Center Flushing Meadows Corona Park New York"),
+    ...guide("US Open · Open for All Day", "Día 1 · opciones 1 y 2", "Visita diurna a los grounds del USTA Billie Jean King National Tennis Center durante la jornada gratuita del Día 1.", ["US Open confirma que los grounds estarán abiertos gratuitamente al público durante el día", "El acceso a los grounds no incluye la sesión nocturna de Arthur Ashe Stadium", "Opción 1: visita corta de aproximadamente 1 h 15–1 h 30 y salida estricta hacia Manhattan", "Opción 2: visita de 2–3 horas y regreso directo para el check-in", "Confirmar la hora exacta de acceso, la capacidad y cualquier requisito operativo poco antes del viaje"], "USTA Billie Jean King National Tennis Center Flushing Meadows Corona Park New York"),
     photos: [["./assets/us-open-tennis-center.jpg", "Arthur Ashe Stadium · USTA Billie Jean King National Tennis Center"]],
-    callout: "OPEN FOR ALL DAY · SEP 10 · GROUNDS GRATUITOS",
+    callout: "OPEN FOR ALL DAY · GROUNDS GRATUITOS",
     calloutLabel: "Acceso oficial",
     official: "https://www.usopen.org/en_US/tickets/individual_tickets.html"
   },
   fivebelow: {
-    ...guide("Five Below Fifth Avenue", "Días 1 o 5 · compras", "Parada breve en la sucursal de Fifth Avenue, ubicada entre las calles 44 y 45 y muy cerca de Bryant Park.", ["Dirección: 530 Fifth Avenue", "Entrar con una lista o límite de tiempo; hay muchas categorías y es fácil alargar la visita", "El horario oficial publicado para jueves y lunes es 09:00–21:30; confirmar antes del viaje", "En la opción 1 del jueves queda resuelto ese mismo día; en las otras opciones pasa al lunes"], "Five Below 530 Fifth Avenue New York"),
+    ...guide("Five Below Fifth Avenue", "Días 1 o 5 · compras", "Parada breve en la sucursal de Fifth Avenue, ubicada entre las calles 44 y 45 y muy cerca de Bryant Park.", ["Dirección: 530 Fifth Avenue", "Entrar con una lista o límite de tiempo; hay muchas categorías y es fácil alargar la visita", "El horario publicado cubre el bloque previsto; confirmar antes del viaje", "En la opción 1 queda resuelto en el Día 1; en las otras opciones pasa al Día 5"], "Five Below 530 Fifth Avenue New York"),
     photos: [["./assets/five-below-fifth-avenue.jpg", "Interior de una tienda Five Below"]],
     official: "https://locations.fivebelow.com/ny/new-york/530-fifth-avenue"
   },
@@ -471,11 +457,10 @@ Object.assign(placeDetails, {
     sights: [["Nintendo NY", "Flagship de dos plantas con mercancía exclusiva y exhibiciones de Mario, Zelda, Pokémon y otras franquicias.", "./assets/nintendo-ny.jpg", "Nintendo NY · Rockefeller Center"], ["LEGO Store Fifth Avenue", "Flagship con grandes construcciones, personalización y zonas interactivas; decidir compras antes de entrar para controlar el tiempo.", "./assets/lego-fifth-avenue.jpg", "LEGO Store · Fifth Avenue"], ["UNIQLO Fifth Avenue", "Flagship amplio de tres niveles; priorizar la lista de prendas para evitar recorrer toda la tienda.", "./assets/uniqlo-fifth-avenue.jpg", "UNIQLO Fifth Avenue"]]
   },
   yankeemets: {
-    kicker: "19:05 · viernes 11", title: "Yankees–Mets", address: "Yankee Stadium · 1 E 161 St · Bronx",
+    kicker: "19:05 · Día 2", title: "Yankees–Mets", address: "Yankee Stadium · The Bronx",
     photos: [["./assets/yankee-stadium.jpg", "Exterior de Yankee Stadium"]],
-    summary: "Subway Series en Yankee Stadium con lugares asignados en el nivel Grandstand.",
-    notes: ["Section 421 · Row 14 · Seats 20–21", "Llegar alrededor de las 18:00", "Guardar los boletos en Wallet antes de salir", "Esta entrada sí tiene asiento asignado; no confundir con el Pinstripe Pass del jueves"],
-    callout: "SECTION 421 · ROW 14 · SEATS 20–21",
+    summary: "Subway Series de noche en Yankee Stadium.",
+    notes: ["Llegar alrededor de las 18:00", "Recorrer el estadio antes del primer lanzamiento", "Revisar el tiempo y las reglas de acceso antes de salir"],
     map: "https://www.google.com/maps/search/?api=1&query=Yankee+Stadium+1+E+161+St+Bronx",
     official: "https://www.mlb.com/yankees/ballpark"
   },
@@ -523,7 +508,7 @@ Object.assign(placeDetails, {
   },
   statenferry: guide("Staten Island Ferry", "Día 2 · opción Estatua", "Ferry público de ida y vuelta para conseguir una vista mucho más cercana de la Estatua de la Libertad y del skyline desde el agua.", ["El ferry es gratuito; no comprar boletos a vendedores", "Hay que desembarcar en Staten Island y volver a abordar", "Buscar el lado derecho al salir de Manhattan para la Estatua", "Dejar margen para espera y controles de acceso"], "Whitehall Terminal Staten Island Ferry New York"),
   squarediner: guide("Square Diner", "Día 2 · opcional", "Café o desayuno tardío en un diner clásico de Tribeca con ambiente tradicional de barrio.", ["Pedir café y algo pequeño si desayunaron temprano", "No asignarle una hora fija hasta confirmar Centre 360", "Omitirla si obliga a recortar Printemps, el ferry o el regreso al Bronx"], "Square Diner 33 Leonard Street New York"),
-  ferry: guide("NYC Ferry", "Día 4 · East River", "Traslado panorámico de DUMBO hacia Williamsburg.", ["Revisar la app y horarios unos días antes", "Los domingos la ruta East River puede dividirse", "Llegar al muelle con margen"], "Fulton Ferry Landing Brooklyn"),
+  ferry: guide("NYC Ferry", "Día 4 · East River", "Traslado panorámico de DUMBO hacia Williamsburg.", ["Revisar la app y horarios unos días antes", "La ruta East River puede dividirse en A/B según el servicio", "Llegar al muelle con margen"], "Fulton Ferry Landing Brooklyn"),
   records: guide("Discos + circuito musical", "Día 4 · Williamsburg", "Un tramo pensado para los intereses musicales del viaje.", ["Earwax Records", "Face Records NYC", "Pasar por Music Hall of Williamsburg y Brooklyn Bowl"], "Earwax Records Brooklyn"),
   qahwah: guide("Qahwah House", "Día 4 · café opcional", "Café yemení sobre Bedford Avenue para usar solo si no hubo parada en DUMBO.", ["Probar café yemení o té", "Mantener la parada corta", "Omitirla si reduce el tiempo de Yoseka"], "Qahwah House Williamsburg Brooklyn"),
   nyon: guide("New York or Nowhere", "Días 2 o 6 · compras", "Tienda pendiente que se combina con Supreme en función del horario de Centre 360.", ["Intentar Día 2 solo si hay margen", "Plan principal del Día 6 si quedó pendiente", "Comprobar horarios antes de ir"], "New York or Nowhere New York"),
@@ -543,7 +528,7 @@ Object.assign(placeDetails, {
     map: "https://www.google.com/maps/dir/?api=1&origin=Whitney+Museum+of+American+Art&destination=The+Locavore+Variety+Store&travelmode=walking&waypoints=an.me+249+Bleecker+Street%7CGreenwich+Letterpress%7CC.O.+Bigelow"
   },
   morgan: {
-    ...guide("Morgan Library", "Día 6 · opción B", "Biblioteca y museo en la antigua colección de J. Pierpont Morgan, con interiores históricos, manuscritos y exposiciones.", ["225 Madison Avenue, entre 36th y 37th Streets", "Priorizar la biblioteca original y el despacho de Morgan", "La biblioteca histórica suele tener acceso gratuito los martes de 15:00 a 17:00; confirmar antes del viaje", "Mantener la visita en aproximadamente una hora"], "The Morgan Library and Museum 225 Madison Avenue New York"),
+    ...guide("Morgan Library", "Día 6 · opción B", "Biblioteca y museo en la antigua colección de J. Pierpont Morgan, con interiores históricos, manuscritos y exposiciones.", ["225 Madison Avenue, entre 36th y 37th Streets", "Priorizar la biblioteca original y el despacho de Morgan", "La biblioteca histórica puede ofrecer una franja gratuita de 15:00 a 17:00; confirmar el programa vigente", "Mantener la visita en aproximadamente una hora"], "The Morgan Library and Museum 225 Madison Avenue New York"),
     photos: [["./assets/morgan-library.jpg", "The Morgan Library & Museum · Madison Avenue"]],
     official: "https://www.themorgan.org/visit"
   },
@@ -648,7 +633,7 @@ Object.entries(groupedPlaceDetails).forEach(([id, enhancement]) => Object.assign
 
 Object.assign(placeDetails, {
   highline: {
-    ...guide("High Line", "Días 5 o 6 · norte a sur", "Parque elevado construido sobre una antigua vía ferroviaria. La ruta entra en Hudson Yards y desciende hacia Chelsea.", ["Entrar por 30th Street", "Caminar hacia el sur para evitar retrocesos", "En la versión nocturna, reservar aproximadamente 40 minutos y mantener buen ritmo", "El horario estacional de junio a septiembre se publica hasta las 23:00; confirmar accesos y cierres excepcionales antes del viaje", "Llevar calzado cómodo; algunos tramos tienen poca iluminación ambiental"], "High Line 30th Street Entrance New York"),
+    ...guide("High Line", "Días 5 o 6 · norte a sur", "Parque elevado construido sobre una antigua vía ferroviaria. La ruta entra en Hudson Yards y desciende hacia Chelsea.", ["Entrar por 30th Street", "Caminar hacia el sur para evitar retrocesos", "En la versión nocturna, reservar aproximadamente 40 minutos y mantener buen ritmo", "El horario de temporada puede extenderse hasta las 23:00; confirmar accesos y cierres excepcionales antes del viaje", "Llevar calzado cómodo; algunos tramos tienen poca iluminación ambiental"], "High Line 30th Street Entrance New York"),
     photos: [["./assets/high-line-tracks.jpg", "High Line · antiguos rieles"], ["./assets/high-line-10th-square.jpg", "10th Avenue Square"]],
     sights: [["Hudson Yards + Vessel", "Antes de entrar, mirar el nuevo conjunto urbano y el exterior de Vessel; no es necesario añadir otra visita.", "./assets/vessel.jpg", "Vessel · Hudson Yards"], ["30th Street Grove", "Inicio más tranquilo con vegetación, antiguos rieles y vistas hacia el Hudson.", "./assets/high-line-tracks.jpg", "High Line · rieles y plantaciones"], ["10th Avenue Square", "Gradas y gran ventanal sobre la avenida; buen punto para detenerse y observar la ciudad.", "./assets/high-line-10th-square.jpg", "10th Avenue Square"], ["Chelsea Market Passage", "Tramo donde la vía atraviesa edificios industriales y conecta con el acceso al mercado.", "./assets/high-line.jpg", "High Line a través de Chelsea"], ["Gansevoort Woodland", "Final arbolado cerca del Meatpacking District y del Whitney Museum.", "./assets/high-line-gansevoort.jpg", "Gansevoort Woodland"]],
     official: "https://www.thehighline.org/visit/"
@@ -734,8 +719,8 @@ const mealOptions = {
     title: "Cena",
     intro: "Opciones cerca de Dizzy’s para decidir según la hora de salida, el hambre y el ambiente que prefieran.",
     options: [
-      ["P.J. Clarke’s", "Old New York tavern", "4–6 min", "44 W 63rd St · Lincoln Square", "Taberna neoyorquina clásica, cómoda para cerrar la noche con una cena completa.", "Hamburguesa, chicken paillard o ensalada mediterránea. Los jueves suele cerrar a medianoche.", "https://pjclarkes.com/menu/lincoln-square/", "P.J. Clarke's 44 W 63rd St New York"],
-      ["The Smith", "American brasserie", "5–7 min", "1900 Broadway · 63rd St", "Brasserie animada frente a Lincoln Center, con menú amplio y mesas para sentarse con calma.", "Mac & cheese para compartir, rigatoni alla vodka, ensalada o burger. Los jueves suele cerrar a las 23:00.", "https://thesmithrestaurant.com/location/lincoln-square/", "The Smith Lincoln Square 1900 Broadway New York"],
+      ["P.J. Clarke’s", "Old New York tavern", "4–6 min", "44 W 63rd St · Lincoln Square", "Taberna neoyorquina clásica, cómoda para cerrar la noche con una cena completa.", "Hamburguesa, chicken paillard o ensalada mediterránea. Confirmar el cierre de medianoche.", "https://pjclarkes.com/menu/lincoln-square/", "P.J. Clarke's 44 W 63rd St New York"],
+      ["The Smith", "American brasserie", "5–7 min", "1900 Broadway · 63rd St", "Brasserie animada frente a Lincoln Center, con menú amplio y mesas para sentarse con calma.", "Mac & cheese para compartir, rigatoni alla vodka, ensalada o burger. Confirmar el cierre nocturno.", "https://thesmithrestaurant.com/location/lincoln-square/", "The Smith Lincoln Square 1900 Broadway New York"],
       ["Empanada Mama", "Latin · late night", "15–18 min", "765 9th Ave · Hell’s Kitchen", "La alternativa informal si el concierto termina tarde: muchas empanadas y servicio orientado a la noche.", "Dos o tres empanadas por persona; combinar una de carne o pollo con una vegetariana.", "https://www.empanadamama.com/hells-kitchen-menu", "Empanada Mama 765 9th Ave New York"]
     ]
   },
@@ -808,35 +793,35 @@ const mealOptions = {
 };
 
 const transportDays = [
-  { day: "Día 1 · jueves 10", summary: "US Open corto/largo o Midtown → Bronx → Columbus Circle", legs: [
+  { day: "Día 1", summary: "US Open corto/largo o Midtown → Bronx → Columbus Circle", legs: [
     ["Opción 1 · US Open → Grand Central", "7 desde Mets–Willets Point hasta Grand Central–42 St. Salir a más tardar alrededor de 11:30/11:45.", "USTA Billie Jean King National Tennis Center", "Grand Central Terminal"],
     ["Yankee Stadium → Dizzy’s", "D desde 161 St–Yankee Stadium hasta 59 St–Columbus Circle.", "Yankee Stadium", "Dizzy's Club New York"]
   ]},
-  { day: "Día 2 · viernes 11", summary: "Lower Manhattan → Printemps → Seaport o ferry → Chinatown → Yankee Stadium", legs: [
+  { day: "Día 2", summary: "Lower Manhattan → Printemps → Seaport o ferry → Chinatown → Yankee Stadium", legs: [
     ["The Battery → Printemps", "Caminar por Bowling Green, Charging Bull, Wall Street y Federal Hall.", "The Battery New York", "Printemps New York"],
     ["Chinatown → Yankee Stadium", "Abrir Maps antes de salir para elegir la combinación de metro con mejor servicio.", "Grand Street Station Manhattan", "Yankee Stadium"]
   ]},
-  { day: "Día 3 · sábado 12", summary: "Central Park/The Met → Tram → Roosevelt Island → LIC → Times Square si elegiste 14B", legs: [
+  { day: "Día 3", summary: "Central Park/The Met → Tram → Roosevelt Island → LIC → Times Square si elegiste la opción nocturna del Día 5", legs: [
     ["Roosevelt Island → LIC", "F desde Roosevelt Island a 21 St–Queensbridge o ferry según el recorrido confirmado.", "Roosevelt Island", "Gantry Plaza State Park"],
-    ["Si elegiste 14B · Gantry → Times Square", "7 directo desde Vernon Blvd–Jackson Av hasta Times Sq–42 St.", "Gantry Plaza State Park", "Times Square New York"]
+    ["Si elegiste High Line · Gantry → Times Square", "7 directo desde Vernon Blvd–Jackson Av hasta Times Sq–42 St.", "Gantry Plaza State Park", "Times Square New York"]
   ]},
-  { day: "Día 4 · domingo 13", summary: "Brooklyn Bridge → DUMBO → ferry → Williamsburg/Greenpoint", legs: [
+  { day: "Día 4", summary: "Brooklyn Bridge → DUMBO → ferry → Williamsburg/Greenpoint", legs: [
     ["DUMBO → Williamsburg", "NYC Ferry; Fulton Ferry Landing primero se visita y después funciona como punto de embarque. Revisar ruta East River A/B.", "Fulton Ferry Landing", "North Williamsburg Ferry Landing"],
     ["Bed-Stuy opcional", "El desvío a Do the Right Thing Way requiere transporte y añade 60–90 minutos; activarlo solo si el día va adelantado.", "Fulton Ferry Landing", "Do the Right Thing Way Brooklyn"]
   ]},
-  { day: "Día 5 · lunes 14", summary: "MoMA → Midtown según el jueves → Top of the Rock → Times Square o High Line", legs: [
+  { day: "Día 5", summary: "MoMA → Midtown según el Día 1 → Top of the Rock → Times Square o High Line", legs: [
     ["Si elegiste US Open corto", "MoMA → St. Patrick’s → Nintendo/LEGO/UNIQLO → Rockefeller → Top of the Rock.", "Museum of Modern Art New York", "Top of the Rock New York"],
-    ["Si elegiste US Open largo", "El lunes recupera Grand Central, Chrysler, Bryant Park, NYPL y Five Below antes de St. Patrick’s y las tiendas.", "Grand Central Terminal", "Top of the Rock New York"],
-    ["14B · Top → High Line", "Metro hacia Hudson Yards; entrar por 30th St y caminar al sur antes de que cierren los accesos.", "Top of the Rock New York", "High Line 30th Street Entrance"]
+    ["Si elegiste US Open largo", "El Día 5 recupera Grand Central, Chrysler, Bryant Park, NYPL y Five Below antes de St. Patrick’s y las tiendas.", "Grand Central Terminal", "Top of the Rock New York"],
+    ["High Line · Top → Hudson Yards", "Metro hacia Hudson Yards; entrar por 30th St y caminar al sur antes de que cierren los accesos.", "Top of the Rock New York", "High Line 30th Street Entrance"]
   ]},
-  { day: "Día 6 · martes 15", summary: "Upper West Side → Riverside Park → Coney, Manhattan completo o Morgan", legs: [
+  { day: "Día 6", summary: "Upper West Side → Riverside Park → Coney, Manhattan completo o Morgan", legs: [
     ["Zabar’s → Riverside Park", "Caminar hacia el Hudson y dedicar solo 15–20 minutos al waterfront antes de iniciar el traslado.", "Zabar's New York", "Riverside Park West 79th Street"],
     ["Riverside Park → Coney Island", "Ruta larga en metro; confirmar servicio y calcular aproximadamente 70–80 minutos por trayecto.", "Riverside Park West 79th Street", "Coney Island Boardwalk Brooklyn"],
-    ["15B · Riverside → Hudson Yards", "Bajar al acceso norte de High Line; después caminar hacia Chelsea, Village, SoHo/Nolita y Katz’s.", "Riverside Park West 79th Street", "High Line 30th Street Entrance"],
+    ["Manhattan completo · Riverside → Hudson Yards", "Bajar al acceso norte de High Line; después caminar hacia Chelsea, Village, SoHo/Nolita y Katz’s.", "Riverside Park West 79th Street", "High Line 30th Street Entrance"],
     ["Riverside Park → Morgan", "Bajar hacia Midtown y continuar a Madison Avenue; Maps definirá la combinación más rápida.", "Riverside Park West 79th Street", "The Morgan Library and Museum"],
     ["Morgan → SoHo / Nolita", "Bajar a Prince Street; caminar por Greene, pasar por NYON y continuar hacia Supreme y Katz’s.", "The Morgan Library and Museum", "New York or Nowhere"]
   ]},
-  { day: "Día 7 · miércoles 16", summary: "Salida privada → JFK", legs: [] }
+  { day: "Día 7", summary: "Regreso · fin del viaje", legs: [] }
 ];
 
 function transitUrl(origin, destination) {
@@ -861,45 +846,37 @@ function placeBackLabel() {
 
 function dayStrip(selectedOverride) {
   const selected = Number(selectedOverride ?? sessionStorage.getItem("selectedDay") ?? 0);
-  const shortDays = ["Jue", "Vie", "Sáb", "Dom", "Lun", "Mar", "Mié"];
   const daySummaries = [
-    "JFK · MIDTOWN / US OPEN · YANKEES",
+    "LLEGADA · MIDTOWN / US OPEN · YANKEES",
     "LOWER MANHATTAN · CHINATOWN",
     "CENTRAL PARK · THE MET · LIC",
     "DUMBO · WILLIAMSBURG · GREENPOINT",
     "MOMA · ROCKEFELLER · TOP / HIGH LINE",
     "AMNH · CONEY / HIGH LINE / MORGAN",
-    "JFK · REGRESO"
+    "REGRESO"
   ];
   return `<div class="day-strip-wrap">
-    <div class="day-strip-heading"><span>Elige un día</span><small>Septiembre 2026</small></div>
+    <div class="day-strip-heading"><span>Elige un día</span><small>Tu itinerario</small></div>
     <div class="day-strip" aria-label="Días del viaje">${tripDays.map((day, i) => `
-      <button class="day-chip ${i === selected ? "active" : ""}" data-day="${i}" aria-label="Día ${i + 1}, ${shortDays[i]} ${day.number} de septiembre: ${daySummaries[i]}" ${i === selected ? 'aria-current="date"' : ""}>
-        <span class="day-index">Día ${i + 1}</span>
-        <span class="day-date"><strong>${day.number}</strong><em>Sep</em><b>${shortDays[i]}</b></span>
+      <button class="day-chip ${i === selected ? "active" : ""}" data-day="${i}" aria-label="Día ${i + 1}: ${daySummaries[i]}" ${i === selected ? 'aria-current="page"' : ""}>
+        <span class="day-index">Itinerario</span>
+        <span class="day-date"><strong>Día ${i + 1}</strong></span>
         <span class="day-summary">${daySummaries[i]}</span>
       </button>`).join("")}</div>
     <span class="day-strip-hint">Desliza para ver los siete días →</span>
   </div>`;
 }
 
-function tripContext(today = new Date()) {
-  const start = new Date(2026, 8, 10);
-  const end = new Date(2026, 8, 16, 23, 59, 59);
-  const oneDay = 86400000;
-  if (today < start) return { index: 0, kicker: `Faltan ${Math.max(1, Math.ceil((start - today) / oneDay))} días`, title: "Inicia tu viaje", theme: "Día 1 · 10 de septiembre", button: "Abrir el Día 1 →", note: "La selección avanzará automáticamente con cada fecha del viaje." };
-  if (today > end) return { index: 6, kicker: "Viaje completado", title: "Tu guía sigue aquí", theme: "Día 7 · 16 de septiembre", button: "Abrir el Día 7 →", note: "También puedes volver a cualquier día desde la selección inferior." };
-  const index = Math.min(6, Math.floor((today - start) / oneDay));
-  return { index, kicker: `Hoy · Día ${index + 1}`, title: index === 0 ? "Inicia tu viaje" : "Continúa tu viaje", theme: `Día ${index + 1} · ${tripDays[index].number} de septiembre`, button: `Abrir el Día ${index + 1} →`, note: "Esta selección corresponde automáticamente a la fecha de hoy." };
+function tripContext() {
+  const index = Math.min(6, Math.max(0, Number(sessionStorage.getItem("selectedDay") || 0)));
+  return { index, kicker: "Tu itinerario", title: index === 0 ? "Inicia tu viaje" : "Continúa tu viaje", theme: `Día ${index + 1}`, button: `Abrir el Día ${index + 1} →`, note: "También puedes abrir cualquier otro día desde la selección inferior." };
 }
 
 function homeView() {
   const context = tripContext();
-  const day = tripDays[context.index];
-  const shortDays = ["Jueves", "Viernes", "Sábado", "Domingo", "Lunes", "Martes", "Miércoles"];
   return `<div class="fade-in">
     <section class="passport-hero" aria-labelledby="trip-title">
-      <p class="passport-overline">Travel file · NYC / 26</p>
+      <p class="passport-overline">Travel file · NYC</p>
       <div class="stamp stamp-midtown"><img src="./assets/midtown-grand-central.jpg" alt="Grand Central y el edificio Chrysler"><span>Midtown</span></div>
       <div class="stamp stamp-yankees"><img src="./assets/yankee-stadium.jpg" alt="Yankee Stadium"><span>Bronx</span></div>
       <div class="stamp stamp-met"><img src="./assets/met-dendur.jpg" alt="Templo de Dendur en The Met"><span>The Met</span></div>
@@ -909,9 +886,9 @@ function homeView() {
       <div class="stamp stamp-portrait"><img src="./assets/our-new-york-stamp.jpg" alt="Ilustración de una pareja frente al skyline y la Estatua de la Libertad"><span>Our NYC</span></div>
       <div class="passport-title-card">
         <h1 id="trip-title">NEW YORK</h1>
-        <p class="dates">September 10–16 · 2026</p>
+        <p class="dates">A private city guide</p>
       </div>
-      <p class="passport-route">JFK · BRONX · MANHATTAN · BROOKLYN · QUEENS</p>
+      <p class="passport-route">BRONX · MANHATTAN · BROOKLYN · QUEENS</p>
       <img class="passport-skyline" src="./assets/nyc-skyline.png" alt="Ilustración panorámica del skyline de Nueva York">
     </section>
     <section class="section home-intro">
@@ -919,7 +896,7 @@ function homeView() {
       <h2 class="section-title">${context.title}</h2>
       <p class="section-note">${context.theme}</p>
       <article class="journey-card">
-        <div class="journey-selection"><span>Selección automática</span><strong>Día ${context.index + 1}</strong><small>${shortDays[context.index]} · ${day.number} SEP</small></div>
+        <div class="journey-selection"><span>Selección del viaje</span><strong>Día ${context.index + 1}</strong><small>Itinerario privado</small></div>
         <button class="journey-button" data-action="current-day" data-current-day="${context.index}">${context.button}</button>
       </article>
       <p class="journey-note">${context.note}</p>
@@ -939,8 +916,8 @@ function periodFor(time) {
 }
 
 function themeForDay(index) {
-  if (index === 0 && day1Choice() === "short") return "JFK · US Open corto · Midtown breve · Yankees · Dizzy’s";
-  if (index === 0 && day1Choice() === "long") return "JFK · US Open largo · Yankees · Dizzy’s";
+  if (index === 0 && day1Choice() === "short") return "Llegada · US Open corto · Midtown breve · Yankees · Dizzy’s";
+  if (index === 0 && day1Choice() === "long") return "Llegada · US Open largo · Yankees · Dizzy’s";
   if (index === 1 && readChoice("day2Option", "urban") === "ferry") return "Printemps · Staten Island Ferry · 9/11 · Chinatown · Subway Series";
   if (index === 2 && day5Choice() === "highline") return "Central Park · The Met · Roosevelt Island · Gantry · Times Square";
   if (index === 4 && day5Choice() === "highline") return "MoMA · Midtown · Top of the Rock · High Line nocturno";
@@ -951,27 +928,27 @@ function themeForDay(index) {
 }
 
 function consequencePanel(index) {
-  if (index === 1 && day6Choice() === "coney") return `<section class="choice-consequence"><p class="section-kicker">Conexión con el martes</p><h2>Si mantienes Coney Island</h2><p>Supreme + New York or Nowhere del viernes adquieren más importancia. SoHo/Nolita no tendrá un bloque dedicado el martes, así que conviene aprovecharlos solo si Centre 360 y el regreso al Bronx dejan margen real.</p></section>`;
-  if (index === 2 && day5Choice() === "highline") return `<section class="choice-consequence"><p class="section-kicker">Porque elegiste 14B</p><h2>Times Square pasa al sábado</h2><p>Después de Gantry Plaza tomarás la línea 7 hacia Times Square. La cena se mueve a Midtown y Café Henri deja de ser el cierre principal de esta variante.</p></section>`;
+  if (index === 1 && day6Choice() === "coney") return `<section class="choice-consequence"><p class="section-kicker">Conexión con el Día 6</p><h2>Si mantienes Coney Island</h2><p>Supreme + New York or Nowhere del Día 2 adquieren más importancia. SoHo/Nolita no tendrá un bloque dedicado el Día 6, así que conviene aprovecharlos solo si Centre 360 y el regreso al Bronx dejan margen real.</p></section>`;
+  if (index === 2 && day5Choice() === "highline") return `<section class="choice-consequence"><p class="section-kicker">Porque elegiste High Line</p><h2>Times Square pasa al Día 3</h2><p>Después de Gantry Plaza tomarás la línea 7 hacia Times Square. La cena se mueve a Midtown y Café Henri deja de ser el cierre principal de esta variante.</p></section>`;
   if (index === 4) {
     const messages = {
-      short: ["Porque elegiste el US Open corto", "Grand Central, Chrysler, Bryant Park, NYPL y Five Below ya quedaron resueltos el jueves. El lunes se concentra en MoMA, St. Patrick’s, las tres tiendas, Rockefeller y Top of the Rock."],
-      long: ["Porque elegiste el US Open largo", "Midtown quedó pendiente el jueves. El lunes incorpora Grand Central, Chrysler, Bryant Park, NYPL y Five Below antes de St. Patrick’s y las tiendas; es la versión más apretada."],
-      original: ["Porque elegiste el plan original", "St. Patrick’s, Rockefeller, Nintendo, LEGO y UNIQLO ya quedaron resueltos el jueves. El lunes conserva Five Below y gana un bloque amplio de margen antes de Top of the Rock."]
+      short: ["Porque elegiste el US Open corto", "Grand Central, Chrysler, Bryant Park, NYPL y Five Below ya quedaron resueltos el Día 1. El Día 5 se concentra en MoMA, St. Patrick’s, las tres tiendas, Rockefeller y Top of the Rock."],
+      long: ["Porque elegiste el US Open largo", "Midtown quedó pendiente el Día 1. El Día 5 incorpora Grand Central, Chrysler, Bryant Park, NYPL y Five Below antes de St. Patrick’s y las tiendas; es la versión más apretada."],
+      original: ["Porque elegiste el plan original", "St. Patrick’s, Rockefeller, Nintendo, LEGO y UNIQLO ya quedaron resueltos el Día 1. El Día 5 conserva Five Below y gana un bloque amplio de margen antes de Top of the Rock."]
     };
     const [title, copy] = messages[day1Choice()];
-    return `<section class="choice-consequence"><p class="section-kicker">Consecuencia del jueves</p><h2>${title}</h2><p>${copy}</p></section>`;
+    return `<section class="choice-consequence"><p class="section-kicker">Consecuencia del Día 1</p><h2>${title}</h2><p>${copy}</p></section>`;
   }
   if (index === 5) {
     let title = "La combinación encaja";
-    let copy = "High Line, Chelsea Market y Meatpacking ya quedaron resueltos el lunes; Coney Island puede ocupar la tarde sin duplicaciones.";
+    let copy = "High Line, Chelsea Market y Meatpacking ya quedaron resueltos el Día 5; Coney Island puede ocupar la tarde sin duplicaciones.";
     let tone = "aligned";
-    if (day6Choice() === "coney" && day5Choice() === "times") { title = "High Line queda pendiente"; copy = "Elegiste Times Square el lunes y Coney Island el martes. Esta combinación deja High Line, Chelsea Market y Meatpacking fuera, salvo que los muevas a otro momento."; tone = "warning"; }
-    if (day6Choice() === "full" && day5Choice() === "times") { title = "La combinación más completa de Manhattan"; copy = "Como el lunes termina en Times Square, el martes absorbe High Line, Chelsea Market, Meatpacking, Village, SoHo/Nolita y Katz’s."; }
-    if (day6Choice() === "full" && day5Choice() === "highline") { title = "Hay una duplicación"; copy = "High Line, Chelsea Market y Meatpacking ya están programados el lunes por la noche. Si mantienes 15B, puedes omitirlos el martes y dedicar ese tiempo a Village y SoHo/Nolita, o elegir Coney/Morgan."; tone = "warning"; }
-    if (day6Choice() === "morgan" && day5Choice() === "highline") { title = "Morgan encaja con 14B"; copy = "High Line queda resuelto el lunes; el martes se dedica a Morgan, Village/SoHo/Nolita y Katz’s. Coney Island queda fuera."; }
-    if (day6Choice() === "morgan" && day5Choice() === "times") { title = "Para elegir Morgan, cambia el lunes a 14B"; copy = "Con Times Square el lunes y Morgan el martes, High Line, Chelsea Market y Meatpacking quedarían fuera. La combinación prevista para Morgan usa High Line nocturno el lunes."; tone = "warning"; }
-    return `<section class="choice-consequence ${tone}"><p class="section-kicker">Cómo se conecta con el lunes</p><h2>${title}</h2><p>${copy}</p></section>`;
+    if (day6Choice() === "coney" && day5Choice() === "times") { title = "High Line queda pendiente"; copy = "Elegiste Times Square el Día 5 y Coney Island el Día 6. Esta combinación deja High Line, Chelsea Market y Meatpacking fuera, salvo que los muevas a otro momento."; tone = "warning"; }
+    if (day6Choice() === "full" && day5Choice() === "times") { title = "La combinación más completa de Manhattan"; copy = "Como el Día 5 termina en Times Square, el Día 6 absorbe High Line, Chelsea Market, Meatpacking, Village, SoHo/Nolita y Katz’s."; }
+    if (day6Choice() === "full" && day5Choice() === "highline") { title = "Hay una duplicación"; copy = "High Line, Chelsea Market y Meatpacking ya están programados en el Día 5 por la noche. Si mantienes Manhattan completo, puedes omitirlos en el Día 6 y dedicar ese tiempo a Village y SoHo/Nolita, o elegir Coney/Morgan."; tone = "warning"; }
+    if (day6Choice() === "morgan" && day5Choice() === "highline") { title = "Morgan encaja con High Line"; copy = "High Line queda resuelto en el Día 5; el Día 6 se dedica a Morgan, Village/SoHo/Nolita y Katz’s. Coney Island queda fuera."; }
+    if (day6Choice() === "morgan" && day5Choice() === "times") { title = "Para elegir Morgan, cambia el Día 5 a High Line"; copy = "Con Times Square en el Día 5 y Morgan en el Día 6, High Line, Chelsea Market y Meatpacking quedarían fuera. La combinación prevista para Morgan usa High Line nocturno en el Día 5."; tone = "warning"; }
+    return `<section class="choice-consequence ${tone}"><p class="section-kicker">Cómo se conecta con el Día 5</p><h2>${title}</h2><p>${copy}</p></section>`;
   }
   return "";
 }
@@ -989,35 +966,35 @@ function itineraryView() {
   return `<div class="fade-in">
     <header class="page-header">
       <button class="back" data-action="home">← New York</button>
-      <p class="section-kicker">Día ${index + 1}</p>
-      <h1>${day.month} ${day.number}</h1>
+      <p class="section-kicker">Itinerario</p>
+      <h1>Día ${index + 1}</h1>
       <p class="subtitle">${displayedTheme}</p>
       <img class="mini-skyline" src="./assets/nyc-skyline.png" alt="">
     </header>
     ${dayStrip()}
     ${index === 0 ? `<section class="day2-options" aria-label="Versiones del Día 1"><p class="section-kicker">Tres posibilidades</p><div class="day2-option-grid three-options">
       <button class="${day1Option === "short" ? "active" : ""}" data-day1-option="short"><span>Opción 1 · recomendada</span><strong>US Open corto</strong><small>1 h 15–1 h 30 · Grand Central · Chrysler · Bryant · NYPL · Five Below</small></button>
-      <button class="${day1Option === "long" ? "active" : ""}" data-day1-option="long"><span>Opción 2</span><strong>US Open largo</strong><small>2–3 horas · regreso directo para el check-in · Midtown pasa al lunes</small></button>
+      <button class="${day1Option === "long" ? "active" : ""}" data-day1-option="long"><span>Opción 2</span><strong>US Open largo</strong><small>2–3 horas · regreso directo para el check-in · Midtown pasa al Día 5</small></button>
       <button class="${day1Option === "original" ? "active" : ""}" data-day1-option="original"><span>Opción 3</span><strong>Plan original</strong><small>Midtown completo · Fifth Avenue · Rockefeller · tiendas · sin US Open</small></button>
-    </div><p class="option-status">${day1Option === "short" ? "Activa: US Open corto + cinco pendientes resueltos; libera el lunes" : day1Option === "long" ? "Activa: US Open largo; Midtown se recupera el lunes con horario apretado" : "Activa: Midtown completo; el lunes gana margen antes de Top of the Rock"}</p></section>` : ""}
+    </div><p class="option-status">${day1Option === "short" ? "Activa: US Open corto + cinco pendientes resueltos; libera el Día 5" : day1Option === "long" ? "Activa: US Open largo; Midtown se recupera en el Día 5 con horario apretado" : "Activa: Midtown completo; el Día 5 gana margen antes de Top of the Rock"}</p></section>` : ""}
     ${index === 1 ? `<section class="day2-options" aria-label="Versiones del Día 2"><p class="section-kicker">Elige el enfoque del día</p><div class="day2-option-grid">
       <button class="${day2Option === "urban" ? "active" : ""}" data-day2-option="urban"><span>Opción 1</span><strong>Recorrido urbano completo</strong><small>Printemps · Seaport · Pier 17</small></button>
       <button class="${day2Option === "ferry" ? "active" : ""}" data-day2-option="ferry"><span>Opción 2</span><strong>Mejor vista de la Estatua</strong><small>Printemps · Staten Island Ferry</small></button>
     </div><p class="option-status">${day2Option === "ferry" ? "Activa: ferry y vista cercana de la Estatua" : "Activa: paseo urbano completo por Lower Manhattan"}</p></section>` : ""}
     ${index === 4 ? `<section class="day2-options" aria-label="Cierres del Día 5"><p class="section-kicker">Elige el cierre de la noche</p><div class="day2-option-grid">
-      <button class="${day5Option === "times" ? "active" : ""}" data-day5-option="times"><span>14A</span><strong>Times Square</strong><small>Cena tranquila · Times Square 21:15–21:45 · High Line pasa al martes</small></button>
-      <button class="${day5Option === "highline" ? "active" : ""}" data-day5-option="highline"><span>14B · recomendada</span><strong>High Line nocturno</strong><small>High Line · Chelsea Market · Meatpacking · Times Square pasa al sábado</small></button>
-    </div><p class="option-status">${day5Option === "highline" ? "Activa: High Line nocturno; Times Square aparece automáticamente el sábado 12" : "Activa: Times Square; para conocer High Line elige 15B el martes"}</p></section>` : ""}
+      <button class="${day5Option === "times" ? "active" : ""}" data-day5-option="times"><span>Opción A</span><strong>Times Square</strong><small>Cena tranquila · Times Square 21:15–21:45 · High Line pasa al Día 6</small></button>
+      <button class="${day5Option === "highline" ? "active" : ""}" data-day5-option="highline"><span>Opción B · recomendada</span><strong>High Line nocturno</strong><small>High Line · Chelsea Market · Meatpacking · Times Square pasa al Día 3</small></button>
+    </div><p class="option-status">${day5Option === "highline" ? "Activa: High Line nocturno; Times Square aparece automáticamente en el Día 3" : "Activa: Times Square; para conocer High Line elige Manhattan completo en el Día 6"}</p></section>` : ""}
     ${index === 5 ? `<section class="day2-options" aria-label="Versiones del Día 6"><p class="section-kicker">Tres versiones reales</p><div class="day2-option-grid three-options">
-      <button class="${day6Option === "coney" ? "active" : ""}" data-day6-option="coney"><span>15A · recomendada</span><strong>Coney Island</strong><small>Boardwalk · playa · atracciones · Nathan’s · ideal si elegiste 14B</small></button>
-      <button class="${day6Option === "full" ? "active" : ""}" data-day6-option="full"><span>15B</span><strong>Manhattan completo</strong><small>High Line · Chelsea · Meatpacking · Village · SoHo/Nolita · Katz’s</small></button>
-      <button class="${day6Option === "morgan" ? "active" : ""}" data-day6-option="morgan"><span>15C</span><strong>Morgan Library</strong><small>Morgan · Village/SoHo/Nolita · Katz’s · requiere High Line el lunes</small></button>
+      <button class="${day6Option === "coney" ? "active" : ""}" data-day6-option="coney"><span>Opción A · recomendada</span><strong>Coney Island</strong><small>Boardwalk · playa · atracciones · Nathan’s · ideal si elegiste High Line en el Día 5</small></button>
+      <button class="${day6Option === "full" ? "active" : ""}" data-day6-option="full"><span>Opción B</span><strong>Manhattan completo</strong><small>High Line · Chelsea · Meatpacking · Village · SoHo/Nolita · Katz’s</small></button>
+      <button class="${day6Option === "morgan" ? "active" : ""}" data-day6-option="morgan"><span>Opción C</span><strong>Morgan Library</strong><small>Morgan · Village/SoHo/Nolita · Katz’s · requiere High Line en el Día 5</small></button>
     </div><p class="option-status">${day6Option === "coney" ? "Activa: Coney Island durante 2–2½ horas" : day6Option === "full" ? "Activa: recorrido más completo por Manhattan" : "Activa: Morgan Library; Coney Island queda fuera"}</p></section>` : ""}
     ${consequencePanel(index)}
-    <section class="day-route-panel">
+    ${routes.length ? `<section class="day-route-panel">
       <div><p class="section-kicker">Mapa de ruta</p><h2>Recorrido del día</h2><span class="online-note">Requiere internet</span></div>
       <div class="route-segments">${routes.map((route, routeIndex) => `<a href="${route.url}" target="_blank" rel="noopener"><span>0${routeIndex + 1}</span>${route.label}<b>Maps ↗</b></a>`).join("")}</div>
-    </section>
+    </section>` : ""}
     <div class="timeline-toolbar"><p>Vista del itinerario</p><button data-action="toggle-summary" aria-pressed="${sessionStorage.getItem("summaryMode") === "true"}">${sessionStorage.getItem("summaryMode") === "true" ? "Ver todo" : "Ver resumen"}</button></div>
     <ol class="timeline">${(() => {
       const summary = sessionStorage.getItem("summaryMode") === "true";
@@ -1100,7 +1077,7 @@ function placesView() {
     const text = `${place.kicker} ${place.title}`.toLowerCase();
     if (/muse|moma|metropolitan|morgan|library/.test(text)) return "museos";
     if (/compras|stationery|supreme|nowhere|printemps|nintendo|lego|uniqlo|primark/.test(text)) return "compras";
-    if (/tram|ferry|airport/.test(text)) return "transporte";
+    if (/tram|ferry/.test(text)) return "transporte";
     return "barrios";
   };
   return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Guardados para el viaje</p><h1>Lugares</h1><p class="section-note">Busca o filtra para encontrar rápidamente una ficha.</p></header>
@@ -1112,21 +1089,19 @@ function infoView() {
   return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Datos del viaje · versión ${APP_VERSION}</p><h1>Info</h1><p class="section-note">La información esencial, disponible incluso sin conexión.</p><span class="offline-badge">✓ Guardada para consultar sin conexión</span></header>
     <section class="cards">
       <article class="info-card emergency-card"><p class="section-kicker">Acceso rápido</p><h2>Emergencias</h2><div class="emergency-actions"><a href="tel:911">Llamar 911</a><a href="tel:311">Llamar 311</a></div><p><strong>911</strong> · policía, incendio o ambulancia<br><strong>311</strong> · servicios y ayuda no urgente de NYC</p><button class="info-link-button" data-action="transport">Abrir guía de transporte →</button></article>
-      <article class="info-card"><h2>Vuelos</h2><p>Llegada · JFK · septiembre 10 · 06:15</p><p>Septiembre 16 · Delta 3779 · JFK → SAT<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p><p>Aeroméxico 633 · SAT → MEX<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p></article>
-      <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y conexiones entre los lugares públicos de cada día.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
-      <article class="info-card info-feature language-feature"><p class="section-kicker">Para resolver situaciones reales</p><h2>Inglés práctico</h2><p>Frases específicas para cambios del metro, accesos y reservas, cenas tardías, compras, conexión aérea y emergencias.</p><button class="info-link-button" data-action="phrases">Abrir frases →</button></article>
-      <article class="info-card"><h2>Reservas</h2><p><strong>Sep 10 · Yankees–Rockies</strong><br>Pinstripe Pass · confirmado</p><p><strong>Sep 11 · Yankees–Mets</strong><br>Section 421 · Row 14 · Seats 20–21 · confirmado</p><p>Sonny Rollins at Dizzy’s · Sep 10 · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
+      <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, ferry y conexiones entre los lugares públicos de cada día.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
+      <article class="info-card info-feature language-feature"><p class="section-kicker">Para resolver situaciones reales</p><h2>Inglés práctico</h2><p>Frases específicas para cambios del metro, accesos y reservas, cenas tardías, compras y emergencias.</p><button class="info-link-button" data-action="phrases">Abrir frases →</button></article>
+      <article class="info-card"><h2>Reservas</h2><p>Sonny Rollins at Dizzy’s · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
       <article class="info-card photo-credits"><h2>Imágenes de la guía</h2><p>Cada fotografía fue seleccionada para corresponder al lugar o sala que describe. La ilustración panorámica aportada por el usuario se utiliza únicamente como identidad visual del encabezado, no como fotografía de un destino.</p><p>Las imágenes proceden de sitios oficiales de los recintos y parques, Wikimedia Commons y publicaciones que documentan los lugares indicados.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Consultar Wikimedia Commons ↗</a></article>
     </section></div>`;
 }
 
 function transportView() {
-  return `<div class="fade-in"><header class="page-header"><button class="back back-prominent" data-action="info">← Regresar a Info</button><p class="section-kicker">Hoja independiente</p><h1>Guía de transporte</h1><p class="section-note">Rutas sugeridas para 2026. Abre Maps antes de salir para confirmar servicio, obras y el mejor andén.</p><span class="online-note">Las instrucciones quedan guardadas; Maps requiere internet</span></header>
+  return `<div class="fade-in"><header class="page-header"><button class="back back-prominent" data-action="info">← Regresar a Info</button><p class="section-kicker">Hoja independiente</p><h1>Guía de transporte</h1><p class="section-note">Rutas sugeridas para cada día. Abre Maps antes de salir para confirmar servicio, obras y el mejor andén.</p><span class="online-note">Las instrucciones quedan guardadas; Maps requiere internet</span></header>
     <section class="fare-grid">
       <article><span>Metro + local bus</span><strong>US$3.00</strong><p>OMNY · tope semanal US$35. Cada persona debe usar siempre su propia tarjeta o dispositivo.</p></article>
       <article><span>Roosevelt Tram</span><strong>US$3.00</strong><p>Misma tarifa MTA y acepta OMNY. Se vuelve a pagar para el viaje de regreso.</p></article>
       <article><span>NYC Ferry</span><strong>US$4.50</strong><p>Sistema separado; comprar en la app o máquinas del muelle.</p></article>
-      <article><span>AirTrain JFK</span><strong>US$8.75</strong><p>Tarifa separada al entrar o salir en Jamaica/Howard Beach; acepta contactless y OMNY.</p></article>
     </section>
     <section class="transport-days">${transportDays.map((item, index) => `<article class="transport-day"><p class="section-kicker">0${index + 1}</p><h2>${item.day}</h2><p class="transport-summary">${item.summary}</p><div>${item.legs.map(([name, instructions, origin, destination]) => `<a href="${transitUrl(origin, destination)}" target="_blank" rel="noopener"><span><strong>${name}</strong><small>${instructions}</small></span><b>Maps ↗</b></a>`).join("")}</div></article>`).join("")}</section>
     <p class="transport-note">Las rutas son una base práctica, no instrucciones en tiempo real. En Nueva York los cambios de servicio nocturnos y de fin de semana son frecuentes.</p>
@@ -1145,7 +1120,7 @@ const phraseSections = [
   { title: "Entradas, museos y eventos", note: "Para Yankees, Dizzy’s, museos y observatorios con horario reservado.", items: [
     ["We have timed tickets for 6:30 p.m.", "Tenemos entradas con horario para las 6:30 p. m."],
     ["Where do we pick up the Yankees giveaway?", "¿Dónde recogemos el obsequio de los Yankees?"],
-    ["Where is the entrance for Section 421?", "¿Dónde está la entrada para la Sección 421?"],
+    ["Which entrance should we use?", "¿Qué entrada debemos usar?"],
     ["We have tickets for the 9 p.m. set at Dizzy’s.", "Tenemos entradas para la función de las 9 p. m. en Dizzy’s."],
     ["Could you point us to the Temple of Dendur?", "¿Podría indicarnos dónde está el Templo de Dendur?"],
     ["Does this ticket allow re-entry?", "¿Esta entrada permite volver a entrar?"]
@@ -1157,13 +1132,12 @@ const phraseSections = [
     ["Could we get the rest to go?", "¿Podrían ponernos lo que sobró para llevar?"],
     ["Is gratuity already included?", "¿La propina ya está incluida?"]
   ]},
-  { title: "Equipaje, tiendas y aeropuerto", note: "Incluye la llegada, la salida de madrugada y la conexión en San Antonio.", items: [
-    ["Could you store our luggage until check-in?", "¿Podrían guardar nuestro equipaje hasta el check-in?"],
-    ["Could you confirm our car for 5:30 a.m.?", "¿Podrían confirmar nuestro transporte para las 5:30 a. m.?"],
+  { title: "Compras y ayuda práctica", note: "Para existencias, cambios, pagos y asistencia durante el recorrido.", items: [
     ["Do you have this in stock at another location?", "¿Lo tienen disponible en otra sucursal?"],
-    ["Are our bags checked through to Mexico City?", "¿Nuestro equipaje está documentado hasta Ciudad de México?"],
-    ["Do we need to collect our bags in San Antonio?", "¿Tenemos que recoger el equipaje en San Antonio?"],
-    ["Which line is for bag drop?", "¿Qué fila es para documentar el equipaje?"]
+    ["Can I exchange this at another location?", "¿Puedo cambiar esto en otra sucursal?"],
+    ["Could you write down the total for me?", "¿Podría escribir el total para mí?"],
+    ["Does this price include tax?", "¿Este precio incluye impuestos?"],
+    ["Could you help me find this address?", "¿Podría ayudarme a encontrar esta dirección?"]
   ]},
   { title: "Si algo sale mal", note: "Para explicar una pérdida, dar ubicación o pedir asistencia en español.", items: [
     ["The last place I had it was…", "El último lugar donde lo tuve fue…"],
@@ -1189,8 +1163,8 @@ const phraseWords = [
   ["Last seating", "último horario para sentarse"],
   ["Kitchen closed", "cocina cerrada"],
   ["Sold out", "agotado"],
-  ["Bag drop", "documentación de equipaje"],
-  ["Checked through", "documentado hasta el destino final"]
+  ["Final sale", "venta final, sin cambios ni devoluciones"],
+  ["Store credit", "saldo a favor de la tienda"]
 ];
 
 function phrasesView() {

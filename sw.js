@@ -1,4 +1,4 @@
-const CACHE = "new-york-guide-v25";
+const CACHE = "new-york-guide-v26";
 const ASSETS = [
   "./",
   "./index.html",
@@ -54,7 +54,6 @@ const ASSETS = [
   "./assets/high-line-tracks.jpg",
   "./assets/high-line.jpg",
   "./assets/janes-carousel.jpg",
-  "./assets/jfk-terminal.jpg",
   "./assets/koreatown.jpg",
   "./assets/lego-fifth-avenue.jpg",
   "./assets/little-island.jpg",

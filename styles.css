@@ -26,7 +26,7 @@ button { color: inherit; font: inherit; }
 
 .passport-hero { position: relative; min-height: 500px; margin-top: 2px; overflow: hidden; isolation: isolate; background: radial-gradient(circle at 13% 17%, rgba(183,109,62,.08) 0 2px, transparent 3px), radial-gradient(circle at 83% 70%, rgba(49,90,115,.09) 0 2px, transparent 3px), linear-gradient(145deg, rgba(255,254,250,.78), rgba(231,239,243,.23) 58%, rgba(239,236,229,.75)); border-top: 1px solid rgba(49,90,115,.12); border-bottom: 1px solid rgba(49,90,115,.15); }
 .passport-hero::before { content: ""; position: absolute; z-index: 0; width: 210px; height: 58px; right: -46px; top: 108px; opacity: .24; transform: rotate(-11deg); background: repeating-linear-gradient(0deg, transparent 0 8px, var(--terracotta) 8px 10px); -webkit-mask-image: linear-gradient(90deg, transparent, #000 24%, #000 76%, transparent); mask-image: linear-gradient(90deg, transparent, #000 24%, #000 76%, transparent); }
-.passport-hero::after { content: "NYC  ·  2026"; position: absolute; z-index: 1; left: 50%; top: 89px; width: 98px; height: 98px; display: grid; place-items: center; border: 2px solid rgba(49,90,115,.28); border-radius: 50%; transform: translateX(-50%) rotate(8deg); color: rgba(49,90,115,.36); font: 600 9px/1 var(--sans); letter-spacing: .16em; }
+.passport-hero::after { content: "NYC  ·  GUIDE"; position: absolute; z-index: 1; left: 50%; top: 89px; width: 98px; height: 98px; display: grid; place-items: center; border: 2px solid rgba(49,90,115,.28); border-radius: 50%; transform: translateX(-50%) rotate(8deg); color: rgba(49,90,115,.36); font: 600 9px/1 var(--sans); letter-spacing: .16em; }
 .passport-overline { position: absolute; z-index: 5; top: 9px; left: 50%; transform: translateX(-50%); margin: 0; color: var(--navy); font-size: 8px; font-weight: 700; letter-spacing: .26em; text-transform: uppercase; white-space: nowrap; }
 .passport-title-card { position: absolute; z-index: 4; top: 151px; left: 50%; width: min(88%, 430px); transform: translateX(-50%) rotate(-1deg); padding: 23px 10px 21px; border-top: 1px solid rgba(41,45,47,.54); border-bottom: 1px solid rgba(41,45,47,.54); background: rgba(248,245,239,.91); text-align: center; box-shadow: 0 8px 20px rgba(41,45,47,.05); }
 .passport-title-card h1 { margin: 0; padding-left: .13em; color: var(--ink); font: 600 clamp(43px, 13vw, 68px)/.86 var(--serif); letter-spacing: .13em; }
@@ -90,13 +90,11 @@ button { color: inherit; font: inherit; }
 .day-chip.active { border-color: var(--navy); background: var(--navy); color: var(--paper); box-shadow: 0 7px 18px rgba(49,90,115,.18); }
 .day-chip.active::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--terracotta); }
 .day-index { color: var(--terracotta); font-size: 7px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
-.day-date { display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 5px; margin-top: 5px; }
-.day-date strong { font: 600 36px/.82 var(--serif); }
-.day-date em { padding-bottom: 2px; color: var(--muted); font-size: 8px; font-style: normal; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-.day-date b { padding-bottom: 2px; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; }
+.day-date { display: block; margin-top: 8px; }
+.day-date strong { font: 600 30px/.9 var(--serif); white-space: nowrap; }
 .day-summary { margin-top: 10px; color: var(--muted); font-size: 7px; font-weight: 600; letter-spacing: .09em; line-height: 1.45; }
 .day-chip.active .day-index { color: #e4a374; }
-.day-chip.active .day-date em, .day-chip.active .day-summary { color: rgba(248,245,239,.66); }
+.day-chip.active .day-summary { color: rgba(248,245,239,.66); }
 .day-chip:disabled { opacity: .42; }
 
 .page-header { padding: 30px 22px 8px; }
