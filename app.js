@@ -1,17 +1,17 @@
-const APP_VERSION = "24";
+const APP_VERSION = "25";
 
 const tripDays = [
   {
     number: "10", name: "Thu", label: "Thursday", month: "September", theme: "JFK · Midtown clásico · Yankees · Dizzy’s",
     timeline: [
-      ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"], ["~09:00", "Highbridge Hotel", "Dejar maletas y preparar el día", "place-hotel"],
+      ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"], ["~09:00", "Dejar equipaje", "Primera pausa logística antes de continuar", ""],
       ["~10:15", "Bryant Park", "Primera pausa en Midtown", "place-bryant"], ["10:15–12:40", "Midtown clásico", "Bryant Park · NYPL · Grand Central · Chrysler · St. Patrick’s · Rockefeller", "place-midtown"],
       ["12:40–13:30", "Nintendo + LEGO + UNIQLO", "Tres tiendas prioritarias alrededor de Rockefeller y Fifth Avenue", "place-midtownstores"],
-      ["~13:30", "Comida ligera", "Opciones cercanas según el recorrido", "meal-day1-lunch"], ["~14:30", "Regreso al hotel", "Traslado a Highbridge", ""],
+      ["~13:30", "Comida ligera", "Opciones cercanas según el recorrido", "meal-day1-lunch"], ["~14:30", "Regreso y check-in", "Traslado para completar la llegada", ""],
       ["15:00", "Check-in", "Habitación y equipaje", ""], ["15:00–16:30", "Descanso", "Pausa antes del partido", ""],
       ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"], ["19:05", "Yankees–Rockies", "Pinstripe Pass · gorro Yankees + NYON para los primeros 18,000", "place-yankee"],
       ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""], ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
-      ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"], ["~22:30", "Cena tardía", "Opciones cerca de Columbus Circle", "meal-day1-dinner"], ["~00:00", "Hotel", "Fin del día", ""]
+      ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"], ["~22:30", "Cena tardía", "Opciones cerca de Columbus Circle", "meal-day1-dinner"], ["~00:00", "Fin del día", "Descanso", ""]
     ]
   },
   {
@@ -29,9 +29,9 @@ const tripDays = [
       ["15:45–16:05", "Canal Street + Chinatown", "Canal · Mott · Pell · Doyers Street", "place-chinatown"],
       ["~16:05", "Comida en Chinatown", "Uncle Lou vs. Wo Hop · ajustar según Centre 360", "meal-day2-lunch"],
       ["~16:30", "Supreme + New York or Nowhere", "Opcional si el tiempo y Centre 360 lo permiten", "optional"],
-      ["~16:45", "Regreso al Bronx", "Traslado al hotel", ""], ["~17:30", "Hotel / cambio rápido", "Dejar compras y prepararse", ""],
+      ["~16:45", "Regreso al Bronx", "Traslado para cambiarse", ""], ["~17:30", "Cambio rápido", "Dejar compras y prepararse", ""],
       ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeemets"], ["19:05", "Yankees vs. Mets", "Section 421 · Row 14 · Seats 20–21", "place-yankeemets"],
-      ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Highbridge Hotel", "Fin del día", "place-hotel"]
+      ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Fin del día", "Descanso", ""]
     ]
   },
   {
@@ -54,7 +54,7 @@ const tripDays = [
       ["18:10–18:25", "Smallpox Hospital Ruins", "Vista exterior de las ruinas", "place-roosevelt"],
       ["18:25–19:00", "Four Freedoms Park", "Recorrer el memorial antes del cierre", "place-roosevelt"],
       ["~19:00–19:45", "Hacia Long Island City", "Traslado", ""], ["~20:00–20:45", "Gantry Plaza + Pepsi-Cola Sign", "Skyline y letrero iluminados de noche", "place-gantry"],
-      ["~21:00", "Cena en Long Island City", "Café Henri como primera opción", "meal-day3-dinner"], ["~22:30", "Highbridge Hotel", "Regreso", "place-hotel"]
+      ["~21:00", "Cena en Long Island City", "Café Henri como primera opción", "meal-day3-dinner"], ["~22:30", "Fin del día", "Regreso y descanso", ""]
     ]
   },
   {
@@ -79,7 +79,7 @@ const tripDays = [
       ["18:00–18:35", "WNYC Transmitter Park", "Pier y vistas de Manhattan", "place-greenpoint"],
       ["18:35–19:00", "Greenpoint waterfront", "Paseo libre antes de cenar", "place-greenpoint"],
       ["~19:00–20:30", "Cena en Greenpoint", "Casual; Kirbee’s queda como opción provisional", "meal-day4-dinner"],
-      ["Opcional", "Evento público de NYFW", "Solo sustituir el cierre/cena si el monitoreo encuentra algo especialmente bueno", "optional"], ["~21:00", "Highbridge Hotel", "Regreso", "place-hotel"]
+      ["Opcional", "Evento público de NYFW", "Solo sustituir el cierre/cena si el monitoreo encuentra algo especialmente bueno", "optional"], ["~21:00", "Fin del día", "Regreso y descanso", ""]
     ]
   },
   {
@@ -101,7 +101,7 @@ const tripDays = [
       ["~18:30–20:00", "Top of the Rock", "Entrada 18:30–18:45 · luz · atardecer · noche · vista del Empire State", "place-topofrock"],
       ["~20:15", "Cena por Rockefeller / Midtown", "Elegir según hora de salida", "meal-day5-dinner"],
       ["~21:15–21:45", "Times Square de noche", "Luces · pantallas · Broadway · visita breve", "place-timessquare"],
-      ["~22:00–22:30", "Highbridge Hotel", "Regreso", "place-hotel"]
+      ["~22:00–22:30", "Fin del día", "Regreso y descanso", ""]
     ]
   },
   {
@@ -119,13 +119,13 @@ const tripDays = [
       ["~15:00–16:15", "Hacia Coney Island", "Traslado desde Riverside Park / Upper West Side", ""],
       ["~16:15–18:45", "Coney Island", "Boardwalk · playa · Wonder Wheel/Cyclone exterior · Nathan’s · ambiente", "place-coney"],
       ["~18:45–20:00", "Regreso", "Volver al Bronx y preparar maletas", ""],
-      ["~20:30–21:00", "Highbridge Hotel", "Maletas listas para la salida", "place-hotel"]
+      ["~20:30–21:00", "Fin del día", "Maletas listas para la salida", ""]
     ]
   },
   {
     number: "16", name: "Wed", label: "Wednesday", month: "September", theme: "Return · JFK · San Antonio · Mexico City",
     timeline: [
-      ["~05:00", "Despertar", "Maletas listas desde la noche anterior", ""], ["05:15", "Check-out", "Highbridge Hotel", "place-hotel"],
+      ["~05:00", "Despertar", "Maletas listas desde la noche anterior", ""], ["05:15", "Check-out", "Equipaje listo", ""],
       ["~05:30", "Salida hacia JFK", "Traslado reservado", ""], ["~06:15", "JFK", "Check-in · equipaje · seguridad", "place-jfk"],
       ["09:00", "Delta 3779", "JFK → San Antonio", ""], ["12:15", "San Antonio", "Conexión · 2 h 06 min", ""],
       ["14:21", "Aeroméxico 633", "SAT → MEX", ""], ["15:30", "Ciudad de México", "Fin del viaje", ""]
@@ -136,7 +136,7 @@ const tripDays = [
 const day1USOpenShortTimeline = [
   ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"],
   ["~07:30–08:15", "Migración, equipaje y salida", "Completar la llegada y salir de la terminal", ""],
-  ["~09:00", "Highbridge Hotel", "Dejar equipaje antes de continuar a Queens", "place-hotel"],
+  ["~09:00", "Dejar equipaje", "Pausa logística antes de continuar a Queens", ""],
   ["~10:00", "US Open · llegada", "Acceso sujeto al horario operativo; confirmar la hora exacta antes del viaje", "place-usopen"],
   ["~10:00–11:30/11:45", "US Open corto", "Visita de aproximadamente 1 h 15–1 h 30 a los grounds", "place-usopen"],
   ["~11:30/11:45", "Salida a Manhattan", "Proteger este corte para conservar el recorrido breve de Midtown", ""],
@@ -146,7 +146,7 @@ const day1USOpenShortTimeline = [
   ["~13:30", "New York Public Library", "Fachada, leones y Rose Main Reading Room si está disponible", "place-midtown"],
   ["~14:00", "Five Below Fifth Avenue", "Parada rápida en 530 Fifth Avenue", "place-fivebelow"],
   ["~14:20", "Comida ligera para llevar", "Elegir algo rápido antes de regresar al Bronx", "meal-day1-lunch"],
-  ["~15:00", "Highbridge Hotel · check-in", "Habitación y equipaje", "place-hotel"],
+  ["~15:00", "Check-in", "Habitación y equipaje", ""],
   ["15:00–16:30", "Descanso", "Pausa antes del partido", ""],
   ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"],
   ["19:05", "Yankees–Rockies", "Pinstripe Pass · gorro Yankees + NYON para los primeros 18,000", "place-yankee"],
@@ -154,43 +154,36 @@ const day1USOpenShortTimeline = [
   ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
   ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"],
   ["~22:30", "Cena tardía", "Opciones cerca de Columbus Circle", "meal-day1-dinner"],
-  ["~00:00", "Hotel", "Fin del día", "place-hotel"]
+  ["~00:00", "Fin del día", "Descanso", ""]
 ];
 
 const day1USOpenLongTimeline = [
   ["06:15", "JFK", "Llegada a Nueva York", "place-jfk"],
   ["~07:30–08:15", "Migración, equipaje y salida", "Completar la llegada y salir de la terminal", ""],
-  ["~09:00", "Highbridge Hotel", "Dejar equipaje antes de continuar a Queens", "place-hotel"],
+  ["~09:00", "Dejar equipaje", "Pausa logística antes de continuar a Queens", ""],
   ["~10:00–10:15", "Hacia Flushing Meadows", "Salida desde el Bronx hacia Queens", ""],
   ["~11:15", "USTA Billie Jean King National Tennis Center", "Llegada y acceso a los grounds", "place-usopen"],
   ["11:15–13:30/14:00", "US Open · Open for All Day", "Grounds gratuitos y abiertos al público durante el día; confirmar acceso y capacidad cerca de la fecha", "place-usopen"],
-  ["~14:00", "Regreso a Highbridge", "Salida puntual desde Flushing Meadows para proteger la tarde", ""],
-  ["~15:00", "Check-in", "Habitación y equipaje", "place-hotel"],
+  ["~14:00", "Regreso y check-in", "Salida puntual desde Flushing Meadows para proteger la tarde", ""],
+  ["~15:00", "Check-in", "Habitación y equipaje", ""],
   ["15:00–16:15", "Descanso", "Pausa breve antes del partido", ""],
-  ["~16:30–16:45", "Hacia Yankee Stadium", "Salida caminando desde el hotel", ""],
+  ["~16:30–16:45", "Hacia Yankee Stadium", "Salida con margen hacia el estadio", ""],
   ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"],
   ["19:05", "Yankees–Rockies", "Pinstripe Pass · gorro Yankees + NYON para los primeros 18,000", "place-yankee"],
   ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""],
   ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
   ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"],
   ["~22:30", "Cena tardía", "Opciones cerca de Columbus Circle", "meal-day1-dinner"],
-  ["~00:00", "Hotel", "Fin del día", "place-hotel"]
+  ["~00:00", "Fin del día", "Descanso", ""]
 ];
 
 const day1USOpenShortRoutes = [
-  {label:"JFK → Highbridge Hotel", url:"https://www.google.com/maps/dir/?api=1&origin=John+F.+Kennedy+International+Airport&destination=Highbridge+Hotel+Bronx&travelmode=transit"},
-  {label:"Highbridge → US Open", url:"https://www.google.com/maps/dir/?api=1&origin=Highbridge+Hotel+Bronx&destination=USTA+Billie+Jean+King+National+Tennis+Center&travelmode=transit"},
   {label:"US Open → Grand Central", url:"https://www.google.com/maps/dir/?api=1&origin=USTA+Billie+Jean+King+National+Tennis+Center&destination=Grand+Central+Terminal&travelmode=transit"},
   {label:"Grand Central → Five Below", url:"https://www.google.com/maps/dir/?api=1&origin=Grand+Central+Terminal&destination=Five+Below+530+Fifth+Avenue&travelmode=walking&waypoints=Chrysler+Building%7CBryant+Park%7CNew+York+Public+Library"},
-  {label:"Five Below → Highbridge", url:"https://www.google.com/maps/dir/?api=1&origin=Five+Below+530+Fifth+Avenue&destination=Highbridge+Hotel+Bronx&travelmode=transit"},
   {label:"Yankee Stadium → Dizzy’s", url:"https://www.google.com/maps/dir/?api=1&origin=Yankee+Stadium&destination=Dizzy%27s+Club+New+York&travelmode=transit"}
 ];
 
 const day1USOpenLongRoutes = [
-  {label:"JFK → Highbridge Hotel", url:"https://www.google.com/maps/dir/?api=1&origin=John+F.+Kennedy+International+Airport&destination=Highbridge+Hotel+Bronx&travelmode=transit"},
-  {label:"Highbridge → US Open", url:"https://www.google.com/maps/dir/?api=1&origin=Highbridge+Hotel+Bronx&destination=USTA+Billie+Jean+King+National+Tennis+Center&travelmode=transit"},
-  {label:"US Open → Highbridge", url:"https://www.google.com/maps/dir/?api=1&origin=USTA+Billie+Jean+King+National+Tennis+Center&destination=Highbridge+Hotel+Bronx&travelmode=transit"},
-  {label:"Hotel → Yankee Stadium", url:"https://www.google.com/maps/dir/?api=1&origin=Highbridge+Hotel+Bronx&destination=Yankee+Stadium&travelmode=walking"},
   {label:"Yankee Stadium → Dizzy’s", url:"https://www.google.com/maps/dir/?api=1&origin=Yankee+Stadium&destination=Dizzy%27s+Club+New+York&travelmode=transit"}
 ];
 
@@ -209,11 +202,11 @@ const day2FerryTimeline = [
   ["15:10–15:40", "Canal Street + Chinatown", "Canal · Mott · Pell · Doyers Street", "place-chinatown"],
   ["~15:40", "Comida en Chinatown", "Uncle Lou vs. Wo Hop · ajustar según Centre 360", "meal-day2-lunch"],
   ["16:15", "Supreme + New York or Nowhere", "Opcional según el tiempo", "optional"],
-  ["~16:30–16:45", "Regreso al Bronx", "Traslado al hotel", ""],
-  ["~17:30", "Hotel / cambio rápido", "Dejar compras y prepararse", ""],
+  ["~16:30–16:45", "Regreso al Bronx", "Traslado para cambiarse", ""],
+  ["~17:30", "Cambio rápido", "Dejar compras y prepararse", ""],
   ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeemets"],
   ["19:05", "Yankees vs. Mets", "Section 421 · Row 14 · Seats 20–21", "place-yankeemets"],
-  ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Highbridge Hotel", "Fin del día", "place-hotel"]
+  ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Fin del día", "Descanso", ""]
 ];
 
 const day2FerryRoutes = [
@@ -227,14 +220,13 @@ const day3TimesSquareTimeline = tripDays[2].timeline.slice(0, -2).concat([
   ["~20:50–21:25", "Gantry → Times Square", "Tomar la línea 7 desde Vernon Blvd–Jackson Av", ""],
   ["~21:25–21:55", "Times Square de noche", "Luces · pantallas · Broadway · visita breve trasladada desde el lunes", "place-timessquare"],
   ["~22:00", "Cena por Midtown", "Cena posterior a Times Square; Café Henri deja de ser la opción principal de esta variante", "meal-day5-dinner"],
-  ["~23:00", "Highbridge Hotel", "Regreso y fin del día", "place-hotel"]
+  ["~23:00", "Fin del día", "Regreso y descanso", ""]
 ]);
 
 const day3TimesSquareRoutes = [
   {label:"Central Park + Upper East Side", url:"https://www.google.com/maps/dir/?api=1&origin=The+Mall+Central+Park&destination=Lexington+Candy+Shop%2C+New+York&travelmode=walking&waypoints=Bethesda+Terrace%7CThe+Metropolitan+Museum+of+Art"},
   {label:"Roosevelt Island + Gantry Plaza", url:"https://www.google.com/maps/dir/?api=1&origin=Roosevelt+Island+Tramway&destination=Gantry+Plaza+State+Park&travelmode=transit&waypoints=Four+Freedoms+Park"},
-  {label:"Gantry Plaza → Times Square", url:"https://www.google.com/maps/dir/?api=1&origin=Gantry+Plaza+State+Park&destination=Times+Square%2C+New+York&travelmode=transit"},
-  {label:"Times Square → Highbridge", url:"https://www.google.com/maps/dir/?api=1&origin=Times+Square%2C+New+York&destination=Highbridge+Hotel+Bronx&travelmode=transit"}
+  {label:"Gantry Plaza → Times Square", url:"https://www.google.com/maps/dir/?api=1&origin=Gantry+Plaza+State+Park&destination=Times+Square%2C+New+York&travelmode=transit"}
 ];
 
 const day5MuseumTimeline = [
@@ -276,7 +268,7 @@ const day5AfterOriginal = [
 const day5TimesSquareNight = [
   ["~20:15", "Cena por Rockefeller / Midtown", "Elegir según la hora de salida", "meal-day5-dinner"],
   ["~21:15–21:45", "Times Square de noche", "Luces · pantallas · Broadway · visita breve", "place-timessquare"],
-  ["~22:00–22:30", "Highbridge Hotel", "Regreso", "place-hotel"]
+  ["~22:00–22:30", "Fin del día", "Regreso y descanso", ""]
 ];
 
 const day5HighLineNight = [
@@ -285,7 +277,7 @@ const day5HighLineNight = [
   ["21:10–21:45", "Chelsea Market", "Recorrido breve antes del cierre general de las 22:00", "place-chelsea"],
   ["21:45–22:10", "High Line final + Meatpacking", "Último tramo hacia Gansevoort Street y calles adoquinadas", "place-chelsea"],
   ["~22:10", "West Village opcional", "Paseo pequeño solo si todavía hay energía", "place-village"],
-  ["~23:00", "Highbridge Hotel", "Regreso y fin del día", "place-hotel"]
+  ["~23:00", "Fin del día", "Regreso y descanso", ""]
 ];
 
 const day6MorningTimeline = [
@@ -304,7 +296,7 @@ const day6ConeyTimeline = day6MorningTimeline.concat([
   ["~15:00–16:15", "Hacia Coney Island", "Traslado largo desde Upper West Side", ""],
   ["~16:15–18:45", "Coney Island", "Boardwalk · playa · Wonder Wheel/Cyclone exterior · Nathan’s · ambiente", "place-coney"],
   ["~18:45–20:00", "Regreso", "Volver al Bronx y preparar maletas", ""],
-  ["~20:30–21:00", "Highbridge Hotel", "Maletas listas para la salida", "place-hotel"]
+  ["~20:30–21:00", "Fin del día", "Maletas listas para la salida", ""]
 ]);
 
 const day6FullManhattanTimeline = day6MorningTimeline.concat([
@@ -317,7 +309,7 @@ const day6FullManhattanTimeline = day6MorningTimeline.concat([
   ["~18:50", "Supreme", "Bowery · solo si quedó pendiente del Día 2", "place-supremeonly"],
   ["~19:15–20:15", "Katz’s Delicatessen", "Cena · pastrami clásico", "meal-day6-dinner"],
   ["~20:15–20:45", "Lower East Side", "Paseo breve antes de regresar", ""],
-  ["~21:30", "Highbridge Hotel", "Maletas listas para la salida", "place-hotel"]
+  ["~21:30", "Fin del día", "Maletas listas para la salida", ""]
 ]);
 
 const day6MorganTimeline = day6MorningTimeline.concat([
@@ -327,13 +319,12 @@ const day6MorganTimeline = day6MorningTimeline.concat([
   ["~17:50", "Supreme", "Bowery · solo si quedó pendiente del Día 2", "place-supremeonly"],
   ["~18:15–19:15", "Katz’s Delicatessen", "Cena temprana · pastrami clásico", "meal-day6-dinner"],
   ["~19:15–19:45", "Lower East Side", "Paseo breve antes de regresar", ""],
-  ["~20:30–21:00", "Highbridge Hotel", "Maletas listas para la salida", "place-hotel"]
+  ["~20:30–21:00", "Fin del día", "Maletas listas para la salida", ""]
 ]);
 
 const day6ConeyRoutes = [
   {label:"AMNH → Zabar’s → Riverside Park", url:"https://www.google.com/maps/dir/?api=1&origin=American+Museum+of+Natural+History&destination=Riverside+Park+West+79th+Street&travelmode=walking&waypoints=Zabar%27s"},
-  {label:"Riverside Park → Coney Island", url:"https://www.google.com/maps/dir/?api=1&origin=Riverside+Park+West+79th+Street&destination=Coney+Island+Boardwalk%2C+Brooklyn&travelmode=transit"},
-  {label:"Coney Island → Highbridge", url:"https://www.google.com/maps/dir/?api=1&origin=Coney+Island+Boardwalk%2C+Brooklyn&destination=Highbridge+Hotel+Bronx&travelmode=transit"}
+  {label:"Riverside Park → Coney Island", url:"https://www.google.com/maps/dir/?api=1&origin=Riverside+Park+West+79th+Street&destination=Coney+Island+Boardwalk%2C+Brooklyn&travelmode=transit"}
 ];
 
 const day6FullManhattanRoutes = [
@@ -406,17 +397,9 @@ const placeDetails = {
   jfk: {
     kicker: "06:15 · Queens", title: "JFK Airport", address: "John F. Kennedy International Airport · Queens",
     photos: [["./assets/jfk-terminal.jpg", "JFK International Airport"]],
-    summary: "Punto de llegada. La ficha queda preparada para añadir terminal, vuelo y la ruta exacta al hotel cuando estén confirmados.",
-    notes: ["Tener pasaporte y dirección del hotel a mano", "Confirmar terminal antes del viaje", "Abrir Maps al salir de equipaje"],
+    summary: "Punto de llegada. La ficha queda preparada para añadir terminal, vuelo y detalles del traslado cuando estén confirmados.",
+    notes: ["Tener pasaporte y datos del vuelo a mano", "Confirmar terminal antes del viaje", "Abrir Maps al salir de equipaje"],
     map: "https://www.google.com/maps/search/?api=1&query=John+F+Kennedy+International+Airport"
-  },
-  hotel: {
-    kicker: "~09:00 · The Bronx", title: "Highbridge Hotel", address: "1263 Edward L Grant Hwy · Bronx",
-    photos: [["./assets/highbridge-hotel.jpg", "Exterior del Highbridge Hotel"]],
-    summary: "Primera parada para dejar maletas y, más tarde, hacer check-in y descansar. El hotel está cerca de Yankee Stadium.",
-    notes: ["Dejar maletas ~09:00", "Regresar ~14:30", "Check-in 15:00"],
-    map: "https://www.google.com/maps/search/?api=1&query=Highbridge+Hotel+1263+Edward+L+Grant+Hwy+Bronx",
-    official: "https://www.highbridgehotel.com/"
   },
   bryant: {
     kicker: "~10:15 · Midtown", title: "Bryant Park", address: "Bryant Park · 6th Ave & 42nd St",
@@ -429,7 +412,7 @@ const placeDetails = {
     kicker: "10:15–13:30 · Walking route", title: "Midtown clásico", address: "Bryant Park → Grand Central → Fifth Avenue → Rockefeller Center",
     photos: [["./assets/midtown-grand-central.jpg", "Grand Central y el Chrysler Building"], ["./assets/bryant-park.jpg", "Bryant Park y la biblioteca"]],
     summary: "Un recorrido compacto por la arquitectura clásica de Midtown, con tiempo flexible para entrar a tiendas sobre Fifth Avenue.",
-    notes: ["Mantener el paseo flexible: entrar solo a los interiores que no tengan fila", "Reservar la mayor parte de las tiendas para Fifth Avenue", "Salir hacia la comida alrededor de las 13:30 para proteger el regreso al hotel"],
+    notes: ["Mantener el paseo flexible: entrar solo a los interiores que no tengan fila", "Reservar la mayor parte de las tiendas para Fifth Avenue", "Salir hacia la comida alrededor de las 13:30 para proteger el regreso"],
     sights: [
       ["Bryant Park", "Recorrer el césped y la terraza de la biblioteca. Fijarse en el contraste entre el jardín y los rascacielos.", "./assets/bryant-park.jpg", "Bryant Park"],
       ["New York Public Library", "Ver los leones Patience y Fortitude, Astor Hall y, si el acceso está disponible, la Rose Main Reading Room.", "./assets/nypl.jpg", "Stephen A. Schwarzman Building · NYPL"],
@@ -471,7 +454,7 @@ function guide(title, kicker, summary, notes, query) {
 
 Object.assign(placeDetails, {
   usopen: {
-    ...guide("US Open · Open for All Day", "Día 1 · opciones 1 y 2", "Visita diurna a los grounds del USTA Billie Jean King National Tennis Center durante la jornada gratuita del jueves 10 de septiembre.", ["US Open confirma que los grounds estarán abiertos gratuitamente al público durante el día", "La entrada libre a los grounds no incluye un asiento para la semifinal nocturna de Arthur Ashe Stadium", "Opción 1: visita corta de aproximadamente 1 h 15–1 h 30 y salida estricta hacia Manhattan", "Opción 2: visita de 2–3 horas y regreso directo al hotel", "Confirmar la hora exacta de acceso, la capacidad y cualquier requisito operativo pocos días antes"], "USTA Billie Jean King National Tennis Center Flushing Meadows Corona Park New York"),
+    ...guide("US Open · Open for All Day", "Día 1 · opciones 1 y 2", "Visita diurna a los grounds del USTA Billie Jean King National Tennis Center durante la jornada gratuita del jueves 10 de septiembre.", ["US Open confirma que los grounds estarán abiertos gratuitamente al público durante el día", "La entrada libre a los grounds no incluye un asiento para la semifinal nocturna de Arthur Ashe Stadium", "Opción 1: visita corta de aproximadamente 1 h 15–1 h 30 y salida estricta hacia Manhattan", "Opción 2: visita de 2–3 horas y regreso directo para el check-in", "Confirmar la hora exacta de acceso, la capacidad y cualquier requisito operativo pocos días antes"], "USTA Billie Jean King National Tennis Center Flushing Meadows Corona Park New York"),
     photos: [["./assets/us-open-tennis-center.jpg", "Arthur Ashe Stadium · USTA Billie Jean King National Tennis Center"]],
     callout: "OPEN FOR ALL DAY · SEP 10 · GROUNDS GRATUITOS",
     calloutLabel: "Acceso oficial",
@@ -483,7 +466,7 @@ Object.assign(placeDetails, {
     official: "https://locations.fivebelow.com/ny/new-york/530-fifth-avenue"
   },
   midtownstores: {
-    ...guide("Nintendo + LEGO + UNIQLO", "Día 1 · Fifth Avenue", "Tres tiendas prioritarias integradas al final del recorrido clásico, sin regresar sobre los mismos pasos.", ["Nintendo NY: Rockefeller Center · 10 Rockefeller Plaza", "LEGO Store: 636 Fifth Avenue", "UNIQLO Fifth Avenue: 660 Fifth Avenue", "Mantener el bloque entre 45 y 50 minutos para proteger comida y regreso al hotel"], "Nintendo New York Rockefeller Center"),
+    ...guide("Nintendo + LEGO + UNIQLO", "Día 1 · Fifth Avenue", "Tres tiendas prioritarias integradas al final del recorrido clásico, sin regresar sobre los mismos pasos.", ["Nintendo NY: Rockefeller Center · 10 Rockefeller Plaza", "LEGO Store: 636 Fifth Avenue", "UNIQLO Fifth Avenue: 660 Fifth Avenue", "Mantener el bloque entre 45 y 50 minutos para proteger comida y regreso"], "Nintendo New York Rockefeller Center"),
     photos: [["./assets/nintendo-ny.jpg", "Nintendo NY · Rockefeller Center"], ["./assets/lego-fifth-avenue.jpg", "LEGO Store · Fifth Avenue"], ["./assets/uniqlo-fifth-avenue.jpg", "UNIQLO Fifth Avenue"]],
     sights: [["Nintendo NY", "Flagship de dos plantas con mercancía exclusiva y exhibiciones de Mario, Zelda, Pokémon y otras franquicias.", "./assets/nintendo-ny.jpg", "Nintendo NY · Rockefeller Center"], ["LEGO Store Fifth Avenue", "Flagship con grandes construcciones, personalización y zonas interactivas; decidir compras antes de entrar para controlar el tiempo.", "./assets/lego-fifth-avenue.jpg", "LEGO Store · Fifth Avenue"], ["UNIQLO Fifth Avenue", "Flagship amplio de tres niveles; priorizar la lista de prendas para evitar recorrer toda la tienda.", "./assets/uniqlo-fifth-avenue.jpg", "UNIQLO Fifth Avenue"]]
   },
@@ -526,7 +509,7 @@ Object.assign(placeDetails, {
   herald: guide("Herald Square + Empire State", "Día 5 · Midtown South", "Paseo exterior por Macy’s, Herald Square y el Empire State Building.", ["Macy’s desde el exterior", "Fotografiar Empire State desde 34th Street", "No dedicar demasiado tiempo: Koreatown sigue después"], "Empire State Building New York"),
   koreatown: guide("Koreatown", "Día 5 · W 32nd Street", "Una pausa entre compras y el mirador, con opciones de café, postre o comida coreana.", ["Grace Street para postre", "Woorijip si falta una comida rápida", "Anytime Kitchen si prefieren sentarse"], "Koreatown West 32nd Street New York"),
   topofrock: guide("Top of the Rock", "Día 5 · sunset", "Mirador elegido para ver Midtown con luz, atardecer y primeras luces nocturnas.", ["Reservar aproximadamente 18:30–19:00", "Llegar antes de la hora asignada", "Buscar la vista sur hacia Empire State y la norte hacia Central Park"], "Top of the Rock New York"),
-  timessquare: guide("Times Square de noche", "Día 5 · 21:15", "Una visita breve para vivir las pantallas, las luces y el pulso nocturno de Broadway sin convertirla en otra actividad larga.", ["Treinta minutos son suficientes", "Ver la plaza desde las gradas rojas de TKTS si están abiertas", "Cuidar pertenencias entre la multitud", "Al terminar, caminar a 42 St–Bryant Park para tomar el D al hotel"], "Times Square New York"),
+  timessquare: guide("Times Square de noche", "Día 5 · 21:15", "Una visita breve para vivir las pantallas, las luces y el pulso nocturno de Broadway sin convertirla en otra actividad larga.", ["Treinta minutos son suficientes", "Ver la plaza desde las gradas rojas de TKTS si están abiertas", "Cuidar pertenencias entre la multitud", "Abrir Maps al terminar para confirmar el regreso"], "Times Square New York"),
   amnh: guide("American Museum of Natural History", "Día 6 · Upper West Side", "Tres horas concentradas en las salas prioritarias del museo.", ["Dinosaurios y fósiles", "Hall of Human Origins", "Meteoritos, Rose Center y Gilder Center"], "American Museum of Natural History New York"),
   barney: guide("Barney Greengrass", "Día 6 · Upper West Side", "Deli judío clásico conocido por pescado ahumado, bagels y sandwiches.", ["Bagel con nova o salmón", "Compartir sándwich si quieren dejar espacio", "Zabar’s Café es el respaldo si está lleno"], "Barney Greengrass New York"),
   zabars: guide("Zabar’s", "Día 6 · Upper West Side", "Institución de comida gourmet, deli, café y utensilios de cocina.", ["Ver quesos, salmón, bagels y productos importados", "Subir a la sección de cocina", "Café rápido opcional"], "Zabar's New York"),
@@ -690,7 +673,7 @@ const dayRoutes = [
   [{label:"Bridge + DUMBO", url:"https://www.google.com/maps/dir/?api=1&origin=Brooklyn+Bridge+Pedestrian+Entrance+Manhattan&destination=Fulton+Ferry+Landing&travelmode=walking&waypoints=Washington+Street+DUMBO%7CBrooklyn+Bridge+Park%7CPebble+Beach"}, {label:"Bed-Stuy opcional", url:"https://www.google.com/maps/dir/?api=1&origin=Fulton+Ferry+Landing&destination=Do+the+Right+Thing+Way+Brooklyn&travelmode=transit"}, {label:"Williamsburg + Greenpoint", url:"https://www.google.com/maps/dir/?api=1&origin=Domino+Park&destination=WNYC+Transmitter+Park&travelmode=walking&waypoints=Bedford+Avenue%7CMarsha+P.+Johnson+State+Park%7CYoseka+Stationery"}],
   [{label:"MoMA → Primark → High Line", url:"https://www.google.com/maps/dir/?api=1&origin=MoMA%2C+New+York&destination=High+Line+30th+Street+Entrance&travelmode=walking&waypoints=Primark+Herald+Square%7CEmpire+State+Building"}, {label:"High Line norte → sur", url:"https://www.google.com/maps/dir/?api=1&origin=High+Line+30th+Street+Entrance&destination=High+Line+Gansevoort+Street&travelmode=walking"}, {label:"Chelsea Market → Meatpacking", url:"https://www.google.com/maps/dir/?api=1&origin=High+Line+Gansevoort+Street&destination=Whitney+Museum+of+American+Art&travelmode=walking&waypoints=Chelsea+Market"}, {label:"Village + cuatro tiendas", url:"https://www.google.com/maps/dir/?api=1&origin=Whitney+Museum+of+American+Art&destination=The+Locavore+Variety+Store&travelmode=walking&waypoints=an.me+249+Bleecker+Street%7CGreenwich+Letterpress%7CC.O.+Bigelow"}, {label:"Village → Top of the Rock → Times Square", url:"https://www.google.com/maps/dir/?api=1&origin=The+Locavore+Variety+Store&destination=Times+Square%2C+New+York&travelmode=transit&waypoints=Top+of+the+Rock"}],
   [{label:"AMNH → Zabar’s → Riverside Park", url:"https://www.google.com/maps/dir/?api=1&origin=American+Museum+of+Natural+History&destination=Riverside+Park+West+79th+Street&travelmode=walking&waypoints=Zabar%27s"}, {label:"Riverside Park → Coney Island", url:"https://www.google.com/maps/dir/?api=1&origin=Riverside+Park+West+79th+Street&destination=Coney+Island+Boardwalk%2C+Brooklyn&travelmode=transit"}],
-  [{label:"Highbridge Hotel to JFK", url:"https://www.google.com/maps/dir/?api=1&origin=Highbridge+Hotel%2C+Bronx&destination=John+F.+Kennedy+International+Airport&travelmode=driving"}]
+  []
 ];
 
 const day5ShortRoutes = [
@@ -711,8 +694,7 @@ const day5OriginalRoutes = [
 ];
 
 const day5TimesRoutes = [
-  {label:"Top of the Rock → Times Square", url:"https://www.google.com/maps/dir/?api=1&origin=Top+of+the+Rock%2C+New+York&destination=Times+Square%2C+New+York&travelmode=walking"},
-  {label:"Times Square → Highbridge", url:"https://www.google.com/maps/dir/?api=1&origin=Times+Square%2C+New+York&destination=Highbridge+Hotel+Bronx&travelmode=transit"}
+  {label:"Top of the Rock → Times Square", url:"https://www.google.com/maps/dir/?api=1&origin=Top+of+the+Rock%2C+New+York&destination=Times+Square%2C+New+York&travelmode=walking"}
 ];
 
 const day5HighLineRoutes = [
@@ -742,7 +724,7 @@ const mealOptions = {
     title: "Comida ligera",
     intro: "Tres opciones flexibles según dónde termine el paseo. Los tiempos a pie son aproximados desde Bryant Park.",
     options: [
-      ["Ole & Steen", "Danish bakery", "1–3 min", "80 W 40th St · junto a Bryant Park", "Panadería danesa tranquila, con café y espacio para sentarse antes de volver al hotel.", "Smoked salmon roll, zucchini toastie o ensalada; para compartir, un cardamom bun.", "https://oleandsteen.us/store/132030-bryant-park", "Ole %26 Steen Bryant Park 80 W 40th St New York"],
+      ["Ole & Steen", "Danish bakery", "1–3 min", "80 W 40th St · junto a Bryant Park", "Panadería danesa tranquila, con café y espacio para sentarse antes de continuar.", "Smoked salmon roll, zucchini toastie o ensalada; para compartir, un cardamom bun.", "https://oleandsteen.us/store/132030-bryant-park", "Ole %26 Steen Bryant Park 80 W 40th St New York"],
       ["The Kati Roll Company", "Indian street food", "3–5 min", "49 W 39th St · detrás de Bryant Park", "Rollos indios calientes, rápidos y fáciles de comer durante el recorrido.", "Chicken tikka o aloo masala roll. Con roti integral queda más ligero.", "https://www.thekatirollcompany.com/our-food/", "The Kati Roll Company 49 W 39th St New York"],
       ["Los Tacos No. 1", "Tijuana-style tacos", "8–12 min", "229 W 43rd St · Times Square", "Taquería rápida que funciona especialmente bien si el paseo termina hacia Times Square.", "Dos tacos por persona: adobada, carne asada o nopal; también hay aguas frescas.", "https://www.lostacos1.com/menu/food-drinks/", "Los Tacos No. 1 229 W 43rd St New York"]
     ]
@@ -826,53 +808,35 @@ const mealOptions = {
 };
 
 const transportDays = [
-  { day: "Día 1 · jueves 10", summary: "JFK → Highbridge → US Open corto/largo o Midtown → Bronx → Columbus Circle", legs: [
-    ["JFK → Highbridge Hotel", "AirTrain a Jamaica + E hasta 7 Av + D hasta 167 St. Con maletas, comparar con taxi/rideshare.", "JFK Airport", "Highbridge Hotel Bronx"],
-    ["Midtown → hotel", "D desde 42 St–Bryant Park hasta 167 St; caminar al hotel.", "Bryant Park New York", "Highbridge Hotel Bronx"],
-    ["Opciones 1/2 · hotel → US Open", "D desde 167 St hasta 42 St–Bryant Park; conectar con el 7 hasta Mets–Willets Point. Confirmar el servicio real en Maps.", "Highbridge Hotel Bronx", "USTA Billie Jean King National Tennis Center"],
+  { day: "Día 1 · jueves 10", summary: "US Open corto/largo o Midtown → Bronx → Columbus Circle", legs: [
     ["Opción 1 · US Open → Grand Central", "7 desde Mets–Willets Point hasta Grand Central–42 St. Salir a más tardar alrededor de 11:30/11:45.", "USTA Billie Jean King National Tennis Center", "Grand Central Terminal"],
-    ["Opción 2 · US Open → hotel", "7 hasta 42 St–Bryant Park; conectar con el D a 167 St. Salir alrededor de las 14:00 para proteger el check-in.", "USTA Billie Jean King National Tennis Center", "Highbridge Hotel Bronx"],
-    ["Yankee Stadium → Dizzy’s", "D desde 161 St–Yankee Stadium hasta 59 St–Columbus Circle.", "Yankee Stadium", "Dizzy's Club New York"],
-    ["Dizzy’s → hotel", "D desde 59 St–Columbus Circle hasta 167 St.", "Dizzy's Club New York", "Highbridge Hotel Bronx"]
+    ["Yankee Stadium → Dizzy’s", "D desde 161 St–Yankee Stadium hasta 59 St–Columbus Circle.", "Yankee Stadium", "Dizzy's Club New York"]
   ]},
-  { day: "Día 2 · viernes 11", summary: "Highbridge → Lower Manhattan → Printemps → Seaport o ferry → Chinatown → Bronx", legs: [
-    ["Hotel → The Battery", "D desde 167 St hasta 145 St; A hasta Fulton St y caminar hacia Battery.", "Highbridge Hotel Bronx", "The Battery New York"],
-    ["Chinatown → hotel", "D directo desde Grand St hasta 167 St. Es el regreso más simple antes del juego.", "Grand Street Station Manhattan", "Highbridge Hotel Bronx"],
-    ["Hotel → Yankee Stadium", "Caminar o revisar el autobús local en Maps según energía y servicio del momento.", "Highbridge Hotel Bronx", "Yankee Stadium"]
+  { day: "Día 2 · viernes 11", summary: "Lower Manhattan → Printemps → Seaport o ferry → Chinatown → Yankee Stadium", legs: [
+    ["The Battery → Printemps", "Caminar por Bowling Green, Charging Bull, Wall Street y Federal Hall.", "The Battery New York", "Printemps New York"],
+    ["Chinatown → Yankee Stadium", "Abrir Maps antes de salir para elegir la combinación de metro con mejor servicio.", "Grand Street Station Manhattan", "Yankee Stadium"]
   ]},
-  { day: "Día 3 · sábado 12", summary: "Bronx → Central Park/The Met → Tram → Roosevelt Island → LIC → Times Square si elegiste 14B", legs: [
-    ["Hotel → Central Park", "D desde 167 St hasta 59 St–Columbus Circle; entrar al parque desde el suroeste.", "Highbridge Hotel Bronx", "The Mall Central Park"],
+  { day: "Día 3 · sábado 12", summary: "Central Park/The Met → Tram → Roosevelt Island → LIC → Times Square si elegiste 14B", legs: [
     ["Roosevelt Island → LIC", "F desde Roosevelt Island a 21 St–Queensbridge o ferry según el recorrido confirmado.", "Roosevelt Island", "Gantry Plaza State Park"],
-    ["LIC → hotel", "7 desde Vernon Blvd–Jackson Av hasta 42 St; caminar a Bryant Park y tomar D hasta 167 St.", "Gantry Plaza State Park", "Highbridge Hotel Bronx"],
-    ["Si elegiste 14B · Gantry → Times Square", "7 directo desde Vernon Blvd–Jackson Av hasta Times Sq–42 St; después caminar a Bryant Park y tomar el D al hotel.", "Gantry Plaza State Park", "Times Square New York"]
+    ["Si elegiste 14B · Gantry → Times Square", "7 directo desde Vernon Blvd–Jackson Av hasta Times Sq–42 St.", "Gantry Plaza State Park", "Times Square New York"]
   ]},
-  { day: "Día 4 · domingo 13", summary: "Bronx → Brooklyn Bridge → ferry → Williamsburg/Greenpoint", legs: [
-    ["Hotel → Brooklyn Bridge", "D desde 167 St a Broadway–Lafayette; 6 hasta Brooklyn Bridge–City Hall.", "Highbridge Hotel Bronx", "Brooklyn Bridge Pedestrian Entrance Manhattan"],
+  { day: "Día 4 · domingo 13", summary: "Brooklyn Bridge → DUMBO → ferry → Williamsburg/Greenpoint", legs: [
     ["DUMBO → Williamsburg", "NYC Ferry; Fulton Ferry Landing primero se visita y después funciona como punto de embarque. Revisar ruta East River A/B.", "Fulton Ferry Landing", "North Williamsburg Ferry Landing"],
-    ["Bed-Stuy opcional", "El desvío a Do the Right Thing Way requiere transporte y añade 60–90 minutos; activarlo solo si el día va adelantado.", "Fulton Ferry Landing", "Do the Right Thing Way Brooklyn"],
-    ["Greenpoint → hotel", "G desde Greenpoint Av a Court Sq; 7 a 42 St–Bryant Park y D a 167 St.", "WNYC Transmitter Park", "Highbridge Hotel Bronx"]
+    ["Bed-Stuy opcional", "El desvío a Do the Right Thing Way requiere transporte y añade 60–90 minutos; activarlo solo si el día va adelantado.", "Fulton Ferry Landing", "Do the Right Thing Way Brooklyn"]
   ]},
-  { day: "Día 5 · lunes 14", summary: "Bronx → MoMA → Midtown según el jueves → Top of the Rock → Times Square o High Line", legs: [
-    ["Hotel → MoMA", "D desde 167 St hasta 7 Av; caminar hacia el museo.", "Highbridge Hotel Bronx", "Museum of Modern Art New York"],
+  { day: "Día 5 · lunes 14", summary: "MoMA → Midtown según el jueves → Top of the Rock → Times Square o High Line", legs: [
     ["Si elegiste US Open corto", "MoMA → St. Patrick’s → Nintendo/LEGO/UNIQLO → Rockefeller → Top of the Rock.", "Museum of Modern Art New York", "Top of the Rock New York"],
     ["Si elegiste US Open largo", "El lunes recupera Grand Central, Chrysler, Bryant Park, NYPL y Five Below antes de St. Patrick’s y las tiendas.", "Grand Central Terminal", "Top of the Rock New York"],
-    ["14B · Top → High Line", "Metro hacia Hudson Yards; entrar por 30th St y caminar al sur antes de que cierren los accesos.", "Top of the Rock New York", "High Line 30th Street Entrance"],
-    ["Times Square → hotel", "Caminar a 42 St–Bryant Park y tomar D directo hasta 167 St.", "Times Square New York", "Highbridge Hotel Bronx"]
+    ["14B · Top → High Line", "Metro hacia Hudson Yards; entrar por 30th St y caminar al sur antes de que cierren los accesos.", "Top of the Rock New York", "High Line 30th Street Entrance"]
   ]},
-  { day: "Día 6 · martes 15", summary: "Bronx → Upper West Side → Riverside Park → Coney, Manhattan completo o Morgan", legs: [
-    ["Hotel → Natural History", "D desde 167 St a 145 St; cambiar al C hasta 81 St–Museum of Natural History.", "Highbridge Hotel Bronx", "American Museum of Natural History"],
+  { day: "Día 6 · martes 15", summary: "Upper West Side → Riverside Park → Coney, Manhattan completo o Morgan", legs: [
     ["Zabar’s → Riverside Park", "Caminar hacia el Hudson y dedicar solo 15–20 minutos al waterfront antes de iniciar el traslado.", "Zabar's New York", "Riverside Park West 79th Street"],
     ["Riverside Park → Coney Island", "Ruta larga en metro; confirmar servicio y calcular aproximadamente 70–80 minutos por trayecto.", "Riverside Park West 79th Street", "Coney Island Boardwalk Brooklyn"],
     ["15B · Riverside → Hudson Yards", "Bajar al acceso norte de High Line; después caminar hacia Chelsea, Village, SoHo/Nolita y Katz’s.", "Riverside Park West 79th Street", "High Line 30th Street Entrance"],
     ["Riverside Park → Morgan", "Bajar hacia Midtown y continuar a Madison Avenue; Maps definirá la combinación más rápida.", "Riverside Park West 79th Street", "The Morgan Library and Museum"],
-    ["Morgan → SoHo / Nolita", "Bajar a Prince Street; caminar por Greene, pasar por NYON y continuar hacia Supreme y Katz’s.", "The Morgan Library and Museum", "New York or Nowhere"],
-    ["Katz’s / LES → hotel", "F desde 2 Av a Broadway–Lafayette; cambiar al D hasta 167 St.", "Katz's Delicatessen", "Highbridge Hotel Bronx"],
-    ["Upper West Side → hotel", "C desde 81 St a 145 St; cambiar al D hasta 167 St.", "Zabar's New York", "Highbridge Hotel Bronx"]
+    ["Morgan → SoHo / Nolita", "Bajar a Prince Street; caminar por Greene, pasar por NYON y continuar hacia Supreme y Katz’s.", "The Morgan Library and Museum", "New York or Nowhere"]
   ]},
-  { day: "Día 7 · miércoles 16", summary: "Highbridge → JFK", legs: [
-    ["Hotel → JFK", "Por la salida de madrugada y el equipaje, taxi/rideshare reservado es el plan principal.", "Highbridge Hotel Bronx", "JFK Airport"],
-    ["Alternativa en transporte", "D a 145 St; A a Howard Beach–JFK; AirTrain a la terminal. Confirmar obras nocturnas la víspera.", "Highbridge Hotel Bronx", "JFK Airport"]
-  ]}
+  { day: "Día 7 · miércoles 16", summary: "Salida privada → JFK", legs: [] }
 ];
 
 function transitUrl(origin, destination) {
@@ -1033,7 +997,7 @@ function itineraryView() {
     ${dayStrip()}
     ${index === 0 ? `<section class="day2-options" aria-label="Versiones del Día 1"><p class="section-kicker">Tres posibilidades</p><div class="day2-option-grid three-options">
       <button class="${day1Option === "short" ? "active" : ""}" data-day1-option="short"><span>Opción 1 · recomendada</span><strong>US Open corto</strong><small>1 h 15–1 h 30 · Grand Central · Chrysler · Bryant · NYPL · Five Below</small></button>
-      <button class="${day1Option === "long" ? "active" : ""}" data-day1-option="long"><span>Opción 2</span><strong>US Open largo</strong><small>2–3 horas · regreso directo al hotel · Midtown pasa al lunes</small></button>
+      <button class="${day1Option === "long" ? "active" : ""}" data-day1-option="long"><span>Opción 2</span><strong>US Open largo</strong><small>2–3 horas · regreso directo para el check-in · Midtown pasa al lunes</small></button>
       <button class="${day1Option === "original" ? "active" : ""}" data-day1-option="original"><span>Opción 3</span><strong>Plan original</strong><small>Midtown completo · Fifth Avenue · Rockefeller · tiendas · sin US Open</small></button>
     </div><p class="option-status">${day1Option === "short" ? "Activa: US Open corto + cinco pendientes resueltos; libera el lunes" : day1Option === "long" ? "Activa: US Open largo; Midtown se recupera el lunes con horario apretado" : "Activa: Midtown completo; el lunes gana margen antes de Top of the Rock"}</p></section>` : ""}
     ${index === 1 ? `<section class="day2-options" aria-label="Versiones del Día 2"><p class="section-kicker">Elige el enfoque del día</p><div class="day2-option-grid">
@@ -1136,7 +1100,7 @@ function placesView() {
     const text = `${place.kicker} ${place.title}`.toLowerCase();
     if (/muse|moma|metropolitan|morgan|library/.test(text)) return "museos";
     if (/compras|stationery|supreme|nowhere|printemps|nintendo|lego|uniqlo|primark/.test(text)) return "compras";
-    if (/tram|ferry|airport|hotel/.test(text)) return "transporte";
+    if (/tram|ferry|airport/.test(text)) return "transporte";
     return "barrios";
   };
   return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Guardados para el viaje</p><h1>Lugares</h1><p class="section-note">Busca o filtra para encontrar rápidamente una ficha.</p></header>
@@ -1147,11 +1111,10 @@ function placesView() {
 function infoView() {
   return `<div class="fade-in"><header class="page-header"><p class="section-kicker">Datos del viaje · versión ${APP_VERSION}</p><h1>Info</h1><p class="section-note">La información esencial, disponible incluso sin conexión.</p><span class="offline-badge">✓ Guardada para consultar sin conexión</span></header>
     <section class="cards">
-      <article class="info-card emergency-card"><p class="section-kicker">Acceso rápido</p><h2>Emergencia y regreso</h2><div class="emergency-actions"><a href="tel:911">Llamar 911</a><a href="tel:311">Llamar 311</a><a href="tel:+13475084550">Hotel</a></div><p><strong>911</strong> · policía, incendio o ambulancia<br><strong>311</strong> · servicios y ayuda no urgente de NYC</p><button class="info-link-button" data-action="transport">Cómo regresar al hotel →</button></article>
-      <article class="info-card"><h2>Highbridge Hotel</h2><p>1263 Edward L Grant Hwy · Bronx<br>347-508-4550</p><p><strong>Reserva:</strong> <span class="placeholder">pendiente de añadir</span></p><div class="inline-actions"><button data-copy="1263 Edward L Grant Hwy, Bronx, NY">Copiar dirección</button><a href="https://www.google.com/maps/search/?api=1&query=Highbridge+Hotel+Bronx" target="_blank" rel="noopener">Maps ↗</a></div></article>
+      <article class="info-card emergency-card"><p class="section-kicker">Acceso rápido</p><h2>Emergencias</h2><div class="emergency-actions"><a href="tel:911">Llamar 911</a><a href="tel:311">Llamar 311</a></div><p><strong>911</strong> · policía, incendio o ambulancia<br><strong>311</strong> · servicios y ayuda no urgente de NYC</p><button class="info-link-button" data-action="transport">Abrir guía de transporte →</button></article>
       <article class="info-card"><h2>Vuelos</h2><p>Llegada · JFK · septiembre 10 · 06:15</p><p>Septiembre 16 · Delta 3779 · JFK → SAT<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p><p>Aeroméxico 633 · SAT → MEX<br><strong>Reserva:</strong> <span class="placeholder">pendiente</span></p></article>
-      <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y rutas recomendadas de cada día para llegar y regresar al hotel.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
-      <article class="info-card info-feature language-feature"><p class="section-kicker">Para resolver situaciones reales</p><h2>Inglés práctico</h2><p>Frases específicas para cambios del metro, accesos y reservas, cenas tardías, hotel, compras, conexión aérea y emergencias.</p><button class="info-link-button" data-action="phrases">Abrir frases →</button></article>
+      <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, AirTrain, ferry y conexiones entre los lugares públicos de cada día.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
+      <article class="info-card info-feature language-feature"><p class="section-kicker">Para resolver situaciones reales</p><h2>Inglés práctico</h2><p>Frases específicas para cambios del metro, accesos y reservas, cenas tardías, compras, conexión aérea y emergencias.</p><button class="info-link-button" data-action="phrases">Abrir frases →</button></article>
       <article class="info-card"><h2>Reservas</h2><p><strong>Sep 10 · Yankees–Rockies</strong><br>Pinstripe Pass · confirmado</p><p><strong>Sep 11 · Yankees–Mets</strong><br>Section 421 · Row 14 · Seats 20–21 · confirmado</p><p>Sonny Rollins at Dizzy’s · Sep 10 · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
       <article class="info-card photo-credits"><h2>Imágenes de la guía</h2><p>Cada fotografía fue seleccionada para corresponder al lugar o sala que describe. La ilustración panorámica aportada por el usuario se utiliza únicamente como identidad visual del encabezado, no como fotografía de un destino.</p><p>Las imágenes proceden de sitios oficiales de los recintos y parques, Wikimedia Commons y publicaciones que documentan los lugares indicados.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Consultar Wikimedia Commons ↗</a></article>
     </section></div>`;
@@ -1194,7 +1157,7 @@ const phraseSections = [
     ["Could we get the rest to go?", "¿Podrían ponernos lo que sobró para llevar?"],
     ["Is gratuity already included?", "¿La propina ya está incluida?"]
   ]},
-  { title: "Hotel, tiendas y aeropuerto", note: "Incluye la llegada, la salida de madrugada y la conexión en San Antonio.", items: [
+  { title: "Equipaje, tiendas y aeropuerto", note: "Incluye la llegada, la salida de madrugada y la conexión en San Antonio.", items: [
     ["Could you store our luggage until check-in?", "¿Podrían guardar nuestro equipaje hasta el check-in?"],
     ["Could you confirm our car for 5:30 a.m.?", "¿Podrían confirmar nuestro transporte para las 5:30 a. m.?"],
     ["Do you have this in stock at another location?", "¿Lo tienen disponible en otra sucursal?"],
@@ -1205,7 +1168,7 @@ const phraseSections = [
   { title: "Si algo sale mal", note: "Para explicar una pérdida, dar ubicación o pedir asistencia en español.", items: [
     ["The last place I had it was…", "El último lugar donde lo tuve fue…"],
     ["My phone / wallet / passport is missing.", "No encuentro mi teléfono / cartera / pasaporte."],
-    ["Could you help me contact the hotel?", "¿Podría ayudarme a contactar al hotel?"],
+    ["Could you help me call a taxi?", "¿Podría ayudarme a pedir un taxi?"],
     ["We are at this address / intersection.", "Estamos en esta dirección / intersección."],
     ["I speak Spanish. I need an interpreter.", "Hablo español. Necesito un intérprete."]
   ]}
