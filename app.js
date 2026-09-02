@@ -1,4 +1,4 @@
-const APP_VERSION = "26";
+const APP_VERSION = "27";
 
 const tripDays = [
   {
@@ -9,13 +9,13 @@ const tripDays = [
       ["12:40–13:30", "Nintendo + LEGO + UNIQLO", "Tres tiendas prioritarias alrededor de Rockefeller y Fifth Avenue", "place-midtownstores"],
       ["~13:30", "Comida ligera", "Opciones cercanas según el recorrido", "meal-day1-lunch"], ["~14:30", "Regreso y check-in", "Traslado para completar la llegada", ""],
       ["15:00", "Check-in", "Habitación y equipaje", ""], ["15:00–16:30", "Descanso", "Pausa antes del partido", ""],
-      ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"], ["19:05", "Yankees–Rockies", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
+      ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"], ["19:05", "Juego de Yankees", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
       ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""], ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
       ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"], ["~22:30", "Cena tardía", "Opciones cerca de Columbus Circle", "meal-day1-dinner"], ["~00:00", "Fin del día", "Descanso", ""]
     ]
   },
   {
-    theme: "Lower Manhattan · 9/11 · Chinatown · Subway Series",
+    theme: "Lower Manhattan · 9/11 · Chinatown · Yankees",
     timeline: [
       ["08:30", "Desayuno", "Inicio tranquilo", ""], ["09:30", "Lower Manhattan", "Salida hacia The Battery", ""],
       ["10:30", "The Battery", "Waterfront · Estatua de la Libertad y Ellis Island", ""], ["11:00", "Bowling Green + Charging Bull", "Paseo breve", ""],
@@ -25,12 +25,11 @@ const tripDays = [
       ["12:15", "Stone Street", "Calle histórica", ""], ["12:35–13:20", "South Street Seaport + Pier 17", "Waterfront · vistas del Brooklyn Bridge", ""],
       ["13:40", "Oculus", "Arquitectura y vistazo a tiendas", ""],
       ["14:10–14:40", "9/11 Memorial", "North Pool · South Pool · Survivor Tree · One WTC", ""],
-      ["~15:15", "Centre 360", "Prioridad si conseguimos reserva; horario flexible", "optional"],
-      ["15:45–16:05", "Canal Street + Chinatown", "Canal · Mott · Pell · Doyers Street", "place-chinatown"],
-      ["~16:05", "Comida en Chinatown", "Uncle Lou vs. Wo Hop · ajustar según Centre 360", "meal-day2-lunch"],
-      ["~16:30", "Supreme + New York or Nowhere", "Opcional si el tiempo y Centre 360 lo permiten", "optional"],
-      ["~16:45", "Regreso al Bronx", "Traslado para cambiarse", ""], ["~17:30", "Cambio rápido", "Dejar compras y prepararse", ""],
-      ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeemets"], ["19:05", "Yankees vs. Mets", "Subway Series · partido de la noche", "place-yankeemets"],
+      ["14:40–15:25", "Canal Street + Chinatown", "Canal · Mott · Pell · Doyers Street", "place-chinatown"],
+      ["15:25–16:05", "Comida en Chinatown", "Uncle Lou vs. Wo Hop", "meal-day2-lunch"],
+      ["~16:05", "Supreme + New York or Nowhere", "Opcional si el tiempo lo permite", "optional"],
+      ["~16:30", "Regreso al Bronx", "Traslado para cambiarse", ""], ["~17:30", "Cambio rápido", "Dejar compras y prepararse", ""],
+      ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeeday2"], ["19:05", "Juego de Yankees", "Partido de la noche", "place-yankeeday2"],
       ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Fin del día", "Descanso", ""]
     ]
   },
@@ -145,7 +144,7 @@ const day1USOpenShortTimeline = [
   ["~15:00", "Check-in", "Habitación y equipaje", ""],
   ["15:00–16:30", "Descanso", "Pausa antes del partido", ""],
   ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"],
-  ["19:05", "Yankees–Rockies", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
+  ["19:05", "Juego de Yankees", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
   ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""],
   ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
   ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"],
@@ -164,7 +163,7 @@ const day1USOpenLongTimeline = [
   ["15:00–16:15", "Descanso", "Pausa breve antes del partido", ""],
   ["~16:30–16:45", "Hacia Yankee Stadium", "Salida con margen hacia el estadio", ""],
   ["~17:00", "Yankee Stadium", "Llegar temprano para recorrer y asegurar el giveaway", "place-yankee"],
-  ["19:05", "Yankees–Rockies", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
+  ["19:05", "Juego de Yankees", "Partido de la noche · giveaway para los primeros asistentes", "place-yankee"],
   ["~20:00", "Salir del estadio", "Traslado hacia Columbus Circle", ""],
   ["~20:40", "Dizzy’s", "Llegada y acceso al club", "place-dizzys"],
   ["21:00", "Saxophone Colossus", "Celebrating Sonny Rollins · Dizzy’s Club", "place-dizzys"],
@@ -188,19 +187,18 @@ const day2FerryTimeline = [
   ["10:35", "Bowling Green + Charging Bull", "Paseo breve", ""],
   ["10:50–11:20", "Financial District", "Wall Street · NYSE · Federal Hall · Trinity Church", ""],
   ["11:20–11:45", "Printemps New York", "One Wall Street · Red Room · diseño y moda", "place-printemps"],
-  ["Opcional", "Square Diner o Black Fox Coffee", "Elegir solo uno si el horario del ferry y Centre 360 lo permiten", "optional"],
+  ["Opcional", "Square Diner o Black Fox Coffee", "Elegir solo uno si el horario del ferry lo permite", "optional"],
   ["11:45", "Stone Street", "Parada breve por la calle histórica", ""],
   ["~12:05–13:20", "Staten Island Ferry", "Ida y vuelta · mejor vista de la Estatua y del skyline desde el agua", "place-statenferry"],
   ["13:35", "Oculus", "Arquitectura y vistazo rápido", "place-oculus"],
   ["14:00–14:30", "9/11 Memorial", "North Pool · South Pool · Survivor Tree · One WTC", "place-memorial"],
-  ["~14:40", "Centre 360", "Sujeto al horario que consigamos", "optional"],
-  ["15:10–15:40", "Canal Street + Chinatown", "Canal · Mott · Pell · Doyers Street", "place-chinatown"],
-  ["~15:40", "Comida en Chinatown", "Uncle Lou vs. Wo Hop · ajustar según Centre 360", "meal-day2-lunch"],
-  ["16:15", "Supreme + New York or Nowhere", "Opcional según el tiempo", "optional"],
+  ["14:30–15:15", "Canal Street + Chinatown", "Canal · Mott · Pell · Doyers Street", "place-chinatown"],
+  ["15:15–16:00", "Comida en Chinatown", "Uncle Lou vs. Wo Hop", "meal-day2-lunch"],
+  ["16:00", "Supreme + New York or Nowhere", "Opcional según el tiempo", "optional"],
   ["~16:30–16:45", "Regreso al Bronx", "Traslado para cambiarse", ""],
   ["~17:30", "Cambio rápido", "Dejar compras y prepararse", ""],
-  ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeemets"],
-  ["19:05", "Yankees vs. Mets", "Subway Series · partido de la noche", "place-yankeemets"],
+  ["18:00", "Yankee Stadium", "Llegada al estadio", "place-yankeeday2"],
+  ["19:05", "Juego de Yankees", "Partido de la noche", "place-yankeeday2"],
   ["~22:30", "Cena casual", "Según la hora de salida", ""], ["~23:30", "Fin del día", "Descanso", ""]
 ];
 
@@ -208,7 +206,7 @@ const day2FerryRoutes = [
   {label:"Battery → Financial District → Printemps", url:"https://www.google.com/maps/dir/?api=1&origin=The+Battery%2C+New+York&destination=Printemps+New+York&travelmode=walking&waypoints=Charging+Bull%7CFederal+Hall"},
   {label:"Printemps → Stone Street → Ferry", url:"https://www.google.com/maps/dir/?api=1&origin=Printemps+New+York&destination=Whitehall+Terminal%2C+New+York&travelmode=walking&waypoints=Stone+Street"},
   {label:"Ferry → Oculus → Memorial", url:"https://www.google.com/maps/dir/?api=1&origin=Whitehall+Terminal%2C+New+York&destination=9%2F11+Memorial%2C+New+York&travelmode=walking&waypoints=Oculus+World+Trade+Center"},
-  {label:"Memorial → Centre 360 → Chinatown", url:"https://www.google.com/maps/dir/?api=1&origin=9%2F11+Memorial%2C+New+York&destination=Mott+Street%2C+New+York&travelmode=walking&waypoints=City+Hall%2C+New+York"}
+  {label:"Memorial → Chinatown", url:"https://www.google.com/maps/dir/?api=1&origin=9%2F11+Memorial%2C+New+York&destination=Mott+Street%2C+New+York&travelmode=walking"}
 ];
 
 const day3TimesSquareTimeline = tripDays[2].timeline.slice(0, -2).concat([
@@ -414,7 +412,7 @@ const placeDetails = {
   yankee: {
     kicker: "19:05 · The Bronx", title: "Yankee Stadium", address: "1 E 161 St · Bronx",
     photos: [["./assets/yankee-stadium.jpg", "Exterior de Yankee Stadium"]],
-    summary: "Yankees–Rockies y una primera visita al estadio, con tiempo para recorrerlo antes del juego.",
+    summary: "Primera visita a Yankee Stadium, con tiempo para recorrerlo antes del juego.",
     notes: ["Llegar ~17:00 para recorrer el estadio", "El giveaway es para los primeros asistentes y está sujeto a disponibilidad y cambios", "Ubicar baños y opciones de comida antes de que empiece el partido", "Conservar margen para salir hacia Dizzy’s"],
     map: "https://www.google.com/maps/search/?api=1&query=Yankee+Stadium+1+E+161+St+Bronx",
     official: "https://www.mlb.com/yankees/ballpark"
@@ -456,10 +454,10 @@ Object.assign(placeDetails, {
     photos: [["./assets/nintendo-ny.jpg", "Nintendo NY · Rockefeller Center"], ["./assets/lego-fifth-avenue.jpg", "LEGO Store · Fifth Avenue"], ["./assets/uniqlo-fifth-avenue.jpg", "UNIQLO Fifth Avenue"]],
     sights: [["Nintendo NY", "Flagship de dos plantas con mercancía exclusiva y exhibiciones de Mario, Zelda, Pokémon y otras franquicias.", "./assets/nintendo-ny.jpg", "Nintendo NY · Rockefeller Center"], ["LEGO Store Fifth Avenue", "Flagship con grandes construcciones, personalización y zonas interactivas; decidir compras antes de entrar para controlar el tiempo.", "./assets/lego-fifth-avenue.jpg", "LEGO Store · Fifth Avenue"], ["UNIQLO Fifth Avenue", "Flagship amplio de tres niveles; priorizar la lista de prendas para evitar recorrer toda la tienda.", "./assets/uniqlo-fifth-avenue.jpg", "UNIQLO Fifth Avenue"]]
   },
-  yankeemets: {
-    kicker: "19:05 · Día 2", title: "Yankees–Mets", address: "Yankee Stadium · The Bronx",
+  yankeeday2: {
+    kicker: "19:05 · Día 2", title: "Juego de Yankees · Día 2", address: "Yankee Stadium · The Bronx",
     photos: [["./assets/yankee-stadium.jpg", "Exterior de Yankee Stadium"]],
-    summary: "Subway Series de noche en Yankee Stadium.",
+    summary: "Segundo juego de Yankees del viaje, de noche en Yankee Stadium.",
     notes: ["Llegar alrededor de las 18:00", "Recorrer el estadio antes del primer lanzamiento", "Revisar el tiempo y las reglas de acceso antes de salir"],
     map: "https://www.google.com/maps/search/?api=1&query=Yankee+Stadium+1+E+161+St+Bronx",
     official: "https://www.mlb.com/yankees/ballpark"
@@ -467,7 +465,7 @@ Object.assign(placeDetails, {
   battery: guide("The Battery", "Día 2 · Lower Manhattan", "Parque frente al puerto con vistas abiertas hacia la Estatua de la Libertad y Ellis Island.", ["Caminar junto al waterfront", "Localizar Castle Clinton", "Las mejores vistas están hacia el suroeste"], "The Battery New York"),
   financial: guide("Financial District", "Día 2 · Downtown", "Recorrido compacto por los símbolos financieros e históricos de Lower Manhattan.", ["Charging Bull y Bowling Green", "NYSE y Federal Hall desde el exterior", "Trinity Church y su cementerio"], "Federal Hall Wall Street New York"),
   printemps: {
-    ...guide("Printemps New York", "Día 2 · One Wall Street", "Flagship neoyorquino de la tienda francesa dentro del edificio Art Déco One Wall Street.", ["Entrar después de Federal Hall y antes de Stone Street", "Priorizar el Red Room, el acceso Art Déco y una vuelta breve por diseño/moda", "Mantener la visita alrededor de 25 minutos", "No convertirla en una sesión larga de compras antes de Centre 360"], "Printemps New York One Wall Street"),
+    ...guide("Printemps New York", "Día 2 · One Wall Street", "Flagship neoyorquino de la tienda francesa dentro del edificio Art Déco One Wall Street.", ["Entrar después de Federal Hall y antes de Stone Street", "Priorizar el Red Room, el acceso Art Déco y una vuelta breve por diseño/moda", "Mantener la visita alrededor de 25 minutos", "No convertirla en una sesión larga de compras antes de Chinatown"], "Printemps New York One Wall Street"),
     photos: [["./assets/printemps-new-york.jpg", "Printemps New York · One Wall Street"]],
     official: "https://us.printemps.com/visit"
   },
@@ -475,9 +473,8 @@ Object.assign(placeDetails, {
   seaport: guide("South Street Seaport + Pier 17", "Día 2 · East River", "Waterfront histórico con barcos, edificios restaurados y vistas del Brooklyn Bridge.", ["Caminar por Fulton Street", "Subir al paseo de Pier 17", "Fotografiar Brooklyn Bridge desde el waterfront"], "Pier 17 New York"),
   oculus: guide("Oculus", "Día 2 · World Trade Center", "Intercambiador y centro comercial diseñado como una gran estructura blanca de costillas.", ["Ver el eje central desde ambos extremos", "Mirar hacia One World Trade Center al salir", "Usar la visita también como pausa y baño"], "Oculus World Trade Center New York"),
   memorial: guide("9/11 Memorial", "Día 2 · World Trade Center", "Espacio de memoria formado por las dos piscinas ubicadas en las huellas de las Torres Gemelas.", ["North Pool y South Pool", "Survivor Tree", "Mantener un tono respetuoso y contemplativo"], "9/11 Memorial New York"),
-  centre360: guide("Centre 360", "Día 2 · reserva flexible", "Parada condicionada al horario disponible; será el compromiso fuerte de la tarde si se consigue reserva.", ["No fijar el resto de la tarde hasta confirmar hora", "Llegar con margen", "Reordenar Oculus, Memorial y Chinatown alrededor de la reserva"], "Centre 360 New York City Hall"),
   chinatown: guide("Canal Street + Chinatown", "Día 2 · Chinatown", "Calles comerciales, restaurantes cantoneses, souvenirs y el tejido histórico del barrio.", ["Canal Street para vendedores y souvenirs", "Mott y Pell para ambiente de barrio", "Doyers Street si el tiempo permite"], "Mott Street Chinatown New York"),
-  supreme: guide("Supreme + New York or Nowhere", "Días 2 o 6 · opcional", "Dos paradas de compras que pueden hacerse juntas si el tiempo lo permite.", ["Comprobar existencias y posibles filas", "Hacerlas el Día 6 si Centre 360 ocupa la tarde", "No sacrificar el regreso al estadio"], "Supreme Bowery New York"),
+  supreme: guide("Supreme + New York or Nowhere", "Días 2 o 6 · opcional", "Dos paradas de compras que pueden hacerse juntas si el tiempo lo permite.", ["Comprobar existencias y posibles filas", "Hacerlas el Día 6 si no entran en el Día 2", "No sacrificar el regreso al estadio"], "Supreme Bowery New York"),
   centralpark: guide("Central Park", "Día 3 · Manhattan", "Paseo concentrado por algunos de los paisajes más reconocibles del parque.", ["The Mall y Bethesda Terrace", "Bow Bridge y The Lake", "Salir por el lado este para llegar a The Met"], "Bethesda Terrace Central Park New York"),
   met: guide("The Metropolitan Museum of Art", "Día 3 · Museum Mile", "Tres horas para una selección prioritaria, sin intentar recorrer todo el museo.", ["Templo de Dendur", "Egipto, Grecia y Roma", "Pintura europea y American Wing"], "The Metropolitan Museum of Art New York"),
   lexington: guide("Lexington Candy Shop", "Día 3 · Upper East Side", "Luncheonette clásica para una Coca-Cola preparada con jarabe y seltzer o una malteada.", ["Sentarse en la barra si hay lugar", "Pedir la Coca-Cola clásica o malteada", "Mantener la parada en unos 25 minutos"], "Lexington Candy Shop New York"),
@@ -503,15 +500,15 @@ Object.assign(placeDetails, {
 
 Object.assign(placeDetails, {
   day2coffee: {
-    ...guide("Square Diner o Black Fox Coffee", "Día 2 · parada opcional", "Dos formas distintas de hacer una pausa: un diner clásico para sentarse o un café rápido más cercano al recorrido financiero.", ["Elegir solo uno", "Square Diner funciona mejor si quieren sentarse y comer algo pequeño", "Black Fox funciona mejor si el horario está apretado", "Omitir la parada si condiciona Centre 360 o el ferry"], "Square Diner 33 Leonard Street New York"),
+    ...guide("Square Diner o Black Fox Coffee", "Día 2 · parada opcional", "Dos formas distintas de hacer una pausa: un diner clásico para sentarse o un café rápido más cercano al recorrido financiero.", ["Elegir solo uno", "Square Diner funciona mejor si quieren sentarse y comer algo pequeño", "Black Fox funciona mejor si el horario está apretado", "Omitir la parada si condiciona el ferry o el regreso"], "Square Diner 33 Leonard Street New York"),
     sights: [["Square Diner", "Diner clásico de Tribeca con barra, mesas y una atmósfera neoyorquina tradicional. Conviene para café, huevos, pancakes o algo pequeño.", "./assets/square-diner.jpg", "Square Diner · Tribeca"], ["Black Fox Coffee", "Alternativa más rápida para pedir café y seguir hacia Printemps o Stone Street sin convertir la pausa en otra actividad.", "./assets/black-fox-coffee.jpg", "Black Fox Coffee · Financial District"]]
   },
   statenferry: guide("Staten Island Ferry", "Día 2 · opción Estatua", "Ferry público de ida y vuelta para conseguir una vista mucho más cercana de la Estatua de la Libertad y del skyline desde el agua.", ["El ferry es gratuito; no comprar boletos a vendedores", "Hay que desembarcar en Staten Island y volver a abordar", "Buscar el lado derecho al salir de Manhattan para la Estatua", "Dejar margen para espera y controles de acceso"], "Whitehall Terminal Staten Island Ferry New York"),
-  squarediner: guide("Square Diner", "Día 2 · opcional", "Café o desayuno tardío en un diner clásico de Tribeca con ambiente tradicional de barrio.", ["Pedir café y algo pequeño si desayunaron temprano", "No asignarle una hora fija hasta confirmar Centre 360", "Omitirla si obliga a recortar Printemps, el ferry o el regreso al Bronx"], "Square Diner 33 Leonard Street New York"),
+  squarediner: guide("Square Diner", "Día 2 · opcional", "Café o desayuno tardío en un diner clásico de Tribeca con ambiente tradicional de barrio.", ["Pedir café y algo pequeño si desayunaron temprano", "No asignarle una hora fija hasta decidir entre Seaport y ferry", "Omitirla si obliga a recortar Printemps, el ferry o el regreso al Bronx"], "Square Diner 33 Leonard Street New York"),
   ferry: guide("NYC Ferry", "Día 4 · East River", "Traslado panorámico de DUMBO hacia Williamsburg.", ["Revisar la app y horarios unos días antes", "La ruta East River puede dividirse en A/B según el servicio", "Llegar al muelle con margen"], "Fulton Ferry Landing Brooklyn"),
   records: guide("Discos + circuito musical", "Día 4 · Williamsburg", "Un tramo pensado para los intereses musicales del viaje.", ["Earwax Records", "Face Records NYC", "Pasar por Music Hall of Williamsburg y Brooklyn Bowl"], "Earwax Records Brooklyn"),
   qahwah: guide("Qahwah House", "Día 4 · café opcional", "Café yemení sobre Bedford Avenue para usar solo si no hubo parada en DUMBO.", ["Probar café yemení o té", "Mantener la parada corta", "Omitirla si reduce el tiempo de Yoseka"], "Qahwah House Williamsburg Brooklyn"),
-  nyon: guide("New York or Nowhere", "Días 2 o 6 · compras", "Tienda pendiente que se combina con Supreme en función del horario de Centre 360.", ["Intentar Día 2 solo si hay margen", "Plan principal del Día 6 si quedó pendiente", "Comprobar horarios antes de ir"], "New York or Nowhere New York"),
+  nyon: guide("New York or Nowhere", "Días 2 o 6 · compras", "Tienda que se combina con Supreme si el recorrido deja margen suficiente.", ["Intentar Día 2 solo si hay margen", "Plan principal del Día 6 si quedó pendiente", "Comprobar horarios antes de ir"], "New York or Nowhere New York"),
   supremeonly: guide("Supreme", "Días 2 o 6 · compras", "Parada de compras opcional que puede moverse entre días.", ["Comprobar fila", "No comprometer el regreso al estadio", "Combinar con NYON y Katz’s el Día 6"], "Supreme Bowery New York"),
   coney: {
     ...guide("Coney Island", "Día 6 · opción A", "Dos horas y media para el boardwalk, la playa y los iconos clásicos del distrito de diversiones.", ["Wonder Wheel y Cyclone desde el exterior", "Nathan’s Famous", "No intentar subir a todo", "Revisar el tiempo antes de iniciar el traslado largo"], "Coney Island Boardwalk Brooklyn"),
@@ -554,7 +551,7 @@ const placeByTitle = {
   "USTA Billie Jean King National Tennis Center": "usopen", "US Open · Open for All Day": "usopen",
   "US Open · llegada": "usopen", "US Open corto": "usopen", "Five Below Fifth Avenue": "fivebelow",
   "The Battery": "battery", "Bowling Green + Charging Bull": "financial", "Financial District": "financial", "Printemps New York": "printemps", "Stone Street": "stone",
-  "South Street Seaport + Pier 17": "seaport", "Oculus": "oculus", "9/11 Memorial": "memorial", "Centre 360": "centre360",
+  "South Street Seaport + Pier 17": "seaport", "Oculus": "oculus", "9/11 Memorial": "memorial",
   "Canal Street + Chinatown": "chinatown", "Supreme + New York or Nowhere": "supreme", "Square Diner": "squarediner", "Square Diner o Black Fox Coffee": "day2coffee", "Staten Island Ferry": "statenferry", "Central Park": "centralpark", "The Met": "met",
   "Lexington Candy Shop": "lexington", "Roosevelt Island Tram": "tram", "Roosevelt Island": "roosevelt", "Gantry Plaza + Pepsi-Cola Sign": "gantry",
   "Brooklyn Bridge": "brooklynbridge", "DUMBO + Brooklyn Bridge Park": "dumbo", "Bed-Stuy · Do the Right Thing": "bedstuy", "NYC Ferry": "ferry", "Williamsburg": "williamsburg", "Discos + circuito musical": "records", "Qahwah House": "qahwah",
@@ -653,7 +650,7 @@ Object.assign(placeDetails, {
 
 const dayRoutes = [
   [{label:"Midtown clásico", url:"https://www.google.com/maps/dir/?api=1&origin=Bryant+Park%2C+New+York&destination=Rockefeller+Center%2C+New+York&travelmode=walking&waypoints=Grand+Central+Terminal%2C+New+York%7CSt.+Patrick%27s+Cathedral%2C+New+York"}, {label:"Nintendo → LEGO → UNIQLO", url:"https://www.google.com/maps/dir/?api=1&origin=Nintendo+NY%2C+New+York&destination=UNIQLO+Fifth+Avenue%2C+New+York&travelmode=walking&waypoints=LEGO+Store+Fifth+Avenue%2C+New+York"}],
-  [{label:"Battery → Printemps → Seaport", url:"https://www.google.com/maps/dir/?api=1&origin=The+Battery%2C+New+York&destination=Pier+17%2C+New+York&travelmode=walking&waypoints=Charging+Bull%7CFederal+Hall%7CPrintemps+New+York%7CStone+Street"}, {label:"Oculus → Memorial → Centre 360 → Chinatown", url:"https://www.google.com/maps/dir/?api=1&origin=Oculus%2C+New+York&destination=Mott+Street%2C+New+York&travelmode=walking&waypoints=9%2F11+Memorial%7CCity+Hall%2C+New+York"}],
+  [{label:"Battery → Printemps → Seaport", url:"https://www.google.com/maps/dir/?api=1&origin=The+Battery%2C+New+York&destination=Pier+17%2C+New+York&travelmode=walking&waypoints=Charging+Bull%7CFederal+Hall%7CPrintemps+New+York%7CStone+Street"}, {label:"Oculus → Memorial → Chinatown", url:"https://www.google.com/maps/dir/?api=1&origin=Oculus%2C+New+York&destination=Mott+Street%2C+New+York&travelmode=walking&waypoints=9%2F11+Memorial"}],
   [{label:"Central Park + UES", url:"https://www.google.com/maps/dir/?api=1&origin=The+Mall+Central+Park&destination=Lexington+Candy+Shop%2C+New+York&travelmode=walking&waypoints=Bethesda+Terrace%7CThe+Metropolitan+Museum+of+Art"}, {label:"Roosevelt Island + LIC", url:"https://www.google.com/maps/dir/?api=1&origin=Roosevelt+Island+Tramway&destination=Gantry+Plaza+State+Park&travelmode=transit&waypoints=Four+Freedoms+Park"}],
   [{label:"Bridge + DUMBO", url:"https://www.google.com/maps/dir/?api=1&origin=Brooklyn+Bridge+Pedestrian+Entrance+Manhattan&destination=Fulton+Ferry+Landing&travelmode=walking&waypoints=Washington+Street+DUMBO%7CBrooklyn+Bridge+Park%7CPebble+Beach"}, {label:"Bed-Stuy opcional", url:"https://www.google.com/maps/dir/?api=1&origin=Fulton+Ferry+Landing&destination=Do+the+Right+Thing+Way+Brooklyn&travelmode=transit"}, {label:"Williamsburg + Greenpoint", url:"https://www.google.com/maps/dir/?api=1&origin=Domino+Park&destination=WNYC+Transmitter+Park&travelmode=walking&waypoints=Bedford+Avenue%7CMarsha+P.+Johnson+State+Park%7CYoseka+Stationery"}],
   [{label:"MoMA → Primark → High Line", url:"https://www.google.com/maps/dir/?api=1&origin=MoMA%2C+New+York&destination=High+Line+30th+Street+Entrance&travelmode=walking&waypoints=Primark+Herald+Square%7CEmpire+State+Building"}, {label:"High Line norte → sur", url:"https://www.google.com/maps/dir/?api=1&origin=High+Line+30th+Street+Entrance&destination=High+Line+Gansevoort+Street&travelmode=walking"}, {label:"Chelsea Market → Meatpacking", url:"https://www.google.com/maps/dir/?api=1&origin=High+Line+Gansevoort+Street&destination=Whitney+Museum+of+American+Art&travelmode=walking&waypoints=Chelsea+Market"}, {label:"Village + cuatro tiendas", url:"https://www.google.com/maps/dir/?api=1&origin=Whitney+Museum+of+American+Art&destination=The+Locavore+Variety+Store&travelmode=walking&waypoints=an.me+249+Bleecker+Street%7CGreenwich+Letterpress%7CC.O.+Bigelow"}, {label:"Village → Top of the Rock → Times Square", url:"https://www.google.com/maps/dir/?api=1&origin=The+Locavore+Variety+Store&destination=Times+Square%2C+New+York&travelmode=transit&waypoints=Top+of+the+Rock"}],
@@ -794,7 +791,7 @@ const mealOptions = {
 
 const transportDays = [
   { day: "Día 1", summary: "US Open corto/largo o Midtown → Bronx → Columbus Circle", legs: [
-    ["Opción 1 · US Open → Grand Central", "7 desde Mets–Willets Point hasta Grand Central–42 St. Salir a más tardar alrededor de 11:30/11:45.", "USTA Billie Jean King National Tennis Center", "Grand Central Terminal"],
+    ["Opción 1 · US Open → Grand Central", "7 desde la estación del US Open hasta Grand Central–42 St. Salir a más tardar alrededor de 11:30/11:45.", "USTA Billie Jean King National Tennis Center", "Grand Central Terminal"],
     ["Yankee Stadium → Dizzy’s", "D desde 161 St–Yankee Stadium hasta 59 St–Columbus Circle.", "Yankee Stadium", "Dizzy's Club New York"]
   ]},
   { day: "Día 2", summary: "Lower Manhattan → Printemps → Seaport o ferry → Chinatown → Yankee Stadium", legs: [
@@ -918,7 +915,7 @@ function periodFor(time) {
 function themeForDay(index) {
   if (index === 0 && day1Choice() === "short") return "Llegada · US Open corto · Midtown breve · Yankees · Dizzy’s";
   if (index === 0 && day1Choice() === "long") return "Llegada · US Open largo · Yankees · Dizzy’s";
-  if (index === 1 && readChoice("day2Option", "urban") === "ferry") return "Printemps · Staten Island Ferry · 9/11 · Chinatown · Subway Series";
+  if (index === 1 && readChoice("day2Option", "urban") === "ferry") return "Printemps · Staten Island Ferry · 9/11 · Chinatown · Yankees";
   if (index === 2 && day5Choice() === "highline") return "Central Park · The Met · Roosevelt Island · Gantry · Times Square";
   if (index === 4 && day5Choice() === "highline") return "MoMA · Midtown · Top of the Rock · High Line nocturno";
   if (index === 4) return "MoMA · Midtown · Top of the Rock · Times Square";
@@ -928,7 +925,7 @@ function themeForDay(index) {
 }
 
 function consequencePanel(index) {
-  if (index === 1 && day6Choice() === "coney") return `<section class="choice-consequence"><p class="section-kicker">Conexión con el Día 6</p><h2>Si mantienes Coney Island</h2><p>Supreme + New York or Nowhere del Día 2 adquieren más importancia. SoHo/Nolita no tendrá un bloque dedicado el Día 6, así que conviene aprovecharlos solo si Centre 360 y el regreso al Bronx dejan margen real.</p></section>`;
+  if (index === 1 && day6Choice() === "coney") return `<section class="choice-consequence"><p class="section-kicker">Conexión con el Día 6</p><h2>Si mantienes Coney Island</h2><p>Supreme + New York or Nowhere del Día 2 adquieren más importancia. SoHo/Nolita no tendrá un bloque dedicado el Día 6, así que conviene aprovecharlos solo si el recorrido y el regreso al Bronx dejan margen real.</p></section>`;
   if (index === 2 && day5Choice() === "highline") return `<section class="choice-consequence"><p class="section-kicker">Porque elegiste High Line</p><h2>Times Square pasa al Día 3</h2><p>Después de Gantry Plaza tomarás la línea 7 hacia Times Square. La cena se mueve a Midtown y Café Henri deja de ser el cierre principal de esta variante.</p></section>`;
   if (index === 4) {
     const messages = {
@@ -1091,7 +1088,7 @@ function infoView() {
       <article class="info-card emergency-card"><p class="section-kicker">Acceso rápido</p><h2>Emergencias</h2><div class="emergency-actions"><a href="tel:911">Llamar 911</a><a href="tel:311">Llamar 311</a></div><p><strong>911</strong> · policía, incendio o ambulancia<br><strong>311</strong> · servicios y ayuda no urgente de NYC</p><button class="info-link-button" data-action="transport">Abrir guía de transporte →</button></article>
       <article class="info-card info-feature"><p class="section-kicker">Hoja independiente</p><h2>Guía de transporte</h2><p>Tarifas, OMNY, ferry y conexiones entre los lugares públicos de cada día.</p><button class="info-link-button" data-action="transport">Abrir guía →</button></article>
       <article class="info-card info-feature language-feature"><p class="section-kicker">Para resolver situaciones reales</p><h2>Inglés práctico</h2><p>Frases específicas para cambios del metro, accesos y reservas, cenas tardías, compras y emergencias.</p><button class="info-link-button" data-action="phrases">Abrir frases →</button></article>
-      <article class="info-card"><h2>Reservas</h2><p>Sonny Rollins at Dizzy’s · 21:00<br>Centre 360 · horario pendiente<br>Top of the Rock · horario pendiente</p></article>
+      <article class="info-card"><h2>Reservas</h2><p>Sonny Rollins at Dizzy’s · 21:00<br>Top of the Rock · horario pendiente</p></article>
       <article class="info-card photo-credits"><h2>Imágenes de la guía</h2><p>Cada fotografía fue seleccionada para corresponder al lugar o sala que describe. La ilustración panorámica aportada por el usuario se utiliza únicamente como identidad visual del encabezado, no como fotografía de un destino.</p><p>Las imágenes proceden de sitios oficiales de los recintos y parques, Wikimedia Commons y publicaciones que documentan los lugares indicados.</p><a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Consultar Wikimedia Commons ↗</a></article>
     </section></div>`;
 }
